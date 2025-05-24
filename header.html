@@ -1,0 +1,102 @@
+<!-- header.html -->
+<header class="navbar">
+  <div class="logo">
+    <img src="logo.png" alt="Tattva Capital Logo" />
+    <span class="brand">Tattva Capital</span>
+  </div>
+
+  <form id="searchForm" class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search stocks, dividends, updates..." required />
+    <button type="submit">Search</button>
+  </form>
+
+  <div class="search-suggestions" id="searchSuggestions">
+    <div class="tab-buttons">
+      <button class="tab active" onclick="showTab('all')">All</button>
+      <button class="tab" onclick="showTab('stocks')">Stocks</button>
+      <button class="tab" onclick="showTab('fo')">F&O</button>
+      <button class="tab" onclick="showTab('mf')">Mutual Funds</button>
+      <button class="tab" onclick="showTab('etf')">ETF</button>
+      <button class="tab" onclick="showTab('faqs')">FAQs</button>
+    </div>
+    <div class="tab-content" id="tabContent"></div>
+  </div>
+
+  <div class="nav-buttons">
+    <a href="login.html" class="login-btn">Login/Register</a>
+  </div>
+</header>
+
+<nav style="background-color: #e8f0fe; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+  <ul style="display: flex; justify-content: center; list-style: none; margin: 0; padding: 0; gap: 30px; flex-wrap: wrap;">
+    <li><a href="index.html" style="text-decoration: none; color: black;">🏠 Home</a></li>
+    <li class="dropdown">
+      <a href="javascript:void(0)">🧮 Calculator</a>
+      <div class="dropdown-content">
+        <a href="sip.html">SIP Calculator</a>
+        <a href="Margin calculator.html">Margin Calculator</a>
+      </div>
+    </li>
+    <li class="dropdown">
+      <a href="#">Products</a>
+      <div class="dropdown-content">
+        <a href="https://play.google.com/store/apps/details?id=com.lkptrade">LKP Securities</a>
+        <a href="https://harikamkhs.github.io/GPR-analysis-/">GPRA Analysis</a>
+      </div>
+    </li>
+    <li><a href="#" style="text-decoration: none; color: black;">Support</a></li>
+    <li><a href="#" style="text-decoration: none; color: black;">Help</a></li>
+  </ul>
+</nav>
+
+<script>
+  const suggestions = {
+    all: ["What is Sensex?", "Nifty today live", "Best dividend stocks 2024", "How to apply for IPO", "T+1 settlement rules"],
+    stocks: ["Reliance Industries share price", "Infosys quarterly results", "HDFC Bank dividend record date", "TCS bonus history"],
+    fo: ["Nifty 50 options chain", "Bank Nifty futures lot size", "How to trade F&O in India"],
+    mf: ["Top mutual funds for SIP", "Nippon India Small Cap Fund", "HDFC Flexi Cap Fund"],
+    etf: ["Groww Nifty India Defence ETF", "Tata Gold Exchange Traded Fund", "Nippon India ETF Gold BeES", "Groww Gold ETF", "Nippon India Silver ETF"],
+    faqs: ["How to open demat account?", "Is trading safe for beginners?", "What are ETFs?", "What is intraday trading?"]
+  };
+
+  const searchInput = document.getElementById('searchInput');
+  const suggestionsBox = document.getElementById('searchSuggestions');
+  const tabContent = document.getElementById('tabContent');
+
+  function showTab(tabType) {
+    document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelector(`.tab[onclick="showTab('${tabType}')"]`).classList.add('active');
+    const items = suggestions[tabType].map(text => `<li onclick="selectSuggestion('${text}')">${text}</li>`).join('');
+    tabContent.innerHTML = `<ul>${items}</ul>`;
+  }
+
+  function selectSuggestion(text) {
+    searchInput.value = text;
+    suggestionsBox.style.display = 'none';
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(text)}`, '_blank');
+  }
+
+  searchInput.addEventListener('focus', () => {
+    suggestionsBox.style.display = 'block';
+    showTab('all');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!suggestionsBox.contains(e.target) && e.target !== searchInput) {
+      suggestionsBox.style.display = 'none';
+    }
+  });
+
+  document.getElementById('searchForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+    const allowedKeywords = ['stock', 'nifty', 'sensex', 'dividend', 'ipo', 'trading', 'market', 'share', 'exchange', 'equity'];
+    const isTradingRelated = allowedKeywords.some(keyword => query.includes(keyword));
+    if (!isTradingRelated) {
+      alert('Please search for trading-related information only.');
+      return;
+    }
+    const googleSearchURL = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+    window.open(googleSearchURL, '_blank');
+  });
+</script>

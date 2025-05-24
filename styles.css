@@ -1,115 +1,127 @@
+/* Reset and base styles */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  body {
-    background-color: #ffffff;
-    color: #2d2f3a;
-  }
-  
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo img {
-    height: 40px;
-    margin-right: 10px;
-  }
-  
-  .brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #2d2f3a;
-  }
-  
-  .nav-buttons .login-btn {
-    padding: 10px 20px;
-    background-color: #00b386;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 6px;
-    font-weight: 600;
-  }
-  
-  .hero {
-    text-align: center;
-    padding: 100px 20px 60px;
-  }
-  
-  .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-  }
-  
-  .hero p {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 30px;
-  }
-  
-  .get-started-btn {
-    padding: 12px 24px;
-    background-color: #00b386;
-    color: white;
-    border-radius: 8px;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1rem;
-  }
-  
-  .footer-graphic {
-    text-align: center;
-    margin-top: 50px;
-  }
-  
-  .footer-graphic img {
-    max-width: 100%;
-    height: auto;
-  }
-  .footer-graphic img {
-    width: 100%;
-    max-width: 1200px;
-    height: auto;
-    display: block;
-    margin: 40px auto 0;
-  }
-  .search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .search-bar input {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    width: 250px;
-  }
-  
-  .search-bar button {
-    padding: 8px 14px;
-    background-color: #00b386;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #ffffff;
+  color: #2d2f3a;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d2f3a;
+}
+
+.nav-buttons .login-btn {
+  padding: 10px 20px;
+  background-color: #00b386;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* Hero section */
+.hero {
+  text-align: center;
+  padding: 100px 20px 60px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.get-started-btn {
+  padding: 12px 24px;
+  background-color: #00b386;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+/* Footer image */
+.footer-graphic {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.footer-graphic img {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  display: block;
+  margin: 40px auto 0;
+}
+
+/* Search */
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.search-bar input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 250px;
+}
+
+.search-bar button {
+  padding: 8px 14px;
+  background-color: #00b386;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .search-suggestions {
   position: absolute;
-  top: 60px;
-  left: 30%;
-  width: 400px;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -117,6 +129,7 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   display: none;
   z-index: 1000;
+  color: black;
 }
 
 .tab-buttons {
@@ -158,6 +171,8 @@
 .tab-content li:hover {
   background: #f9f9f9;
 }
+
+/* Option cards */
 .option-card {
   flex: 1 1 300px;
   background: white;
@@ -166,15 +181,19 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
   text-align: left;
 }
+
 .option-card h3 {
   margin: 10px 0;
   font-size: 20px;
   color: #333;
 }
+
 .option-card p {
   color: #666;
   font-size: 14px;
 }
+
+/* Navigation */
 nav {
   background-color: #e8f0fe;
   padding: 10px 20px;
@@ -231,5 +250,3 @@ nav a {
 .dropdown:hover .dropdown-content {
   display: block;
 }
-    
-  

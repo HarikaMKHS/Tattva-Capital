@@ -19,6 +19,83 @@
       font-size: 16px;
       cursor: pointer;
     }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('sipcc.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-top: 30px;
+      color: #ffd700;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .calculator {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border: 2px solid #ffffff;
+      border-radius: 12px;
+      width: 400px;
+      margin: 30px auto;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    input[type="number"] {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: #00b894;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #019875;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px solid #00cec9;
+      border-radius: 8px;
+      background-color: rgba(0, 150, 136, 0.3);
+    }
+
+    .quote {
+      margin-top: 30px;
+      font-style: italic;
+      font-size: 18px;
+      color: #81ecec;
+    }
+
+    @media (max-width: 480px) {
+      .calculator {
+        width: 90%;
+        padding: 20px;
+      }
+    }
   </style>
 </head>
 <body>
