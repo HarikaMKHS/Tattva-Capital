@@ -69,16 +69,12 @@
       <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
       <span>harikamkhs@gmail.com</span>
     </div>
-    <form action="https://formsubmit.co/harikamkhs@gmail.com" method="POST">
-  <!-- Redirect to your custom thank you page -->
-  <input type="hidden" name="_redirect" value="https://harikamkhs.github.io/thankyou.html">
+    <form action="submit.php" method="POST">
+  <label for="email">Your Email</label>
+  <input type="email" name="email" id="email" required>
 
-  <!-- Your form fields -->
-  <label for="user-email">Your Email</label>
-  <input type="email" name="email" id="user-email" required />
-
-  <label for="query">Your Query</label>
-  <textarea name="message" id="query" rows="6" required></textarea>
+  <label for="message">Your Query</label>
+  <textarea name="message" id="message" rows="6" required></textarea>
 
   <button type="submit">Submit</button>
 </form>
