@@ -2,39 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thank You</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f6ff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .message {
       text-align: center;
+      padding: 100px;
     }
-    a {
+    .message-box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #1a237e;
+    }
+    a.button {
+      display: inline-block;
       margin-top: 20px;
-      padding: 10px 20px;
+      padding: 12px 25px;
       background-color: #1976d2;
       color: white;
       text-decoration: none;
       border-radius: 6px;
+      font-size: 16px;
     }
-    a:hover {
+    a.button:hover {
       background-color: #125ea5;
     }
   </style>
 </head>
 <body>
-  <div class="message">
-    <h2>Thank you for your message!</h2>
-    <p>We’ll get back to you soon.</p>
-    <a href="index.html">Go to Home</a>
+  <div class="message-box">
+    <h1>Thanks!</h1>
+    <p>Your form was submitted successfully.</p>
+    <a class="button" href="index.html">Go to Home</a>
   </div>
 </body>
 </html>
