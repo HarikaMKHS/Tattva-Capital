@@ -69,18 +69,24 @@
     </div>
 
     <form action="https://formsubmit.co/harikabhk@gmail.com" method="POST">
-      <!-- Hidden input to identify the sender -->
-      <input type="hidden" name="_subject" value="New Query from Tattva Capital Site!">
-      <input type="hidden" name="_captcha" value="True">
-      <input type="hidden" name="_template" value="table">
+  <!-- Existing hidden inputs -->
+  <input type="hidden" name="_subject" value="New Query from Tattva Capital Site!">
+  <input type="hidden" name="_captcha" value="True">
+  <input type="hidden" name="_template" value="table">
 
-      <label for="email">Your Email</label>
-      <input type="email" name="user_email" id="email" placeholder="yourname@example.com" required>
+  <!-- ✅ Add this to redirect after submission -->
+  <input type="hidden" name="_redirect" value="https://harikamkhs.github.io/Tattva-capital/">
 
-      <label for="query">Your Query</label>
-      <textarea name="query" id="query" rows="6" required></textarea>
+  <!-- Visible form fields -->
+  <label for="email">Your Email</label>
+  <input type="email" name="user_email" id="email" placeholder="yourname@example.com" required>
 
-      <button type="submit">Submit</button>
+  <label for="query">Your Query</label>
+  <textarea name="query" id="query" rows="6" required></textarea>
+
+  <button type="submit">Submit</button>
+</form>
+
     </form>
   </div>
 </body>
