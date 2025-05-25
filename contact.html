@@ -70,15 +70,15 @@
       <span>harikamkhs@gmail.com</span>
     </div>
     <form action="https://formsubmit.co/harikamkhs@gmail.com" method="POST">
-  <!-- Your existing inputs -->
+  <!-- Redirect to your custom thank you page -->
+  <input type="hidden" name="_redirect" value="https://harikamkhs.github.io/thankyou.html">
+
+  <!-- Your form fields -->
   <label for="user-email">Your Email</label>
   <input type="email" name="email" id="user-email" required />
 
   <label for="query">Your Query</label>
   <textarea name="message" id="query" rows="6" required></textarea>
-
-  <!-- Hidden input to redirect to home page -->
-  <input type="hidden" name="_redirect" value="https://harikamkhs.github.io/index.html" />
 
   <button type="submit">Submit</button>
 </form>
