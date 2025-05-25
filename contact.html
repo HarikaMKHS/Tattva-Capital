@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - Tattva Capital</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f6ff;
+      margin: 0;
+      padding: 40px;
+    }
+    .contact-container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #1a237e;
+    }
+    .email-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .email-info img {
+      width: 30px;
+      margin-right: 10px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #125ea5;
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-container">
+    <a href="index.html" style="display:inline-block; padding:10px 15px; background:#1976d2; color:white; border-radius:5px; text-decoration:none;">← Back to Home</a>
+
+    <h2>Contact Us</h2>
+    <div class="email-info">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
+      <span>harikamkhs@gmail.com</span>
+    </div>
+    <form action="https://formsubmit.co/harikamkhs@gmail.com" method="POST">
+      <label for="user-email">Your Email</label>
+      <input type="email" name="email" id="user-email" required />
+
+      <label for="query">Your Query</label>
+      <textarea name="message" id="query" rows="6" required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
