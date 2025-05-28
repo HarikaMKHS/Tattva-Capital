@@ -129,7 +129,7 @@
       <input type="number" id="monthlyInvestment" required />
 
       <label for="annualReturn">Expected Annual Return Rate (%):</label>
-      <input type="number" id="annualReturn" step="0.1" required />
+      <input type="number" id="annualReturn" step="0.1" max="35" required />
 
       <label for="years">Time Period (Years):</label>
       <input type="number" id="years" required />
@@ -161,6 +161,12 @@
     function calculateSIP() {
       const P = parseFloat(document.getElementById('monthlyInvestment').value);
       const r = parseFloat(document.getElementById('annualReturn').value) / 100 / 12;
+      const annualReturn = parseFloat(document.getElementById('annualReturn').value);
+if (annualReturn > 35) {
+  alert("Annual return rate must not exceed 35%");
+  return;
+}
+
       const n = parseFloat(document.getElementById('years').value) * 12;
       const years = parseFloat(document.getElementById('years').value);
 

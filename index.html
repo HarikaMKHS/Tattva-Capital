@@ -18,56 +18,59 @@
 </style>
 </head>
 <body>
-  <header class="navbar">
-  
-      <span class="brand">Tattva Capital</span>
-  
-    <div class="nav-buttons">
-      <a href="login.html" class="login-btn">Login/Register</a>
-    </div>
-  </header>
-
-  <nav style="background-color: #e8f0fe; padding: 10px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-    <ul style="display: flex; justify-content: center; list-style: none; margin: 0; padding: 0; gap: 30px; flex-wrap: wrap;">
-         <li class="dropdown">
-  <a href="javascript:void(0)" class="dropbtn">Home</a>
-  <div class="dropdown-horizontal-with-line">
-    <div class="separator-line"></div> <!-- separator -->
+  <section>
+    <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
+    <script> toggleMenu() {
+  document.querySelector('.nav-left').classList.toggle('open');
+  document.querySelector('.nav-right').classList.toggle('open');
+    }</script>
+<nav class="sticky-nav">
+  <ul class="nav-left">
+    <li class="dropdown">
+      <a href="#" class="dropbtn">Home</a>
+      <div class="dropdown-horizontal-with-line">
+        <div class="separator-line"></div>
+        <div class="submenu-items">
+          <a href="Margin calculator.html">About</a>
+          <a href="#">Mission</a>
+          <a href="#">Vision</a>
+        </div>
+      </div>
+    </li>
+    <li class="dropdown">
+  <a href="#" class="dropbtn">Services</a>
+  <div class="dropdown-horizontal">
+    <div class="separator-line"></div>
     <div class="submenu-items">
-      <a href="#about">About</a>
-      <a href="#mission">Mission</a>
-      <a href="#vision">Vision</a>
+      <a href="#">Investment Advisory</a>
+      <a href="#">Analytics & Reports</a>
+      <a href="#">Estate Plan</a>
+      <a href="#">Philanthropy</a>
     </div>
   </div>
 </li>
-
-      <!--<li class="dropdown">
-        <a href="javascript:void(0)"> Calculator</a>
-        <div class="dropdown-content">
-          <a href="sip.html">SIP Calculator</a>
-          <a href="Margin calculator.html">Margin Calculator</a>
-        </div>
-      </li>
-      <li class="dropdown">
-        <a href="#">Products</a>
-        <div class="dropdown-content">
-          <a href="https://play.google.com/store/apps/details?id=com.lkptrade">LKP Securities</a>
-          <a href="https://harikamkhs.github.io/GPR-analysis-/">GPRA Analysis</a>
-        </div>
-      </li>-->
-      <li><a href="#services" style="text-decoration: none; color: black;">Services</a></li>
-
-      <li><a href="#" style="text-decoration: none; color: black;">Careers</a></li>
-      <li><a href="contact.html" target="_blank">Contact Us</a></li>
-    </ul>
-  </nav>
+    <li><a href="#">Careers</a></li>
+  </ul>
+  <span class="brand">Tattva Capital</span>
+  <ul class="nav-right">
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Login</a>
+      <div class="dropdown-content">
+        <a href="login-employee.html">Employee</a>
+        <a href="login-client.html">Client</a>
+        <a href="login-partner.html">Business Partner</a>
+      </div>
+    </li>
+    <li><a href="contact.html" target="_blank">Contact Us</a></li>
+  </ul>
+</nav>
 
   <main class="hero">
     <h1>Trade smart, not often —<br> and let your capital do the compounding.</h1>
     <p>Your journey to financial growth starts here.</p>
-    <a href="https://live.meon.co.in/lkpsec/individual_rm?YnJhbmNoX3JlZmVyZW5jZV9jb2RlPUI4MzAz" class="get-started-btn">Get started</a>
+    <!--<a href="https://live.meon.co.in/lkpsec/individual_rm?YnJhbmNoX3JlZmVyZW5jZV9jb2RlPUI4MzAz" class="get-started-btn">Get started</a>
 
-    <!-- Correct Search Container -->
+     Correct Search Container -->
     <div class="search-container">
       <form id="searchForm" class="search-bar">
         <input type="text" id="searchInput" placeholder="Search stocks, dividends, updates..." required />
@@ -88,42 +91,36 @@
 
     <iframe id="calculatorFrame" src="" style="width: 100%; height: 700px; border: none; display: none;"></iframe>
   </main>
-
-  <!--<footer class="footer-graphic">
-    <img src="https://www.cfib-fcei.ca/hubfs/research/blog/shutterstock_2167932965.svg" alt="Financial Illustration" />
-  </footer>-->
-  
-  <section id="services"style="padding: 50px 50px 50px 90px; background:#e8f0fe;">
-
-    <h2 style="font-size: 28px; margin-bottom: 10px;text-align: left;">Explore Investment Options</h2>
-    <p style="margin-bottom: 30px; color: #666;text-align: left;">Choose how you want to grow your money.</p>
-    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-      
-  <a href="https://www.google.com" target="_blank" class="investment-card">
-  <div class="card-bg" style="background-image: url('https://cdn.pixabay.com/photo/2017/08/18/18/56/dices-over-newspaper-2656028_1280.jpg');">
-    <div class="card-overlay">
-      <h3>Stocks & Intraday</h3>
-    <p>Trade and invest in the Indian stock market in real-time.</p>
-    </div>
-  </div>
-</a>
-<a href="https://www.google.com" target="_blank" class="investment-card">
-  <div class="card-bg" style="background-image: url('https://plus.unsplash.com/premium_photo-1682275215669-92545e354db2?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzd8fGN1cnJlbmN5fGVufDB8fDB8fHww');">
-    <div class="card-overlay">
-      <h3>Mutual Funds & SIP's</h3>
-    <p>Start small, invest consistently and build long-term wealth.</p>
-    </div>
-  </div>
-</a>
-<a href="https://www.google.com" target="_blank" class="investment-card">
-  <div class="card-bg" style="background-image: url('https://media.istockphoto.com/id/1487894858/photo/candlestick-chart-and-data-of-financial-market.jpg?s=612x612&w=0&k=20&c=wZ6vVmbm4BV2JOePSnNNz-0aFVOJZ0P9nhdeOMGUg5I=');">
-    <div class="card-overlay">
-      <h3>Futures & Options</h3>
-    <p>Advanced trading with margin and leverage tools.</p>
-    </div>
-  </div>
-</a>
   </section>
+  <section id="services" style="padding: 50px 90px; background: #e8f0fe;">
+  <h2 style="font-size: 28px; margin-bottom: 10px; text-align: left;">Explore Investment Options</h2>
+  <p style="margin-bottom: 30px; color: #666; text-align: left;">Choose how you want to grow your money.</p>
+
+  <div class="zigzag-card">
+    <div class="zigzag-image" style="background-image: url('https://cdn.pixabay.com/photo/2017/08/18/18/56/dices-over-newspaper-2656028_1280.jpg');"></div>
+    <div class="zigzag-content">
+      <h3>Stocks & Intraday</h3>
+      <p>Trade and invest in the Indian stock market in real-time.</p>
+    </div>
+  </div>
+
+  <div class="zigzag-card">
+    <div class="zigzag-image" style="background-image: url('https://plus.unsplash.com/premium_photo-1682275215669-92545e354db2?w=600&auto=format&fit=crop&q=60');"></div>
+    <div class="zigzag-content">
+      <h3>Mutual Funds & SIP's</h3>
+      <p>Start small, invest consistently and build long-term wealth.</p>
+    </div>
+  </div>
+
+  <div class="zigzag-card">
+    <div class="zigzag-image" style="background-image: url('https://media.istockphoto.com/id/1487894858/photo/candlestick-chart-and-data-of-financial-market.jpg?s=612x612&w=0&k=20&c=wZ6vVmbm4BV2JOePSnNNz-0aFVOJZ0P9nhdeOMGUg5I=');"></div>
+    <div class="zigzag-content">
+      <h3>Futures & Options</h3>
+      <p>Advanced trading with margin and leverage tools.</p>
+    </div>
+  </div>
+</section>
+
   <section style="display: flex; align-items: center; justify-content: space-between; padding: 40px 50px 40px 90px; background-color:#e8f0fe; gap: 30px;">
 
   <!-- Text Column -->
@@ -134,7 +131,7 @@
       These tools give you the clarity and confidence to make informed investment decisions.
     </p>
     <a href="sip.html" target="_blank" style="display: inline-block; margin-right: 20px; padding: 12px 24px; background-color: #1976d2; color: #fff; border-radius: 6px; text-decoration: none;">SIP Calculator</a>
-    <a href="Margin calculator.html" target="_blank" style="display: inline-block; padding: 12px 24px; background-color: #1976d2; color: #fff; border-radius: 6px; text-decoration: none;">Margin Calculator</a>
+    <a href="Margin calculator.html" target="_blank" style="display: inline-block; padding: 12px 24px; background-color: #1976d2; color: #fff; border-radius: 6px; text-decoration: none;">Retirement Calculator</a>
   </div>
 
   <!-- Image Column -->
@@ -203,5 +200,48 @@
       });
     });
   </script>
+  <script>
+  document.querySelectorAll('.dropdown').forEach(dropdown => {
+    let timer;
+
+    dropdown.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      dropdown.classList.add('open');
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => {
+        dropdown.classList.remove('open');
+      }, 300); // wait 300ms before hiding, allows user to move cursor
+    });
+  });
+</script>
+<script>
+  const nav = document.querySelector('.sticky-nav');
+  const dropdowns = document.querySelectorAll('.dropdown');
+
+  // Start with transparent
+  nav.classList.add('transparent');
+
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('mouseenter', () => {
+      nav.classList.remove('transparent');
+      nav.classList.add('solid');
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      nav.classList.remove('solid');
+      nav.classList.add('transparent');
+    });
+  });
+
+  // Optional: maintain transparency on normal nav hover
+  nav.addEventListener('mouseenter', () => {
+    if (!nav.classList.contains('solid')) {
+      nav.classList.add('transparent');
+    }
+  });
+</script>
+
 </body>
 </html>

@@ -459,7 +459,7 @@ nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 30px;
+  gap: 10px;
   flex-wrap: wrap;
   position: relative;
 }
@@ -510,49 +510,97 @@ nav a {
 }
 
 /* Dropdown content with separator line */
+.navbar-container {
+  position: relative;
+  width: 100%;
+}
+/* Dropdown container: full width, white background */
+.dropdown {
+  position: relative;
+}
 .dropdown-horizontal-with-line {
   display: none;
-  position: absolute;
-  top: calc(100% + 15px); 
-  left: 0;
+  position:absolute;
+  top:100%;
+  left:-30px;
+  width: 1217px;
+  /*min-width: 300px;  control width*/
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  z-index: 1000;
-  min-width: 100%;
-  width: 300px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 999;
+  padding: 8px 20px;
+  padding-top: 15px;
+ /* border: 8px white;*/
+ margin-top: 15px;
+ 
 }
-
-/* Show on hover */
+.dropdown-horizontal-with-line {
+  pointer-events: auto; /* ensures it's clickable */
+}
+/* Show dropdown on hover */
 .dropdown:hover .dropdown-horizontal-with-line {
   display: block;
 }
 
-/* Separator line */
-.separator-line {
-  height: 2px;
-  background-color: #ccc; /* customize to match your palette */
-  margin: 0;
+.dropdown-horizontal {
+  display: none;
+  position:absolute;
+  top:100% ;
+  left:-104.5px;
+  width: 1217px;
+  /*min-width: 300px;  control width*/
+  background-color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 999;
+  padding: 8px 20px;/*height of dropdown bar*/
+  padding-top: 10px;
+  border: 8px white;
+  padding-top: 15px;
+ margin-top: 15px;
+}
+.dropdown-horizontal {
+  pointer-events: auto; /* ensures it's clickable */
+}
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-horizontal {
+  display: block;
 }
 
-/* Submenu items in horizontal layout */
+/* Optional separator below the Services item */
+.separator-line {
+  height: 1px;
+  background-color: #ccc;
+  margin: 0 16px;
+}
+
+/* Submenu items laid out horizontally */
 .submenu-items {
   display: flex;
-  justify-content: center;
-  gap: 40px;
-  padding: 15px 0;
+  justify-content: flex-start;
+  gap: 20px;
+  padding:0;
+  /*padding: 12px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;*/
 }
 
 .submenu-items a {
-  color: #2b2b2b;
+  color: #1a237e;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
-  font-size: medium;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+  white-space: nowrap; /* Prevent line break */
 }
 
 .submenu-items a:hover {
-  color: #d08a6a; /* custom hover color to match your brand */
+  background-color: #f2f4f8;
+  color: #0d47a1;
 }
+
 .investment-card {
   display: block;
   width: 400px;
@@ -621,4 +669,284 @@ nav a {
 }
 html {
   scroll-behavior: smooth;
+}
+/* Left-aligned and right-aligned nav items */
+.nav-left, .nav-right {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+/* Ensure links look consistent */
+.sticky-nav a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+/* Optional: Hover styling */
+.sticky-nav a:hover {
+  color: #1976d2;
+}
+/* Full-page background image container */
+.hero-background {
+  background: url('https://www.shutterstock.com/image-photo/asia-stock-trader-agent-sale-260nw-2102130433.jpg') no-repeat center center;
+  background-size: cover;
+  height: 100vh; /* Full screen height */
+  position: relative;
+  z-index: 1;
+}
+
+/* Overlay for darkening and containing nav */
+.overlay {
+  background-color: rgba(0, 0, 0, 0.4); /* optional: dark overlay */
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+/* Dropdown for login */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;;
+  background-color: white;
+  border-radius: 6px;
+  padding-top: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  z-index: 2000;
+  padding-top: 15px;/* add gap to top of dropdownn */
+ margin-top: 15px;/* Dropdown to down */
+}
+.dropdown-content a {
+  display: block;
+  padding: 10px 15px;
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown.open .dropdown-content,
+.dropdown.open .dropdown-horizontal,
+.dropdown.open .dropdown-horizontal-with-line {
+  display: block;
+}
+/* Hero Banner Background */
+.hero-banner {
+  background: url('https://www.shutterstock.com/image-photo/asia-stock-trader-agent-sale-260nw-2102130433.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* Brand */
+.brand {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #1a237e;
+}
+/* Contact Button */
+.nav-buttons .login-btn {
+  margin-left: 20px;
+  background-color: #1976d2;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Make sure content doesn't go under fixed nav */
+body {
+  padding-top: 100px; /* Adjust to match nav height */
+}
+.sticky-nav {
+  position: fixed;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;/*Width of nav bar*/
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.zigzag-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.zigzag-card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.zigzag-image {
+  flex: 1;
+  min-height:400px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.zigzag-content {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.zigzag-content h3 {
+  font-size: 22px;
+  color: #1a237e;
+  margin-bottom: 10px;
+}
+
+.zigzag-content p {
+  color: #333;
+  font-size: 16px;
+}
+
+.hero {
+  padding-top: 100px;
+}
+
+main.hero {
+  margin-top: 80px; /* Adjust based on navbar height */
+}
+/* Transparent by default */
+.sticky-nav.transparent {
+  background-color: rgba(255, 255, 255, 0.8); /* or 0.1 for more transparency */
+  transition: background-color 0.3s ease;
+  backdrop-filter: blur(10px); /* optional: glassy effect */
+}
+
+/* Solid when hovering dropdown */
+.sticky-nav.solid {
+  background-color: rgba(255, 255, 255, 0.95);
+  transition: background-color 0.3s ease;
+}
+@media screen and (max-width: 768px) {
+  /* Stack nav items vertically */
+  .nav-left, .nav-right {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sticky-nav {
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+
+  .brand {
+    margin: 10px 0;
+    font-size: 22px;
+  }
+
+  /* Hero text */
+  .hero h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .hero p {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .search-bar input,
+  .search-bar button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Zigzag cards stack */
+  .zigzag-card {
+    flex-direction: column !important;
+    margin-bottom: 30px;
+  }
+
+  .zigzag-image {
+    width: 100%;
+    height: 200px;
+  }
+
+  .zigzag-content {
+    padding: 20px;
+    text-align: center;
+  }
+
+  /* Calculator section stacking */
+  section[style*="display: flex"] {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  section[style*="display: flex"] .text-column,
+  section[style*="display: flex"] .image-column {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+  }
+}
+.zigzag-card {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* allows stacking */
+}
+.mobile-menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .nav-left,
+  .nav-right {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .nav-left.open,
+  .nav-right.open {
+    display: flex;
+  }
 }
