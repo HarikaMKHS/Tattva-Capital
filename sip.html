@@ -107,6 +107,22 @@
       margin-right: 8px;
       vertical-align: middle;
     }
+    .back-button {
+      display: inline-block;
+      margin: 0 0 20px 30px;
+      background-color: #ffd700;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #e6c200;
+    }
 
     /* @media (max-width: 850px) {
       .container {
@@ -121,7 +137,7 @@
   <!-- <div id="header-placeholder"></div> -->
 
   <h1>SIP Calculator</h1>
-
+  <a href="index.html" class="back-button">← Back</a>
   <div class="container">
     <!-- Left: Calculator Form -->
     <div class="calculator">
