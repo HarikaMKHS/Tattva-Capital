@@ -10,11 +10,7 @@ from models import db, User
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
-DB_USERNAME = os.environ.get('DB_USERNAME')
-DB_PASSWORD = os.environ.get('DB_PASSWORD')
-DB_HOST = os.environ.get('DB_HOST')
-DB_PORT = os.environ.get('DB_PORT', '3306')
-DB_NAME = os.environ.get('DB_NAME')
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql12782354:aTSPDpkmY9@sql12.freesqldatabase.com:3306/sql12782354'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
@@ -162,6 +158,9 @@ def delete_user():
 
     return jsonify({"success": True, "message": "User deleted successfully."})
 
+@app.route('/')
+def home():
+    return "Flask App is Running!"
 
 with app.app_context():
     db.create_all()
