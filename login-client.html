@@ -363,54 +363,51 @@ function resetPassword() {
     }
 
     function sendOTP() {
-      const email = document.getElementById("forgotEmail").value;
-      fetch("http://127.0.0.1:5000/send-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          currentOTP = data.otp;
-          alert("OTP sent to your email!");
-          document.getElementById("otpSection").style.display = "block";
-        } else {
-          alert(data.message);
-        }
-      });
+  const email = document.getElementById("forgotEmail").value;
+  fetch("http://127.0.0.1:5000/send-otp", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("OTP sent to your email!");
+      document.getElementById("otpSection").style.display = "block";
+    } else {
+      alert(data.message);
     }
+  });
+}
 
-    function resetPassword() {
-      const email = document.getElementById("forgotEmail").value;
-      const enteredOTP = document.getElementById("otpInput").value;
-      const newPass = document.getElementById("newPass").value;
-      const confirmPass = document.getElementById("confirmPass").value;
+function resetPassword() {
+  const email = document.getElementById("forgotEmail").value;
+  const enteredOTP = document.getElementById("otpInput").value;
+  const newPass = document.getElementById("newPass").value;
+  const confirmPass = document.getElementById("confirmPass").value;
 
-      if (enteredOTP !== currentOTP) {
-        alert("Incorrect OTP!");
-        return;
-      }
-      if (newPass !== confirmPass) {
-        alert("Passwords do not match!");
-        return;
-      }
+  if (newPass !== confirmPass) {
+    alert("Passwords do not match!");
+    return;
+  }
 
-      fetch("http://127.0.0.1:5000/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, new_password: newPass })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          alert("Password updated!");
-          location.reload();
-        } else {
-          alert(data.message);
-        }
-      });
+  fetch("http://127.0.0.1:5000/reset-password", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, otp: enteredOTP, new_password: newPass })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("Password updated!");
+      location.reload();
+    } else {
+      alert(data.message);
     }
+  });
+}
+
+    
   </script>
 </body>
 </html>

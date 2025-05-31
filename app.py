@@ -5,45 +5,41 @@ import os
 import smtplib
 import random
 from email.message import EmailMessage
+from flask_sqlalchemy import SQLAlchemy
+from models import db, User  
 
 app = Flask(__name__)
-CORS(app)
-FILE = "credentials.xlsx"
+CORS(app, resources={r"/*": {"origins": "*"}})
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Hari90@localhost/Tattvainfo'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db.init_app(app)
+#db = SQLAlchemy(app)
 
-@app.route('/save-to-excel', methods=['POST'])
-def save_to_excel():
+#FILE = "credentials.xlsx
+
+@app.route('/register-user', methods=['POST'])
+def register_user():
     data = request.get_json()
-    file_exists = os.path.exists(FILE)
-    headers = ["Email","Name", "Client ID", "Username", "Password", "role"]
+    # Check if username already exists
+    existing_user = User.query.filter_by(username=data.get("username")).first()
+    if existing_user:
+        return jsonify({"status": "error", "message": "Username already exists"}), 409
 
-    if not file_exists:
-        wb = openpyxl.Workbook()
-        ws = wb.active
-        ws.append(headers)
-    else:
-        wb = openpyxl.load_workbook(FILE)
-        ws = wb.active
+    # Create a new User object
+    new_user = User(
+        email=data.get("email", ""),
+        name=data.get("name", ""),
+        client_id=data.get("clientId", ""),
+        username=data.get("username", ""),
+        password=data.get("password", ""),
+        role=data.get("role", "")
+    )
+    new_user.set_password(data.get("password", ""))  # ✅ hash the password
 
-        current_headers = [cell.value for cell in ws[1]]
-        if current_headers!= headers:
-            for i, header in enumerate(headers, start=1):
-                ws.cell(row=1, column=i).value = header
-            # ws.insert_cols(len(current_headers) + 1)
-            # ws.cell(row=1, column=6).value = "role"
-    for row in ws.iter_rows(min_row=2, values_only=True):
-        if row[3] == data["username"]:  # Username is the 3rd column (index 2)
-            return jsonify({"status": "error", "message": "Username already exists"}), 409
-        
-    ws.append([
-        data.get("email", ""),
-        data.get("name", ""),
-        data.get("clientId", ""),
-        data.get("username", ""),
-        data.get("password", ""),
-        data.get("role", "")
-    ])
-    #ws.append([data["email"],data["name"], data["clientId"], data["username"], data["password"],data["role"]])
-    wb.save(FILE)
+    # Add and commit to DB
+    db.session.add(new_user)
+    db.session.commit()
+
     return jsonify({"status": "success"})
 
 
@@ -53,18 +49,11 @@ def validate_client():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
-
-    wb = openpyxl.load_workbook("credentials.xlsx")
-    ws = wb.active
-
-    for row in ws.iter_rows(min_row=2, values_only=True):  # skip header
-        email,name, client_id, saved_username, saved_password, role = row
-
-        #if saved_username == username and saved_password == password and role.lower() == "client":
-        if saved_username == username and saved_password == password and str(role).lower() == "client":
-            return jsonify({"success": True})
-
-    return jsonify({"success": False})
+    user = User.query.filter_by(username=username, password=password, role="client").first()
+    if user:
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False})
 
 @app.route('/validate-login', methods=['POST'])
 def validate_login():
@@ -73,73 +62,104 @@ def validate_login():
     password = data.get("password")
     role = data.get("role")
 
-    wb = openpyxl.load_workbook(FILE)
-    ws = wb.active
+    # Query the user from the database
+    user = User.query.filter_by(username=username, role=role).first()
 
-    for row in ws.iter_rows(min_row=2, values_only=True):
-        email,name, client_id, saved_username, saved_password,saved_role = row
-        if (
-            saved_username == username and
-            saved_password == password and
-            str(saved_role).lower() == str(role).lower()
-        ):
-            return jsonify({"success": True})
-    return jsonify({"success": False})
+    if user and user.check_password(password):
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False})
+@app.route('/users', methods=['GET'])
+def list_users():
+    users = User.query.all()
+    return jsonify([
+        {
+            "username": user.username,
+            "email": user.email,
+            "role": user.role,
+            "name": user.name,
+            "client_id": user.client_id
+        } for user in users
+    ])
 
 
 @app.route('/send-otp', methods=['POST'])
 def send_otp():
     data = request.get_json()
     email = data['email']
-    wb = openpyxl.load_workbook(FILE)
-    ws = wb.active
-
-    found = False
-    for row in ws.iter_rows(min_row=2, values_only=True):
-        if row[0] == email:
-            found = True
-            break
-
-    if not found:
+    user = User.query.filter_by(email=email).first()
+    if not user:
         return jsonify({"success": False, "message": "Email not registered"})
 
     otp = str(random.randint(100000, 999999))
-    
+
+    # Save OTP temporarily in a file (for demo/testing purposes)
+    with open("otp_store.txt", "w") as f:
+        f.write(f"{email}:{otp}")
+
     # Send email
     msg = EmailMessage()
     msg.set_content(f"Your OTP is: {otp}")
     msg["Subject"] = "Password Reset OTP"
-    msg["From"] = "your_email@gmail.com"
+    msg["From"] = "harikahaari0914@gmail.com"
     msg["To"] = email
 
     try:
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.login("your_email@gmail.com", "your_app_password")
+        server.login("harikahaari0914@gmail.com", "sxaftdirmrampoxx")  # ⚠️ Use env var in production
         server.send_message(msg)
         server.quit()
-        return jsonify({"success": True, "otp": otp})
+        return jsonify({"success": True})
     except Exception as e:
         print("Email error:", e)
         return jsonify({"success": False, "message": "Failed to send OTP"})
-
-
+    
 @app.route('/reset-password', methods=['POST'])
 def reset_password():
     data = request.get_json()
     email = data['email']
+    entered_otp = data['otp']
     new_password = data['new_password']
 
-    wb = openpyxl.load_workbook(FILE)
-    ws = wb.active
+    # Load saved OTP
+    if not os.path.exists("otp_store.txt"):
+        return jsonify({"success": False, "message": "No OTP found"})
 
-    for row in ws.iter_rows(min_row=2):
-        if row[0].value == email:
-            row[4].value = new_password
-            wb.save(FILE)
-            return jsonify({"success": True})
+    with open("otp_store.txt", "r") as f:
+        content = f.read().strip()
 
-    return jsonify({"success": False, "message": "Email not found"})
+    saved_email, saved_otp = content.split(":")
 
+    if email != saved_email or entered_otp != saved_otp:
+        return jsonify({"success": False, "message": "Invalid OTP"})
+
+    # Update password in database
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({"success": False, "message": "User not found in database"})
+
+    user.set_password(new_password)  # ✅ hash new password
+    db.session.commit()
+
+    return jsonify({"success": True})
+
+@app.route('/delete-user', methods=['POST'])
+def delete_user():
+    data = request.get_json()
+    username = data.get('username')
+
+    user = User.query.filter_by(username=username).first()
+    if not user:
+        return jsonify({"success": False, "message": "User not found."})
+
+    db.session.delete(user)
+    db.session.commit()
+
+    return jsonify({"success": True, "message": "User deleted successfully."})
+
+
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
     app.run(debug=True)

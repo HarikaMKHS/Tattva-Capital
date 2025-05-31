@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -55,6 +55,70 @@
       console.error(err);
     });
   });
+</script>
+
+</body>
+</html-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Credentials</title>
+</head>
+<body>
+  <h2>Add User Credentials</h2>
+  <form id="registerForm">
+  <input type="email" id="email" placeholder="Email" required><br>
+  <input type="text" id="name" placeholder="Name" required><br>
+  <input type="text" id="clientId" placeholder="Client ID" required><br>
+  <input type="text" id="username" placeholder="Username" required><br>
+  <input type="password" id="password" placeholder="Password" required><br>
+  <input type="text" id="role" placeholder="Role (e.g., admin or client)" required><br>
+  <button type="submit">Register</button>
+</form>
+
+  <hr><br>
+  <h2>Delete User</h2>
+  <form id="deleteForm">
+    <label>Username:</label>
+    <input type="text" id="deleteUsername" required>
+    <button type="button" onclick="deleteUser()">Delete User</button>
+  </form>
+
+ <script>
+document.getElementById("registerForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const userData = {
+        email: document.getElementById("email").value,
+        name: document.getElementById("name").value,
+        clientId: document.getElementById("clientId").value,
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+        role: document.getElementById("role").value
+    };
+
+    fetch("http://127.0.0.1:5000/register-user", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("User registered successfully!");
+        } else {
+            alert("Error: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.error("Fetch error:", err);
+        alert("Failed to fetch");
+    });
+});
 </script>
 
 </body>
