@@ -333,81 +333,81 @@ function resetPassword() {
   </div>
 
   <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData.entries());
+  const BACKEND_URL = "https://tattva-capital.onrender.com";  // Replace with your actual Render URL
 
-      fetch('http://127.0.0.1:5000/validate-client', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      })
-      .then(res => res.json())
-      .then(response => {
-        if (response.success) {
-          alert('Login successful!');
-          window.location.href = 'Margin calculator.html';
-        } else {
-          alert('Invalid credentials or not a client.');
-        }
-      })
-      .catch(err => {
-        alert('Error: ' + err);
-      });
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
+    fetch(`${BACKEND_URL}/validate-client`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(response => {
+      if (response.success) {
+        alert('Login successful!');
+        window.location.href = 'Margin calculator.html';
+      } else {
+        alert('Invalid credentials or not a client.');
+      }
+    })
+    .catch(err => {
+      alert('Error: ' + err);
     });
-
-    let currentOTP = "";
-    function showForgotForm() {
-      document.getElementById("forgotForm").style.display = "block";
-    }
-
-    function sendOTP() {
-  const email = document.getElementById("forgotEmail").value;
-  fetch("http://127.0.0.1:5000/send-otp", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert("OTP sent to your email!");
-      document.getElementById("otpSection").style.display = "block";
-    } else {
-      alert(data.message);
-    }
   });
-}
 
-function resetPassword() {
-  const email = document.getElementById("forgotEmail").value;
-  const enteredOTP = document.getElementById("otpInput").value;
-  const newPass = document.getElementById("newPass").value;
-  const confirmPass = document.getElementById("confirmPass").value;
-
-  if (newPass !== confirmPass) {
-    alert("Passwords do not match!");
-    return;
+  function showForgotForm() {
+    document.getElementById("forgotForm").style.display = "block";
   }
 
-  fetch("http://127.0.0.1:5000/reset-password", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, otp: enteredOTP, new_password: newPass })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert("Password updated!");
-      location.reload();
-    } else {
-      alert(data.message);
-    }
-  });
-}
+  function sendOTP() {
+    const email = document.getElementById("forgotEmail").value;
+    fetch(`${BACKEND_URL}/send-otp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("OTP sent to your email!");
+        document.getElementById("otpSection").style.display = "block";
+      } else {
+        alert(data.message);
+      }
+    });
+  }
 
-    
-  </script>
+  function resetPassword() {
+    const email = document.getElementById("forgotEmail").value;
+    const enteredOTP = document.getElementById("otpInput").value;
+    const newPass = document.getElementById("newPass").value;
+    const confirmPass = document.getElementById("confirmPass").value;
+
+    if (newPass !== confirmPass) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    fetch(`${BACKEND_URL}/reset-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, otp: enteredOTP, new_password: newPass })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("Password updated!");
+        location.reload();
+      } else {
+        alert(data.message);
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
