@@ -32,29 +32,29 @@ def register_user():
         name=data.get("name", ""),
         client_id=data.get("clientId", ""),
         username=data.get("username", ""),
-        password=data.get("password", ""),
+        #password=data.get("password", ""),
         role=data.get("role", "")
     )
     new_user.set_password(data.get("password", ""))  # ✅ hash the password
-
     # Add and commit to DB
     db.session.add(new_user)
     db.session.commit()
-
     return jsonify({"status": "success"})
-
-
 
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
     data = request.get_json()
     username = data.get("username")
     password = data.get("password")
-    user = User.query.filter_by(username=username, password=password, role="client").first()
-    if user:
+
+    user = User.query.filter_by(username=username, role="client").first()
+    if user and user.check_password(password):
         return jsonify({"success": True})
     else:
         return jsonify({"success": False})
+
+
+
 
 @app.route('/validate-login', methods=['POST'])
 def validate_login():
