@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Investment Advisory</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: white;
+      padding-top: 0px;   /*for fixed navbar */
+    }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    
+    }
+    .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+    <div class="hero-background-wrapper">
+<section>
+  <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-left').classList.toggle('open');
+      document.querySelector('.nav-right').classList.toggle('open');
+    }
+  </script>
+  <nav class="sticky-nav">
+    <ul class="nav-left">
+      <li class="dropdown">
+        <a href="index.html" class="dropbtn">Home</a>
+        <div class="dropdown-horizontal-with-line">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="aboutus.html">About</a>
+            <a href="mission.html">Mission</a>
+            <a href="vision.html">Vision</a>
+          </div>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Services</a>
+        <div class="dropdown-horizontal">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="#">Investment Advisory</a>
+            <a href="analytics.html">Analytics & Reports</a>
+            <a href="estate.html">Estate Plan</a>
+            <a href="#">Philanthropy</a>
+          </div>
+        </div>
+      </li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+    <span class="brand">Tattva Capital</span>
+    <ul class="nav-right">
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Login</a>
+        <div class="dropdown-content">
+          <a href="login-employee.html">Employee</a>
+          <a href="login-client.html">Client</a>
+          <a href="B-p login.html">Business Partner</a>
+        </div>
+      </li>
+      <li><a href="contact.html" target="_blank">Contact Us</a></li>
+    </ul>
+  </nav>
+  </section>
+  </div>
+  <!-- Hero Section -->
+  <div class="min-h-[90vh] bg-cover bg-center flex items-end justify-center text-center px-4 pb-20"
+           style="background-image: url('https://aicdn.picsart.com/0bf73ac5-ad99-4abb-a9a5-7bd031927965.png');">
+    <div class="text-white max-w-2xl transform -translate-x-[30%]">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Your Goals. Our Strategy.</h1>
+      <p class="text-lg mb-6">Personalized investment guidance for every stage of life.</p>
+      <a href="#approach" class="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">Learn More</a>
+    </div>
+</div>
+
+  <!-- Approach Section -->
+<div id="approach" class="py-16 px-6 text-center text-gray-800" style="background-color: #e8f0fe;">
+  <div class="bg-black/60 text-white p-8 rounded-xl max-w-4xl mx-auto shadow-md">
+    <h2 class="text-3xl font-semibold mb-6">Our Advisory Approach</h2>
+    <p class="text-lg mb-4">Your financial goals are personal—so is our approach.</p>
+    <p class="mb-4">We craft tailored wealth strategies to help you navigate life’s milestones with clarity and confidence.</p>
+    <p class="mb-4">We value your understanding of risk tolerance, realistic expectations, and time horizon as key to reaching your financial goals.</p>
+    <p class="mb-4">Our approach also prepares you to manage unexpected financial challenges with confidence.</p>
+  </div>
+</div>
+
+<div class="py-16 bg-cover bg-center bg-no-repeat" 
+         style="background-image: url('https://aicdn.picsart.com/6006bc17-9da7-4cf6-9814-edd795431bff.png');">
+  <div class="bg-black/60 py-16 px-6">
+    <h2 class="text-3xl text-center font-bold text-white mb-10">Visual Financial Insights</h2>
+
+    <!-- Horizontal Scroll Container -->
+    <div class="flex space-x-6 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 scroll-smooth px-2">
+      
+      <!-- Card 1 -->
+      <div class="bg-white shadow-xl rounded-2xl overflow-hidden flex-shrink-0 w-80 transform fade-up">
+        <img src="https://aicdn.picsart.com/a301005d-b4ff-45e5-ab4e-3d4e41a26678.png" alt="future Planning" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <p class="font-medium"> Have you aligned your finances with your life goals?</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white shadow-xl rounded-2xl overflow-hidden flex-shrink-0 w-80 transform fade-up">
+        <img src="https://aicdn.picsart.com/66a75351-3b48-4465-ab10-0f152030085a.png" alt="Young Investor" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <p class="font-medium"> Start early—compound growth rewards patience.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white shadow-xl rounded-2xl overflow-hidden flex-shrink-0 w-80 transform fade-up">
+        <img src="https://aicdn.picsart.com/56695a13-5514-42b4-8bf7-70a3d60659bd.png" alt="Family Home" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <p class="font-medium">Think long term: Your home, your future security.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-white shadow-xl rounded-2xl overflow-hidden flex-shrink-0 w-80 transform fade-up">
+        <img src="https://aicdn.picsart.com/ad1699f4-bf9b-4447-ae1f-51f74eadd7b1.png" alt="Calm Person" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <p class="font-medium"> Risk tolerance defines peace of mind.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <!-- Contact CTA -->
+  <div class="bg-e8f0fe-700 text-black py-16 text-center">
+    <h2 class="text-3xl font-semibold mb-4">Ready to Take Control of Your Future?</h2>
+    <p class="mb-6">Let’s start building your personalized wealth strategy today.</p>
+    <a href="contact.html" class="bg-white text-blue-700 px-6 py-3 rounded-full hover:bg-gray-200 transition">Book a Free Consultation</a>
+  </div>
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+<script>
+  function showTab(id, event) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-btn');
+    tabs.forEach((tab) => tab.classList.remove('active'));
+    buttons.forEach((btn) => btn.classList.remove('active'));
+
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Dropdown + navbar transparency logic
+  document.querySelectorAll('.dropdown').forEach(dropdown => {
+    let timer;
+    dropdown.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      dropdown.classList.add('open');
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => {
+        dropdown.classList.remove('open');
+      }, 300);
+    });
+  });
+
+  const nav = document.querySelector('.sticky-nav');
+  const dropdowns = document.querySelectorAll('.dropdown');
+  nav.classList.add('transparent');
+
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('mouseenter', () => {
+      nav.classList.remove('transparent');
+      nav.classList.add('solid');
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      nav.classList.remove('solid');
+      nav.classList.add('transparent');
+    });
+  });
+
+  nav.addEventListener('mouseenter', () => {
+    if (!nav.classList.contains('solid')) {
+      nav.classList.add('transparent');
+    }
+  });
+</script>
+</body>
+</html>

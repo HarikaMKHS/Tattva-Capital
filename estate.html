@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estate Planning</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+
+    .estate-bg {
+      background-image: url('https://aicdn.picsart.com/1550ad82-5dc4-41af-9262-799910fc29a8.png');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .info-box {
+      background-color: rgba(0, 40, 85, 0.8); /* Dark transparent blue */
+      color: #fff;
+      padding: 30px;
+      border: 3px solid #ffffffaa;
+      border-radius: 12px;
+      max-width: 800px;
+      font-size: 1.4rem;
+      font-weight: 500;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .info-box {
+        font-size: 1.1rem;
+        padding: 20px;
+        margin: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div class="hero-background-wrapper">
+<section>
+  <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-left').classList.toggle('open');
+      document.querySelector('.nav-right').classList.toggle('open');
+    }
+  </script>
+  <nav class="sticky-nav">
+    <ul class="nav-left">
+      <li class="dropdown">
+        <a href="index.html" class="dropbtn">Home</a>
+        <div class="dropdown-horizontal-with-line">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="aboutus.html">About</a>
+            <a href="mission.html">Mission</a>
+            <a href="vision.html">Vision</a>
+          </div>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Services</a>
+        <div class="dropdown-horizontal">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="Investment.html">Investment Advisory</a>
+            <a href="analytics.html">Analytics & Reports</a>
+            <a href="#">Estate Plan</a>
+            <a href="#">Philanthropy</a>
+          </div>
+        </div>
+      </li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+    <span class="brand">Tattva Capital</span>
+    <ul class="nav-right">
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Login</a>
+        <div class="dropdown-content">
+          <a href="login-employee.html">Employee</a>
+          <a href="login-client.html">Client</a>
+          <a href="B-p login.html">Business Partner</a>
+        </div>
+      </li>
+      <li><a href="contact.html" target="_blank">Contact Us</a></li>
+    </ul>
+  </nav>
+</section>
+</div>
+
+
+  <section class="estate-bg">
+    <div class="info-box">
+      "We collaborate with legal and tax professionals to structure your estate, reduce liabilities, and preserve your legacy."
+    </div>
+  </section>
+<script>
+  function showTab(id, event) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-btn');
+    tabs.forEach((tab) => tab.classList.remove('active'));
+    buttons.forEach((btn) => btn.classList.remove('active'));
+
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Dropdown + navbar transparency logic
+  document.querySelectorAll('.dropdown').forEach(dropdown => {
+    let timer;
+    dropdown.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      dropdown.classList.add('open');
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => {
+        dropdown.classList.remove('open');
+      }, 300);
+    });
+  });
+
+  const nav = document.querySelector('.sticky-nav');
+  const dropdowns = document.querySelectorAll('.dropdown');
+  nav.classList.add('transparent');
+
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('mouseenter', () => {
+      nav.classList.remove('transparent');
+      nav.classList.add('solid');
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      nav.classList.remove('solid');
+      nav.classList.add('transparent');
+    });
+  });
+
+  nav.addEventListener('mouseenter', () => {
+    if (!nav.classList.contains('solid')) {
+      nav.classList.add('transparent');
+    }
+  });
+</script>
+</body>
+</html>

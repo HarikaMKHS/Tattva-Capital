@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Vision</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    /* Vision Section Styles */
+    #vision-section {
+      width: 100%;
+    }
+
+    .vision-bg {
+      background: url('https://media.istockphoto.com/id/1383796215/photo/silhouette-of-man-holding-binoculars-on-mountain-peak-against-bright-sunlight-sky-background.jpg?s=612x612&w=0&k=20&c=Y1bdRKzRcs6DVSPjqAn3fVQIdkrA-s1-uWHvnFviCOQ=') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 100px 60px;
+      box-sizing: border-box;
+    }
+
+    .vision-overlay {
+      background-color: rgba(0, 0, 0, 0.65);
+      padding: 30px 40px;
+      border-radius: 16px;
+      max-width: 600px;
+      width: fit-content;
+      color: white;
+      text-align: left;
+    }
+
+    .quote {
+      font-size: 1.5rem;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+
+    .vision-text {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .vision-bg {
+        padding: 40px 20px;
+      }
+
+      .vision-overlay {
+        padding: 20px;
+        max-width: 100%;
+      }
+
+      .quote {
+        font-size: 1.2rem;
+      }
+
+      .vision-text {
+        font-size: 1rem;
+      }
+    }
+
+    /* Sticky navbar styles assumed to be handled in styles.css */
+  </style>
+</head>
+<body>
+  <div class="hero-background-wrapper">
+    <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav class="sticky-nav">
+      <ul class="nav-left">
+        <li class="dropdown">
+          <a href="index.html" class="dropbtn">Home</a>
+          <div class="dropdown-horizontal-with-line">
+            <div class="separator-line"></div>
+            <div class="submenu-items">
+              <a href="aboutus.html">About</a>
+              <a href="mission.html">Mission</a>
+              <a href="#">Vision</a>
+            </div>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Services</a>
+          <div class="dropdown-horizontal">
+            <div class="separator-line"></div>
+            <div class="submenu-items">
+              <a href="Investment.html">Investment Advisory</a>
+              <a href="analytics.html">Analytics & Reports</a>
+              <a href="estate.html">Estate Plan</a>
+              <a href="#">Philanthropy</a>
+            </div>
+          </div>
+        </li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+      <span class="brand">Tattva Capital</span>
+      <ul class="nav-right">
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Login</a>
+          <div class="dropdown-content">
+            <a href="login-employee.html">Employee</a>
+            <a href="login-client.html">Client</a>
+            <a href="B-p login.html">Business Partner</a>
+          </div>
+        </li>
+        <li><a href="contact.html" target="_blank">Contact Us</a></li>
+      </ul>
+    </nav>
+
+    <!-- VISION SECTION -->
+    <div id="vision-section">
+      <div class="vision-bg">
+        <div class="vision-overlay">
+          <div class="quote">"Vision is the art of seeing what is invisible to others." – Jonathan Swift</div>
+          <div class="vision-text">
+            To establish ourselves as a highly respected and trusted name in the wealth management and advisory industry, while also serving as a catalyst for financial empowerment among underserved communities—bridging the gap through inclusive initiatives that promote growth, stability, and long-term well-being.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-left').classList.toggle('open');
+      document.querySelector('.nav-right').classList.toggle('open');
+    }
+
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+      let timer;
+      dropdown.addEventListener('mouseenter', () => {
+        clearTimeout(timer);
+        dropdown.classList.add('open');
+      });
+      dropdown.addEventListener('mouseleave', () => {
+        timer = setTimeout(() => {
+          dropdown.classList.remove('open');
+        }, 300);
+      });
+    });
+
+    const nav = document.querySelector('.sticky-nav');
+    const dropdowns = document.querySelectorAll('.dropdown');
+    nav.classList.add('transparent');
+
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('mouseenter', () => {
+        nav.classList.remove('transparent');
+        nav.classList.add('solid');
+      });
+
+      dropdown.addEventListener('mouseleave', () => {
+        nav.classList.remove('solid');
+        nav.classList.add('transparent');
+      });
+    });
+
+    nav.addEventListener('mouseenter', () => {
+      if (!nav.classList.contains('solid')) {
+        nav.classList.add('transparent');
+      }
+    });
+  </script>
+</body>
+</html>

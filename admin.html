@@ -69,13 +69,19 @@
 <body>
   <h2>Add User Credentials</h2>
   <form id="registerForm">
-  <input type="email" id="email" placeholder="Email" required><br>
-  <input type="text" id="name" placeholder="Name" required><br>
-  <input type="text" id="clientId" placeholder="Client ID" required><br>
-  <input type="text" id="username" placeholder="Username" required><br>
-  <input type="password" id="password" placeholder="Password" required><br>
+  <input type="email" id="email" placeholder="Email" required>Email<br>
+  <input type="text" id="name" placeholder="Name" required>Name<br>
+  <input type="text" id="clientId" placeholder="Client ID" required>Client-ID<br>
+  <input type="text" id="username" placeholder="Username" required>Username<br>
+  <input type="password" id="password" placeholder="Password" required>Password<br>
   <input type="text" id="role" placeholder="Role (e.g., admin or client)" required><br>
+  <select name="role" required>
+    <option value="client">Client</option>
+    <option value="employee">Employee</option>
+    <option value="partner">Business Partner</option>
+  </select>
   <button type="submit">Register</button>
+
 </form>
 
   <hr><br>

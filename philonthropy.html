@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Philanthropy</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+
+    .hero-section {
+      position: relative;
+      height: 60vh;
+      background-image: url('https://aicdn.picsart.com/693a632b-bd06-4d54-b390-e7b676ab1969.png'); /* A warm giving/charity image */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-text {
+      position: absolute;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 20px 40px;
+      border-radius: 12px;
+      font-size: 1.6rem;
+      font-weight: 500;
+      max-width: 800px;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+    }
+
+    .info-section {
+      padding: 50px 10%;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+    }
+
+    .info-box {
+      background-color: rgba(0, 51, 102, 0.85);
+      color: #e8f0f8;
+      padding: 30px;
+      border: 3px solid #fff;
+      border-radius: 10px;
+      max-width: 900px;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .hero-text {
+        font-size: 1.2rem;
+        padding: 15px 20px;
+      }
+
+      .info-box {
+        font-size: 1rem;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="hero-background-wrapper">
+<section>
+  <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-left').classList.toggle('open');
+      document.querySelector('.nav-right').classList.toggle('open');
+    }
+  </script>
+  <nav class="sticky-nav">
+    <ul class="nav-left">
+      <li class="dropdown">
+        <a href="index.html" class="dropbtn">Home</a>
+        <div class="dropdown-horizontal-with-line">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="aboutus.html">About</a>
+            <a href="#">Mission</a>
+            <a href="vision.html">Vision</a>
+          </div>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Services</a>
+        <div class="dropdown-horizontal">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="Investment.html">Investment Advisory</a>
+            <a href="analytics.html">Analytics & Reports</a>
+            <a href="estate.html">Estate Plan</a>
+            <a href="#">Philanthropy</a>
+          </div>
+        </div>
+      </li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+    <span class="brand">Tattva Capital</span>
+    <ul class="nav-right">
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Login</a>
+        <div class="dropdown-content">
+          <a href="login-employee.html">Employee</a>
+          <a href="login-client.html">Client</a>
+          <a href="B-p login.html">Business Partner</a>
+        </div>
+      </li>
+      <li><a href="contact.html" target="_blank">Contact Us</a></li>
+    </ul>
+  </nav>
+</section>
+</div>
+
+
+  <!-- Hero Section with Statement -->
+  <section class="hero-section">
+    <div class="hero-text">
+      "True fulfillment comes from giving and helping others build a brighter future."
+    </div>
+  </section>
+
+  <!-- Info Section with Border -->
+  <section class="info-section">
+    <div class="info-box">
+      "We believe that the greater purpose and true fulfillment in life come from giving. Our dedicated team is always committed to supporting those in need, guiding them with care, and empowering them to walk a path we help shape—one that leads to their well-being, stability, and a brighter future."
+    </div>
+  </section>
+ <script>
+  function showTab(id, event) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-btn');
+    tabs.forEach((tab) => tab.classList.remove('active'));
+    buttons.forEach((btn) => btn.classList.remove('active'));
+
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Dropdown + navbar transparency logic
+  document.querySelectorAll('.dropdown').forEach(dropdown => {
+    let timer;
+    dropdown.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      dropdown.classList.add('open');
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => {
+        dropdown.classList.remove('open');
+      }, 300);
+    });
+  });
+
+  const nav = document.querySelector('.sticky-nav');
+  const dropdowns = document.querySelectorAll('.dropdown');
+  nav.classList.add('transparent');
+
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('mouseenter', () => {
+      nav.classList.remove('transparent');
+      nav.classList.add('solid');
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      nav.classList.remove('solid');
+      nav.classList.add('transparent');
+    });
+  });
+
+  nav.addEventListener('mouseenter', () => {
+    if (!nav.classList.contains('solid')) {
+      nav.classList.add('transparent');
+    }
+  });
+</script>
+</body>
+</html>

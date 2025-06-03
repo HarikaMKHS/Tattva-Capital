@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Us - TIAS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: white;
+      padding-top: 0px;   /*for fixed navbar */
+    }
+
+    .hero {
+      background-image: url('aboutus.png');
+      background-size: cover;
+      background-position: center;
+      height: 75vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 2rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      background-color: rgba(34, 22, 68, 0.6);
+      padding: 20px 30px;
+      border-radius: 10px;
+    }
+    .hero-background-wrapper {
+  background: url('aboutus.png') no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+    .tab-nav {
+      background: #fff;
+      padding: 15px 40px 15px 20px;
+      display: flex;
+      gap: 20px;
+      justify-content: flex-start;
+      margin-left: 10%;
+      border-bottom: 1px solid #ccc;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      border-radius: 6px;
+      background: #dce3ed;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: #2c3e50;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+      background-color: #e8f0fe;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content .content-wrapper {
+      display: flex;
+      max-width: 1200px;
+      margin: auto;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+      flex-direction: row;
+      padding: 60px 20px;
+    }
+
+    .tab-content .content-wrapper.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .tab-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .tab-image {
+      flex: 1 1 45%;
+      min-width: 300px;
+    }
+
+    .tab-text {
+      flex: 1 1 50%;
+      min-width: 300px;
+      color: #2d2a32;
+      padding: 20px;
+      background-color: #f7f9fc;
+      border-left: 4px solid #2784ee;
+      border-bottom: 4px solid #1a237e;
+      border-radius: 12px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .tab-text:hover {
+      background-color: #ebeff7;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .tab-text h2 {
+      font-size: 32px;
+      color: #1a237e;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #c5cae9;
+      padding-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .tab-text p,
+    .tab-text ul {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .tab-text ul {
+      padding-left: 20px;
+    }
+
+    blockquote {
+      font-style: italic;
+      margin-top: 15px;
+      color: #444;
+    }
+
+
+    @media (max-width: 768px) {
+      .tab-content .content-wrapper,
+      .tab-content .content-wrapper.reverse {
+        flex-direction: column;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="hero-background-wrapper">
+<!-- ✅ Sticky Nav copied from index.html -->
+<section>
+  <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-left').classList.toggle('open');
+      document.querySelector('.nav-right').classList.toggle('open');
+    }
+  </script>
+  <nav class="sticky-nav">
+    <ul class="nav-left">
+      <li class="dropdown">
+        <a href="index.html" class="dropbtn">Home</a>
+        <div class="dropdown-horizontal-with-line">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="#">About</a>
+            <a href="mission.html">Mission</a>
+            <a href="vision.html">Vision</a>
+          </div>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Services</a>
+        <div class="dropdown-horizontal">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="Investment.html">Investment Advisory</a>
+            <a href="analytics.html">Analytics & Reports</a>
+            <a href="#">Estate Plan</a>
+            <a href="#">Philanthropy</a>
+          </div>
+        </div>
+      </li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+    <span class="brand">Tattva Capital</span>
+    <ul class="nav-right">
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Login</a>
+        <div class="dropdown-content">
+          <a href="login-employee.html">Employee</a>
+          <a href="login-client.html">Client</a>
+          <a href="B-p login.html">Business Partner</a>
+        </div>
+      </li>
+      <li><a href="contact.html" target="_blank">Contact Us</a></li>
+    </ul>
+  </nav>
+
+
+<!-- Hero Section -->
+<div class="hero">
+  <h1>“Wealth with Wisdom. Planning with Purpose.”</h1>
+</section>
+</div>
+</div>
+<!-- Tab Navigation -->
+<nav class="tab-nav">
+  <div class="tab-btn active" onclick="showTab('who', event)">Who We Are</div>
+  <div class="tab-btn" onclick="showTab('story', event)">Our Story</div>
+  <div class="tab-btn" onclick="showTab('values', event)">Our Core Values</div>
+  <div class="tab-btn" onclick="showTab('team', event)">Our Team</div>
+</nav>
+
+<!-- Tab Content Sections -->
+<section id="who" class="tab-content active">
+  <div class="content-wrapper">
+    <div class="tab-image">
+      <img src="https://source.unsplash.com/900x600/?business,people" alt="Who We Are" />
+    </div>
+    <div class="tab-text">
+      <h2>Who We Are</h2>
+      <p>
+        At <strong>TIAS (Tattva Investment Advisory Services)</strong>, we don’t just manage wealth—we partner with you to build a financial life that reflects your goals, values, and vision.
+      </p>
+      <p>
+        With decades of experience and deep market insights, we provide personalized, ethical, and future-focused wealth management solutions that empower individuals, families, and entrepreneurs to make smarter financial decisions.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="story" class="tab-content">
+  <div class="content-wrapper reverse">
+    <div class="tab-image">
+      <img src="our story.png" alt="Our Story" />
+    </div>
+    <div class="tab-text">
+      <h2>Our Story</h2>
+      <p>Founded in 2015 by seasoned financial professionals, TIAS was born from a belief that true wealth is not just money—it’s freedom, legacy, and peace of mind.</p>
+      <p>From humble beginnings to becoming a trusted advisor to clients across India and abroad, we’ve stayed committed to one thing—putting clients first. Always.</p>
+    </div>
+  </div>
+</section>
+
+<section id="values" class="tab-content">
+  <div class="content-wrapper">
+    <div class="tab-image">
+      <img src="https://www.investopedia.com/thmb/WI1NxrgDw_g3JjtiJP3kiPvnoZU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/5KeyInvestmentStrategiestoLearnBeforeTrading_final-9d7b3680b134437996eb36592186314f.png" alt="Our Core Values" />
+    </div>
+    <div class="tab-text">
+      <h2>Our Core Values</h2>
+      <ul>
+        <li><strong>Integrity</strong> – Upholding the highest standards of ethics, transparency, and accountability.</li>
+        <li><strong>Client-Centricity</strong> – Your goals guide our strategy. We listen, adapt, and advise with care.</li>
+        <li><strong>Excellence</strong> – Data-backed decisions, robust planning, and continuous learning drive our performance.</li>
+        <li><strong>Stewardship</strong> – Helping you grow, protect, and pass on your wealth responsibly.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="team" class="tab-content">
+  <div class="content-wrapper reverse">
+    <div class="tab-image">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGPBWm61IYYIudBNvUtBXsM7Ha_lFZ8c1UGA&s" alt="Our Team" />
+    </div>
+    <div class="tab-text">
+      <h2>Our Team</h2>
+      <p>Behind every successful plan is a dedicated advisor. Our team includes certified financial planners, investment experts, and tax professionals working together for your success.</p>
+      <p>We combine technical expertise with human connection to build trusted, long-lasting relationships.</p>
+      <blockquote>“People don’t care how much you know until they know how much you care.” – Theodore Roosevelt</blockquote>
+    </div>
+  </div>
+</section>
+
+<script>
+  function showTab(id, event) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-btn');
+    tabs.forEach((tab) => tab.classList.remove('active'));
+    buttons.forEach((btn) => btn.classList.remove('active'));
+
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Dropdown + navbar transparency logic
+  document.querySelectorAll('.dropdown').forEach(dropdown => {
+    let timer;
+    dropdown.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      dropdown.classList.add('open');
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => {
+        dropdown.classList.remove('open');
+      }, 300);
+    });
+  });
+
+  const nav = document.querySelector('.sticky-nav');
+  const dropdowns = document.querySelectorAll('.dropdown');
+  nav.classList.add('transparent');
+
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('mouseenter', () => {
+      nav.classList.remove('transparent');
+      nav.classList.add('solid');
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      nav.classList.remove('solid');
+      nav.classList.add('transparent');
+    });
+  });
+
+  nav.addEventListener('mouseenter', () => {
+    if (!nav.classList.contains('solid')) {
+      nav.classList.add('transparent');
+    }
+  });
+</script>
+</body>
+</html>

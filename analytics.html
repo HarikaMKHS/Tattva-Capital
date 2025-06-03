@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analytics & Reports</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    .hero-section {
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-section img {
+      width: 100%;
+      height: 600px;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+
+    .hero-section p {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 1.6rem;
+      font-weight: 600;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .content-section {
+      background-color: #e8f0fe;
+      padding: 40px 10%;
+    }
+
+    .content-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .left-heading {
+      flex: 1;
+      text-align: left;
+      font-size: 2rem;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .right-info {
+      flex: 2;
+      text-align: right;
+      font-size: 1.1rem;
+      color: #f4efef;
+      background-color: rgba(0, 40, 85, 0.8); /* Dark blue with transparency */
+      max-width: 600px;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      max-width: 600px;
+    }
+
+    .separator {
+      width: 100%;
+      border-top: 2px solid #ccc;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 768px) {
+      .content-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .left-heading,
+      .right-info {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="hero-background-wrapper">
+<section>
+  <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
+  <script>
+    function toggleMenu() {
+      document.querySelector('.nav-left').classList.toggle('open');
+      document.querySelector('.nav-right').classList.toggle('open');
+    }
+  </script>
+  <nav class="sticky-nav">
+    <ul class="nav-left">
+      <li class="dropdown">
+        <a href="index.html" class="dropbtn">Home</a>
+        <div class="dropdown-horizontal-with-line">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="aboutus.html">About</a>
+            <a href="mission.html">Mission</a>
+            <a href="vision.html">Vision</a>
+          </div>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Services</a>
+        <div class="dropdown-horizontal">
+          <div class="separator-line"></div>
+          <div class="submenu-items">
+            <a href="Investment.html">Investment Advisory</a>
+            <a href="#">Analytics & Reports</a>
+            <a href="estate.html">Estate Plan</a>
+            <a href="#">Philanthropy</a>
+          </div>
+        </div>
+      </li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+    <span class="brand">Tattva Capital</span>
+    <ul class="nav-right">
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Login</a>
+        <div class="dropdown-content">
+          <a href="login-employee.html">Employee</a>
+          <a href="login-client.html">Client</a>
+          <a href="B-p login.html">Business Partner</a>
+        </div>
+      </li>
+      <li><a href="contact.html" target="_blank">Contact Us</a></li>
+    </ul>
+  </nav>
+</section>
+</div>
+  <!-- Hero Section with Overlaid Statement -->
+  <section class="hero-section">
+    <img src="https://aicdn.picsart.com/cfb0268c-b697-462e-8f38-5de55f973308.png" alt="Analytics Overview">
+    <p>"Empowering informed decisions through in-depth analysis and reliable reporting."</p>
+  </section>
+
+  <!-- Analytics & Reports Section -->
+  <section class="content-section">
+    <div class="content-inner">
+      <h2 class="left-heading">Analytics & Reports</h2>
+      <p class="right-info">
+        Our team of qualified, dedicated professionals is committed to thoroughly researching, analyzing, and delivering accurate and insightful reports for our valued and trusted clients. We strive to provide the best information—promptly and proactively—to support your financial decisions.
+      </p>
+    </div>
+    <div class="separator"></div>
+  </section>
+<script>
+  function showTab(id, event) {
+    const tabs = document.querySelectorAll('.tab-content');
+    const buttons = document.querySelectorAll('.tab-btn');
+    tabs.forEach((tab) => tab.classList.remove('active'));
+    buttons.forEach((btn) => btn.classList.remove('active'));
+
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Dropdown + navbar transparency logic
+  document.querySelectorAll('.dropdown').forEach(dropdown => {
+    let timer;
+    dropdown.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      dropdown.classList.add('open');
+    });
+    dropdown.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => {
+        dropdown.classList.remove('open');
+      }, 300);
+    });
+  });
+
+  const nav = document.querySelector('.sticky-nav');
+  const dropdowns = document.querySelectorAll('.dropdown');
+  nav.classList.add('transparent');
+
+  dropdowns.forEach(dropdown => {
+    dropdown.addEventListener('mouseenter', () => {
+      nav.classList.remove('transparent');
+      nav.classList.add('solid');
+    });
+
+    dropdown.addEventListener('mouseleave', () => {
+      nav.classList.remove('solid');
+      nav.classList.add('transparent');
+    });
+  });
+
+  nav.addEventListener('mouseenter', () => {
+    if (!nav.classList.contains('solid')) {
+      nav.classList.add('transparent');
+    }
+  });
+</script>
+</body>
+</html>
