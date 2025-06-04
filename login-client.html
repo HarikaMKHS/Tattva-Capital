@@ -329,35 +329,53 @@ function resetPassword() {
           </div>
         </div>
       </form>
+      <p id="loginMessage" style="color: green; font-weight: bold; margin-top: 10px;"></p>
     </div>
   </div>
+
 
   <script>
   const BACKEND_URL = "https://tattva-capital.onrender.com";  // Replace with your actual Render URL
 
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData.entries());
 
-    fetch(`${BACKEND_URL}/validate-client`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(response => {
-      if (response.success) {
-        alert('Login successful!');
+  fetch(`${BACKEND_URL}/validate-client`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("Network response was not OK");
+    return res.json();
+  })
+  .then(response => {
+    const msgEl = document.getElementById("loginMessage");
+
+    if (response.success) {
+      msgEl.style.color = "green";
+      msgEl.textContent = `Login successful! Client ID: ${response.client_id || "unavailable"}`;
+      
+      // Redirect after 2 seconds
+      setTimeout(() => {
         window.location.href = 'Margin calculator.html';
-      } else {
-        alert('Invalid credentials or not a client.');
-      }
-    })
-    .catch(err => {
-      alert('Error: ' + err);
-    });
+      }, 2000);
+    } else {
+      msgEl.style.color = "red";
+      msgEl.textContent = "Invalid credentials or not a client.";
+    }
+  })
+  .catch(err => {
+    const msgEl = document.getElementById("loginMessage");
+    msgEl.style.color = "red";
+    msgEl.textContent = "Error: " + err.message;
+    console.error("Login Error:", err);
   });
+});
+
+
 
   function showForgotForm() {
     document.getElementById("forgotForm").style.display = "block";

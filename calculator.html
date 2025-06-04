@@ -1,72 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Our Mission</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculator</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: white;
-      padding-top: 0px;   /*for fixed navbar */
-    }
-    .mission-section {
-      position: relative;
-      background-image: url('mission.png');
-      background-size: cover;
-      background-position: center;
-      height: 100vh; /* Full viewport height */
-      color: white;
-      display: flex;
-      align-items: center; /* Vertically center */
-      justify-content: flex-start; /* Left align */
-      padding: 0 5%; /* Horizontal padding only */
-    }
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 1;
-    }
-    .content {
-      position: relative;
-      z-index: 2;
-      max-width: 35%;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 40px;
-      border-radius: 12px;
-      backdrop-filter: blur(6px);
-      text-align: left;
-    }
-    .quote {
-      font-style: italic;
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-    }
-    .mission-text {
-      font-size: 1.1rem;
-      line-height: 1.6;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding-top: 0px;  
     }
 
-    @media (max-width: 768px) {
-      .content {
-        max-width: 90%;
-        padding: 20px;
-      }
-      .quote {
-        font-size: 1.2rem;
-      }
-      .mission-text {
-        font-size: 1rem;
-      }
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 150px 60px;
+      background-image: url('https://aicdn.picsart.com/a1789188-7ff7-41d5-a82c-556551881f17.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: white;
+      text-align: center;
     }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5); /* dark overlay for readability */
+      z-index: 0;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    .hero-text h1 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+    }
+
+    /* Second Section (no change) */
   </style>
 </head>
 <body>
-    <div class="hero-background-wrapper">
+<div class="hero-background-wrapper">
 <section>
   <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
   <script>
@@ -83,7 +71,7 @@
           <div class="separator-line"></div>
           <div class="submenu-items">
             <a href="aboutus.html">About</a>
-            <a href="#">Mission</a>
+            <a href="mission.html">Mission</a>
             <a href="vision.html">Vision</a>
           </div>
         </div>
@@ -97,7 +85,7 @@
             <a href="analytics.html">Analytics & Reports</a>
             <a href="estate.html">Estate Plan</a>
             <a href="philonthropy.html">Philanthropy</a>
-            <a href="calculator.html">Calculator</a>
+            <a href="#">Calculator</a>
           </div>
         </div>
       </li>
@@ -116,20 +104,38 @@
       <li><a href="contact.html" target="_blank">Contact Us</a></li>
     </ul>
   </nav>
-
-
-  <div class="mission-section">
-    <div class="overlay"></div>
-    <div class="content">
-      <div class="quote">"Empowering every step toward financial confidence and well-being."</div>
-      <div class="mission-text">
-        Our mission is to deliver trusted, client-centric wealth management and advisory solutions that not only help individuals and businesses grow but also uplift financially underserved communities—empowering every client, regardless of their starting point, to achieve financial well-being, confidence, and a brighter future.
-      </div>
-    </div>
-    </div>
+</section>
 </div>
+
+  <!-- Hero Section with Background Image -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>"Precision at Your Fingertips<br> – Every Calculation, Every Time."</h1>
+      <p></p>
+    </div>
   </section>
-  <script>
+
+  <!-- Second Section -->
+  <section style="display: flex; align-items: center; justify-content: space-between; padding: 0px 50px 40px 90px; background-color:#e8f0fe; gap: 30px;">
+    <div style="flex: 1; min-width: 300px; max-width: 600px; padding: 20px;">
+      <h2 style="font-size: 36px; color: #1a237e; margin-bottom: 30px; text-align:left;">Smarter Investing Starts Here</h2>
+      <p style="font-size: 18px; color: #333; margin-bottom: 30px;">
+        Use our intuitive SIP and Retirement Calculators to plan your financial journey. 
+        These tools give you the clarity and confidence to make informed investment decisions.
+      </p>
+      <a href="sip.html" style="display: inline-block; margin-right: 20px; padding: 12px 24px; background-color: #1976d2; color: #fff; border-radius: 6px; text-decoration: none;">SIP Calculator</a>
+      <a href="retirement.html" style="display: inline-block; padding: 12px 24px; background-color: #1976d2; color: #fff; border-radius: 6px; text-decoration: none;">Retirement Calculator</a>
+    </div>
+
+    <div style="flex: 1; min-width: 500px; max-width: 500px; padding: 40px; text-align: center;">
+      <a href="sip.html" target="_blank">
+        <img src="https://media.gettyimages.com/id/1428165420/photo/finance-calculator.jpg?s=612x612&w=0&k=20&c=WLmNSLA0mHoqfUn6wJImMHPn9Ns62xMeQteOtkvS_-s=" 
+             alt="Investment Calculator" 
+             style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); cursor: pointer;">
+      </a>
+    </div>
+  </section>
+<script>
   function showTab(id, event) {
     const tabs = document.querySelectorAll('.tab-content');
     const buttons = document.querySelectorAll('.tab-btn');

@@ -8,18 +8,45 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f0f6ff;
+      background-color: #a1cef3;
       margin: 0;
       padding: 40px;
     }
-    .contact-container {
+    /*.contact-container {
       max-width: 600px;
       margin: auto;
-      background: white;
+      background-image: url('https://aicdn.picsart.com/db539e92-68a1-4cd4-b532-83dc683158cf.png');
+      background-size: cover;
+      background-color: white;
       padding: 30px;
       border-radius: 12px;
+      
       box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
+    }*/
+    .contact-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 30px;
+  border-radius: none;
+  position: relative;
+  /*background-color: white;  Keeps form content solid */
+  box-shadow:none;
+  border: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/*.contact-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('https://aicdn.picsart.com/db539e92-68a1-4cd4-b532-83dc683158cf.png');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4; /* Image transparency 
+  z-index: -1;
+}*/
     h2 {
       text-align: center;
       color: #1a237e;
@@ -30,22 +57,29 @@
       margin-bottom: 20px;
     }
     .email-info img {
-      width: 30px;
+      width: 40px;
       margin-right: 10px;
     }
-    label {
+    form {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+    form label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 16px;
-    }
+    form input, form textarea, form select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+
     button {
       margin-top: 20px;
       padding: 12px 20px;
@@ -71,10 +105,12 @@
   text-align: center;
 }
 
-.home-button:hover {
+    .home-button:hover {
   background-color: #008f6b;
 }
-
+  #fileUploadSection {
+    display: none;
+  }
   </style>
 </head>
 <body>
@@ -82,32 +118,50 @@
     <h2>Contact Us</h2>
     <div class="email-info">
       <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
-      <span>Send queries to: <strong>harikabhk@gmail.com</strong></span>
+      <span>Send queries to: <strong>query.tattvainvestmentadvisory.com</strong></span>
     </div>
+    <form action="https://formsubmit.co/query.tattvainvestmentadvisory.com" method="POST" enctype="multipart/form-data" id="contactForm">
+  <input type="hidden" name="_subject" value="New Query from Tattva Capital Site!">
+  <input type="hidden" name="_captcha" value="true">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_redirect" value="https://harikamkhs.github.io/Tattva-capital/">
+
+  <label for="fullName">Full Name</label>
+  <input type="text" name="Full Name" id="fullName" placeholder="John Doe" required>
+
+  <label for="email">Your Email</label>
+  <input type="email" name="Email" id="email" placeholder="yourname@example.com" required>
+
+  <label for="mobile">Mobile Number</label>
+  <input type="tel" name="Mobile" id="mobile" placeholder="9876543210" required>
+
+  <label for="query">Your Query</label>
+  <textarea name="Query" id="query" rows="5" placeholder="Type your message here..." ></textarea>
+
+  <label for="fileOption">Do you want to submit any files?</label>
+  <select name="File Option" id="fileOption" onchange="toggleFileInput(this)">
+    <option value="No">No</option>
+    <option value="Yes">Yes</option>
+  </select>
+
+  <div id="fileUploadSection" style="display:none;">
+    <label for="uploadedFile">Upload File</label>
+    <input type="file" name="attachment" id="uploadedFile" />
+  </div>
+
+  <button type="submit">Submit</button>
+  <a href="https://harikamkhs.github.io/Tattva-capital/" class="home-button">Go To Home</a>
+</form>
     
-    <form action="https://formsubmit.co/harikabhk@gmail.com" method="POST">
-      <!-- Existing hidden inputs -->
-      <input type="hidden" name="_subject" value="New Query from Tattva Capital Site!">
-      <input type="hidden" name="_captcha" value="True">
-      <input type="hidden" name="_template" value="table">
-
-      <!-- ✅ Add this to redirect after submission -->
-      <input type="hidden" name="_redirect" value="https://harikamkhs.github.io/Tattva-capital/" onclick="redirectToHome()">
-
-      <!-- Visible form fields -->
-      <label for="email">Your Email</label>
-      <input type="email" name="user_email" id="email" placeholder="yourname@example.com" required>
-
-      <label for="query">Your Query</label>
-      <textarea name="query" id="query" rows="6" required></textarea>
-
-      <button type="submit" onclick="https://harikamkhs.github.io/Tattva-capital/">Submit</button>
-      <a href="https://harikamkhs.github.io/Tattva-capital/" class="home-button">Go To Home</a>
-
-    </form>
 
   </div>
 
+  <script>
+  function toggleFileInput(select) {
+    const fileSection = document.getElementById("fileUploadSection");
+    fileSection.style.display = select.value === "Yes" ? "block" : "none";
+  }
+</script>
 
   <script>
     // Target the form and confirmation elements

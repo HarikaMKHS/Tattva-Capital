@@ -7,6 +7,9 @@ import random
 from email.message import EmailMessage
 from flask_sqlalchemy import SQLAlchemy
 from models import db, User  
+import mysql.connector
+import bcrypt
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -39,22 +42,23 @@ def register_user():
     # Add and commit to DB
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({"status": "success"})
+    return jsonify({"status": "success", "message": "User registered successfully!"})
 
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
     data = request.get_json()
-    username = data.get("username")
-    password = data.get("password")
+    username = data.get('username')
+    password = data.get('password')
 
-    user = User.query.filter_by(username=username, role="client").first()
-    if user and user.check_password(password):
-        return jsonify({"success": True})
+    # Fetch user from database
+    user = db.execute("SELECT * FROM clients WHERE username = %s AND password = %s", (username, password)).fetchone()
+
+    if user:
+        return jsonify({"success": True, "client_id": user["client_id"]})  # or user["client_id"]
     else:
         return jsonify({"success": False})
 
-
-
+    
 
 @app.route('/validate-login', methods=['POST'])
 def validate_login():

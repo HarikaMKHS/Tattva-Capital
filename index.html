@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tattva Capital</title>
   <link rel="stylesheet" href="styles.css"/>
-  <style>
+  <!--style>
   body {
-  background-image: url('https://www.shutterstock.com/image-photo/asia-stock-trader-agent-sale-260nw-2102130433.jpg'); /* or full URL */
+  background-image: url('https://media.istockphoto.com/id/1383796215/photo/silhouette-of-man-holding-binoculars-on-mountain-peak-against-bright-sunlight-sky-background.jpg?s=612x612&w=0&k=20&c=Y1bdRKzRcs6DVSPjqAn3fVQIdkrA-s1-uWHvnFviCOQ='); /* or full URL */
   background-size: cover;          /* ensures it fills the screen */
   background-repeat: no-repeat;    /* prevents tiling */
   background-position: center;     /* centers the image */
@@ -15,7 +15,38 @@
   margin: 0; /* ensure body fills the screen */
   padding: 0;
 }
+
+
+</style-->
+<style>
+  .hero {
+  padding-top: 0 !important;
+}
+
+main.hero {
+  margin-top: 0 !important;
+}
+
+ .hero-section {
+  background-image: url('https://media.istockphoto.com/id/1383796215/photo/silhouette-of-man-holding-binoculars-on-mountain-peak-against-bright-sunlight-sky-background.jpg?s=612x612&w=0&k=20&c=Y1bdRKzRcs6DVSPjqAn3fVQIdkrA-s1-uWHvnFviCOQ=');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  height: 70vh;           /* Ensures full height of screen */
+  padding: 0 80px 120px;   /* ✅ no top padding */
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* ✅ Vertically center content */
+}
+.hero-content {
+  padding-top: 130px;
+}
+
 </style>
+
 </head>
 <body>
   <section>
@@ -32,9 +63,10 @@
       <div class="dropdown-horizontal-with-line">
         <div class="separator-line"></div>
         <div class="submenu-items">
-          <a href="aboutus.html">About</a>
-          <a href="mission.html">Mission</a>
-          <a href="vision.html">Vision</a>
+          <a href="#abouttab">About</a>
+          <a href="#mission-section">Mission</a>
+          <a href="#vision-section">Vision</a>
+
         </div>
       </div>
     </li>
@@ -47,6 +79,7 @@
       <a href="analytics.html">Analytics & Reports</a>
       <a href="estate.html">Estate Plan</a>
       <a href="philonthropy.html">Philanthropy</a>
+      <a href="calculator.html">Calculator</a>
     </div>
   </div>
 </li>
@@ -66,9 +99,10 @@
   </ul>
 </nav>
 
-  <main class="hero">
-    <h1>Trade smart, not often —<br> and let your capital do the compounding.</h1>
-    <p>Your journey to financial growth starts here.</p>
+  <main class="hero hero-section">
+     <div class="hero-content">
+    <h1>"Vision is the art of seeing what is invisible to others."</h1>
+    <p> – Jonathan Swift</p>
     <!--<a href="https://live.meon.co.in/lkpsec/individual_rm?YnJhbmNoX3JlZmVyZW5jZV9jb2RlPUI4MzAz" class="get-started-btn">Get started</a>
 
      Correct Search Container -->
@@ -88,64 +122,131 @@
         </div>
         <div class="tab-content" id="tabContent"></div>
       </div>
+      </div>
     </div>
 
     <iframe id="calculatorFrame" src="" style="width: 100%; height: 700px; border: none; display: none;"></iframe>
   </main>
   </section>
-  <section id="services" style="padding: 50px 90px; background: #e8f0fe;">
-  <h2 style="font-size: 28px; margin-bottom: 10px; text-align: left;">Explore Investment Options</h2>
-  <p style="margin-bottom: 30px; color: #666; text-align: left;">Choose how you want to grow your money.</p>
+  
+<div id="abouttab">
+<!-- Tab Navigation -->
+<nav class="tab-nav">
+  <div class="tab-btn active" onclick="showSectionTab('who', event)">Who We Are</div>
+  <div class="tab-btn" onclick="showSectionTab('story', event)">Our Story</div>
+  <div class="tab-btn" onclick="showSectionTab('values', event)">Our Core Values</div>
+  <div class="tab-btn" onclick="showSectionTab('team', event)">Our Team</div>
+</nav>
 
-  <div class="zigzag-card">
-    <div class="zigzag-image" style="background-image: url('https://cdn.pixabay.com/photo/2017/08/18/18/56/dices-over-newspaper-2656028_1280.jpg');"></div>
-    <div class="zigzag-content">
-      <h3>Stocks & Intraday</h3>
-      <p>Trade and invest in the Indian stock market in real-time.</p>
+
+
+<!-- Tab Content Sections -->
+<section id="who" class="tab-content active blue-section">
+  <div class="content-wrapper">
+    <div class="tab-image">
+      <img src="https://source.unsplash.com/900x600/?business,people" alt="Who We Are" />
     </div>
-  </div>
-
-  <div class="zigzag-card">
-    <div class="zigzag-image" style="background-image: url('https://media.istockphoto.com/id/1556389414/video/man-using-a-laptop-double-exposure-with-business-data-analytics-dashboard.avif?s=640x640&k=20&c=dG7--W8MQuUsuVTaYg7kplrnAkNUoeH6u02Nn_SCwfE=');"></div>
-    <div class="zigzag-content">
-      <h3><u>Analytical Reports</u></h3>
-      <p>Get comprehensive insights and data-driven reports to make better trading decisions.</p>
-      <p>Track market movements, key indices, and performance metrics to stay updated with the latest trends.</p>
-
-    </div>
-  </div>
-
-  <div class="zigzag-card">
-    <div class="zigzag-image" style="background-image: url('https://media.istockphoto.com/id/1487894858/photo/candlestick-chart-and-data-of-financial-market.jpg?s=612x612&w=0&k=20&c=wZ6vVmbm4BV2JOePSnNNz-0aFVOJZ0P9nhdeOMGUg5I=');"></div>
-    <div class="zigzag-content">
-      <h3>Futures & Options</h3>
-      <p>Advanced trading with margin and leverage tools.</p>
+    <div class="tab-text">
+      <h2>Who We Are</h2>
+      <p>At <strong>TIAS (Tattva Investment Advisory Services)</strong>, we don’t just manage wealth—we partner with you to build a financial life that reflects your goals, values, and vision.</p>
+      <p>With decades of experience and deep market insights, we provide personalized, ethical, and future-focused wealth management solutions that empower individuals, families, and entrepreneurs to make smarter financial decisions.</p>
     </div>
   </div>
 </section>
 
-  <section style="display: flex; align-items: center; justify-content: space-between; padding: 40px 50px 40px 90px; background-color:#e8f0fe; gap: 30px;">
-
-  <!-- Text Column -->
-  <div style="flex: 1; min-width: 300px; max-width: 600px; padding: 20px;">
-    <h2 style="font-size: 36px; color: #1a237e; margin-bottom: 20px; text-align:left;">Smarter Investing Starts Here</h2>
-    <p style="font-size: 18px; color: #333; margin-bottom: 30px;">
-      Use our intuitive SIP and Margin Calculators to plan your financial journey. 
-      These tools give you the clarity and confidence to make informed investment decisions.
-    </p>
-    <a href="sip.html"style="display: inline-block; margin-right: 20px; padding: 12px 24px; background-color: #1976d2; color: #fff; border-radius: 6px; text-decoration: none;">SIP Calculator</a>
-    <a href="retirement.html" style="display: inline-block; padding: 12px 24px; background-color: #1976d2; color: #fff; border-radius: 6px; text-decoration: none;">Retirement Calculator</a>
-  </div>
-
-  <!-- Image Column -->
-  <div style="flex: 1; min-width: 500px; max-width: 500px; padding: 40px; text-align: center;">
-    <a href="sip.html" target="_blank">
-      <img src="https://media.gettyimages.com/id/1428165420/photo/finance-calculator.jpg?s=612x612&w=0&k=20&c=WLmNSLA0mHoqfUn6wJImMHPn9Ns62xMeQteOtkvS_-s=" 
-           alt="Investment Calculator" 
-           style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); cursor: pointer;">
-    </a>
+<section id="story" class="tab-content blue-section">
+  <div class="content-wrapper reverse">
+    <div class="tab-image">
+      <img src="our story.png" alt="Our Story" />
+    </div>
+    <div class="tab-text">
+      <h2>Our Story</h2>
+      <p>Founded in 2015 by seasoned financial professionals, TIAS was born from a belief that true wealth is not just money—it’s freedom, legacy, and peace of mind.</p>
+      <p>From humble beginnings to becoming a trusted advisor to clients across India and abroad, we’ve stayed committed to one thing—putting clients first. Always.</p>
+    </div>
   </div>
 </section>
+
+<section id="values" class="tab-content blue-section">
+  <div class="content-wrapper">
+    <div class="tab-image">
+      <img src="https://www.investopedia.com/thmb/WI1NxrgDw_g3JjtiJP3kiPvnoZU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/5KeyInvestmentStrategiestoLearnBeforeTrading_final-9d7b3680b134437996eb36592186314f.png" alt="Our Core Values" />
+    </div>
+    <div class="tab-text">
+      <h2>Our Core Values</h2>
+      <ul>
+        <li><strong>Integrity</strong> – Upholding the highest standards of ethics, transparency, and accountability.</li>
+        <li><strong>Client-Centricity</strong> – Your goals guide our strategy. We listen, adapt, and advise with care.</li>
+        <li><strong>Excellence</strong> – Data-backed decisions, robust planning, and continuous learning drive our performance.</li>
+        <li><strong>Stewardship</strong> – Helping you grow, protect, and pass on your wealth responsibly.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="team" class="tab-content blue-section">
+  <div class="content-wrapper reverse">
+    <div class="tab-image">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGPBWm61IYYIudBNvUtBXsM7Ha_lFZ8c1UGA&s" alt="Our Team" />
+    </div>
+    <div class="tab-text">
+      <h2>Our Team</h2>
+      <p>Behind every successful plan is a dedicated advisor. Our team includes certified financial planners, investment experts, and tax professionals working together for your success.</p>
+      <p>We combine technical expertise with human connection to build trusted, long-lasting relationships.</p>
+      <blockquote>“People don’t care how much you know until they know how much you care.” – Theodore Roosevelt</blockquote>
+    </div>
+  </div>
+</section>
+</div>
+<hr class="section-separator">
+
+<!-- START: Mission Section -->
+<section id="mission-section" style="padding: 60px 90px; background-color: #a1cef3;">
+  <div class="zigzag-card">
+    <div class="zigzag-image" style="background-image: url('https://aicdn.picsart.com/2e13e5e6-0547-4939-a0c5-53d3ca78f1f6.png'); min-height: 400px;"></div>
+    <div class="zigzag-content" style="background-color: #f7f9fc; border-left: 4px solid #2784ee; border-bottom: 4px solid #1a237e; border-radius: 12px; padding: 24px;">
+      <h3>Our Mission</h3>
+      <p><em>"Empowering every step toward financial confidence and well-being."</em></p>
+      <p>Our mission is to deliver trusted, client-centric wealth management and advisory solutions that not only help individuals and businesses grow but also uplift financially underserved communities—empowering every client, regardless of their starting point, to achieve financial well-being, confidence, and a brighter future.</p>
+    </div>
+  </div>
+</section>
+<hr class="section-separator">
+<!-- START: Vision Section -->
+<section id="vision-section" style="padding: 60px 90px; background-color:#a1cef3;">
+  <div class="zigzag-card">
+    <div class="zigzag-content" style="background-color: #f7f9fc; border-left: 4px solid #2784ee; border-bottom: 4px solid #1a237e; border-radius: 12px; padding: 24px;">
+      <h3>Our Vision</h3>
+      <p><em>"Vision is the art of seeing what is invisible to others." – Jonathan Swift</em></p>
+      <p>To establish ourselves as a highly respected and trusted name in the wealth management and advisory industry, while also serving as a catalyst for financial empowerment among underserved communities—bridging the gap through inclusive initiatives that promote growth, stability, and long-term well-being.</p>
+    </div>
+    <div class="zigzag-image" style="background-image: url('https://aicdn.picsart.com/f9e3c6e9-5020-4220-a5be-a335b26c3816.png'); min-height: 400px;"></div>
+  </div>
+</section>
+
+<section class="investment-interest-section">
+  <div class="investment-wrapper">
+    <div class="investment-text">
+      <h2>Curious About Investing?</h2>
+      <p>Whether you're wondering <strong>“What is the stock market?”</strong> or exploring how to start investing, you're in the right place.</p>
+      <p>Investing is more than just numbers—it's about <strong>growing your wealth, securing your future,</strong> and making informed financial decisions.</p>
+      <p>At Tattva Capital, we believe financial literacy is the first step. We’re here to simplify concepts like <strong>equity, mutual funds, ETFs, F&O and more</strong>.</p>
+      <p>Let’s embark on a journey toward smarter money decisions—together.</p>
+      <a href="Investment.html" class="explore-btn">Explore Investment Solutions</a>
+    </div>
+  </div>
+</section>
+  
+
+<section class="cta-consultation">
+  <div class="cta-content">
+    <h2>Ready to Take Control of Your Future?</h2>
+    <p>Let’s start building your personalized wealth strategy today.</p>
+    <a href="contact.html" class="cta-btn">Book a Free Consultation</a>
+  </div>
+</section>
+
+
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -245,6 +346,24 @@
     }
   });
 </script>
+<script>
+  function showSectionTab(tabId, event) {
+    // Hide all content sections
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    // Show the selected section
+    document.getElementById(tabId).classList.add('active');
+    // Update active class on buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    if (event) {
+      event.target.classList.add('active');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    showSectionTab('who'); // Default visible
+  });
+</script>
+
 
 </body>
 </html>

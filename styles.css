@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #a1cef3;
   color: #2d2f3a;
 }
 
@@ -46,7 +46,7 @@ body {
 
 /* Hero section */
 .hero {
-  text-align: center;
+  text-align: left;
   padding: 100px 20px 60px;
 }
 
@@ -777,7 +777,7 @@ html {
 
 /* Make sure content doesn't go under fixed nav */
 body {
-  padding-top: 100px; /* Adjust to match nav height */
+  padding-top: 0px; /* Adjust to match nav height */
 }
 .sticky-nav {
   position: fixed;
@@ -950,3 +950,419 @@ main.hero {
     display: flex;
   }
 }
+
+
+
+ .tab-nav {
+      background: #fff;
+      padding: 15px 40px 15px 20px;
+      display: flex;
+      gap: 20px;
+      justify-content: flex-start;
+      margin-left: 0;
+      margin-top: 0;
+      border-bottom: 1px solid #ccc;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      border-radius: 6px;
+      background: #dce3ed;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: #2c3e50;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+      background-color: #e8f0fe;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content .content-wrapper {
+      display: flex;
+      max-width: 1200px;
+      margin: auto;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+      flex-direction: row;
+      padding: 60px 20px;
+    }
+
+    .tab-content .content-wrapper.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .tab-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .tab-image {
+      flex: 1 1 45%;
+      min-width: 300px;
+    }
+
+    .tab-text {
+      flex: 1 1 50%;
+      min-width: 300px;
+      color: #2d2a32;
+      padding: 20px;
+      background-color: #f7f9fc;
+      border-left: 4px solid #2784ee;
+      border-bottom: 4px solid #1a237e;
+      border-radius: 12px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .tab-text:hover {
+      background-color: #ebeff7;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .tab-text h2 {
+      font-size: 32px;
+      color: #1a237e;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #c5cae9;
+      padding-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .tab-text p,
+    .tab-text ul {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .tab-text ul {
+      padding-left: 20px;
+    }
+
+    blockquote {
+      font-style: italic;
+      margin-top: 15px;
+      color: #444;
+    }
+
+
+    @media (max-width: 768px) {
+      .tab-content .content-wrapper,
+      .tab-content .content-wrapper.reverse {
+        flex-direction: column;
+        text-align: left;
+      }
+    }
+
+
+    .blue-section {
+  background-color: #a1cef3;
+}
+/* Tab Navigation Bar */
+.tab-nav {
+  background: #fff;
+  padding: 15px 40px 15px 20px;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  margin-left: 0;
+  margin-top: 0;
+  border-bottom: 1px solid #ccc;
+  position: static;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Tab Buttons */
+.tab-btn {
+  padding: 10px 16px;
+  border-radius: 6px;
+  background: #dce3ed;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+  background: #2c3e50;
+  color: white;
+}
+
+/* Tab Content Wrapper */
+.tab-content {
+  display: none;
+  background-color: #e8f0fe;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Background Color Class */
+.blue-section {
+  background-color: #a1cef3;
+}
+
+/* Tab Section Layout */
+.tab-content .content-wrapper {
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: row;
+  padding: 60px 20px;
+}
+
+.tab-content .content-wrapper.reverse {
+  flex-direction: row-reverse;
+}
+
+.tab-image {
+  flex: 1 1 45%;
+  min-width: 300px;
+}
+
+.tab-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.tab-text {
+  flex: 1 1 50%;
+  min-width: 300px;
+  color: #2d2a32;
+  padding: 20px;
+  background-color:white;
+  border-left: 4px solid #2784ee;
+  border-bottom: 4px solid #1a237e;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.tab-text:hover {
+  background-color: #ebeff7;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+.tab-text h2 {
+  font-size: 32px;
+  color: #1a237e;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #c5cae9;
+  padding-bottom: 10px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.tab-text p,
+.tab-text ul {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #333;
+}
+
+.tab-text ul {
+  padding-left: 20px;
+}
+
+blockquote {
+  font-style: italic;
+  margin-top: 15px;
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  .tab-content .content-wrapper,
+  .tab-content .content-wrapper.reverse {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .tab-image img {
+    max-width: 100%;
+  }
+
+  .tab-text {
+    text-align: left;
+  }
+}
+
+
+.section-separator {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #1a237e, #2784ee);
+  margin: 0;
+  margin: 40px auto;         /* vertical spacing + center */
+  width: 80%;                /* leaves 10% gap on left and right */
+  border-radius: 2px;   
+}
+
+
+.investment-interest-section {
+   background-image: url('https://aicdn.picsart.com/533d16e8-5204-4192-9bdf-945bfa4c6489.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 20px;
+  position: relative;
+  color: white;
+}
+
+
+.investment-interest-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* Optional overlay for better readability */
+  z-index: 1;
+}
+
+.investment-wrapper {
+   position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: auto;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.1); /* optional subtle contrast */
+  padding: 40px;
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+}
+
+.investment-text {
+  flex: 1 1 500px;
+  font-size: 16px;
+  color: #1a237e;
+}
+
+.investment-text h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);font-size: 36px;
+  margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+
+.investment-text p {
+   font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+  color: #f0f0f0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.explore-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #1976d2;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.explore-btn:hover {
+  background-color: #0d47a1;
+}
+
+
+@media (max-width: 768px) {
+  .investment-wrapper {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .investment-text h2 {
+    font-size: 28px;
+  }
+
+  .investment-text p {
+    font-size: 16px;
+  }
+}
+
+
+
+
+
+.cta-consultation {
+  background: linear-gradient(to right, #e8f0fe, #f7f9fc);
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.cta-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #1a237e;
+}
+
+.cta-content p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  background-color: #1976d2;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #0d47a1;
+}
+@media (max-width: 768px) {
+  .cta-content h2 {
+    font-size: 26px;
+  }
+
+  .cta-content p {
+    font-size: 16px;
+  }
+
+  .cta-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
+

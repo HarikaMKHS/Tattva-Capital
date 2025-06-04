@@ -1,131 +1,129 @@
-<!--DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Add Credentials</title>
-</head>
-<body>
-  <h2>Add User Credentials</h2>
-  <form id="addForm">
-    <label>Email:</label>
-    <input type="email" name="email" required><br><br>
-    <label>Name:</label>
-    <input type="text" name="name" required><br><br>
-    <label>Client ID:</label>
-    <input type="text" name="clientId" required><br><br>
-    <label>Username:</label>
-    <input type="text" name="username" required><br><br>
-    <label>Password:</label>
-    <input type="password" name="password" required><br><br>
-    <label>Role:</label>
-    <select name="role" required>
-    <option value="client">Client</option>
-    <option value="employee">Employee</option>
-    <option value="partner">Business Partner</option>
-  </select>
-    
-    <button type="submit">Add</button>
-  </form>
-
-  <script>
-  document.getElementById('addForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
-
-    fetch('http://127.0.0.1:5000/save-to-excel', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => {
-  if (res.status === 409) {
-    alert('Username already exists.');
-  } else if (res.ok) {
-    alert('Credentials saved!');
-    document.getElementById('addForm').reset();
-  } else {
-    alert('Error saving credentials.');
-  }
-})
-    .catch(err => {
-      alert('Fetch error: ' + err);
-      console.error(err);
-    });
-  });
-</script>
-
-</body>
-</html-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Add Credentials</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    form {
+      margin-top: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    input {
+      margin-bottom: 10px;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <h2>Add User Credentials</h2>
-  <form id="registerForm">
-  <input type="email" id="email" placeholder="Email" required>Email<br>
-  <input type="text" id="name" placeholder="Name" required>Name<br>
-  <input type="text" id="clientId" placeholder="Client ID" required>Client-ID<br>
-  <input type="text" id="username" placeholder="Username" required>Username<br>
-  <input type="password" id="password" placeholder="Password" required>Password<br>
-  <input type="text" id="role" placeholder="Role (e.g., admin or client)" required><br>
-  <select name="role" required>
+  <h2>Select Role</h2>
+  <select id="roleSelect">
+    <option value="">-- Select Role --</option>
     <option value="client">Client</option>
     <option value="employee">Employee</option>
     <option value="partner">Business Partner</option>
   </select>
-  <button type="submit">Register</button>
 
-</form>
-
-  <hr><br>
-  <h2>Delete User</h2>
-  <form id="deleteForm">
-    <label>Username:</label>
-    <input type="text" id="deleteUsername" required>
-    <button type="button" onclick="deleteUser()">Delete User</button>
+  <!-- Client Form -->
+  <form id="clientForm" class="hidden">
+    <h3>Register Client</h3>
+    <input type="text" id="clientId" placeholder="Client ID" required>
+    <input type="text" id="clientName" placeholder="Name" required>
+    <input type="email" id="clientEmail" placeholder="Email" required>
+    <input type="text" id="clientUsername" placeholder="Username" required>
+    <input type="password" id="clientPassword" placeholder="Password" required>
+    <input type="password" id="clientConfirmPassword" placeholder="Confirm Password" required>
+    <button type="button" onclick="registerClient()">Register</button>
   </form>
 
- <script>
-document.getElementById("registerForm").addEventListener("submit", function (e) {
-    e.preventDefault();
+  <!-- Employee Form -->
+  <form id="employeeForm" class="hidden">
+    <h3>Register Employee</h3>
+    <input type="text" id="empName" placeholder="Name" required>
+    <input type="email" id="empEmail" placeholder="Email" required>
+    <input type="text" id="empUsername" placeholder="Username" required>
+    <input type="password" id="empPassword" placeholder="Password" required>
+    <input type="password" id="empConfirmPassword" placeholder="Confirm Password" required>
+    <button type="button" onclick="registerEmployee()">Register</button>
+  </form>
 
-    const userData = {
-        email: document.getElementById("email").value,
-        name: document.getElementById("name").value,
-        clientId: document.getElementById("clientId").value,
-        username: document.getElementById("username").value,
-        password: document.getElementById("password").value,
-        role: document.getElementById("role").value
-    };
+  <script>
+    const roleSelect = document.getElementById("roleSelect");
+    const clientForm = document.getElementById("clientForm");
+    const employeeForm = document.getElementById("employeeForm");
 
-    fetch("https://tattva-capital.onrender.com/register-user", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData)
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.status === "success") {
-            alert("User registered successfully!");
-        } else {
-            alert("Error: " + data.message);
-        }
-    })
-    .catch(err => {
-        console.error("Fetch error:", err);
-        alert("Failed to fetch");
+    roleSelect.addEventListener("change", () => {
+      const selectedRole = roleSelect.value;
+      clientForm.classList.add("hidden");
+      employeeForm.classList.add("hidden");
+
+      if (selectedRole === "client") {
+        clientForm.classList.remove("hidden");
+      } else if (selectedRole === "employee") {
+        employeeForm.classList.remove("hidden");
+      } else if (selectedRole === "partner") {
+        window.location.href = "https://www.google.com";
+      }
     });
-});
-</script>
 
+    function registerClient() {
+      const password = document.getElementById("clientPassword").value;
+      const confirm = document.getElementById("clientConfirmPassword").value;
+
+      if (password !== confirm) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      const clientData = {
+        role: "client",
+        clientId: document.getElementById("clientId").value,
+        name: document.getElementById("clientName").value,
+        email: document.getElementById("clientEmail").value,
+        username: document.getElementById("clientUsername").value,
+        password: password
+      };
+
+      fetch("https://tattva-capital.onrender.com/register-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(clientData)
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message || "Client registered!"))
+      .catch(err => alert("Error: " + err));
+    }
+
+    function registerEmployee() {
+      const password = document.getElementById("empPassword").value;
+      const confirm = document.getElementById("empConfirmPassword").value;
+
+      if (password !== confirm) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      const empData = {
+        role: "employee",
+        name: document.getElementById("empName").value,
+        email: document.getElementById("empEmail").value,
+        username: document.getElementById("empUsername").value,
+        password: password
+      };
+
+      fetch("https://tattva-capital.onrender.com/register-user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(empData)
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message || "Employee registered!"))
+      .catch(err => alert("Error: " + err));
+    }
+  </script>
 </body>
 </html>
