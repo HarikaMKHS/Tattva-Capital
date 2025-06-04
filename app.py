@@ -232,21 +232,8 @@ def upload_dashboard():
                         mf=mf,
                         re=re
                     )
-                
+                    
                     db.session.add(new_client)
-                    print("Adding dummy client...")
-                    new_client = ClientDashboard(
-                    client_code="TATTVA999",
-                 client_name="Test User",
-                    investment_date=datetime.now(),
-                    total_value=10000,
-                    portfolio_value=9500,
-                     return_pct=5.0,
-                    equity=3000,
-                    mf=4000,
-                    re=2500
-                    )
-            db.session.add(new_client)
 
             db.session.commit()
             return jsonify({'status': 'success', 'message': 'Dashboard uploaded successfully'})
