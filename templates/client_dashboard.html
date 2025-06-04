@@ -1,40 +1,56 @@
+<!-- templates/client_dashboard.html -->
 <!DOCTYPE html>
 <html>
 <head>
   <title>Client Dashboard</title>
-  <style>
-    body { font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 40px; }
-    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
-    .error { color: red; }
-    .dashboard { margin-top: 20px; }
-    .dashboard-item { margin-bottom: 10px; }
-    .label { font-weight: bold; }
-  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-<body>
-
-<div class="container">
-  <h2>Enter Client ID</h2>
+<body style="font-family: sans-serif; text-align: center;">
+  <h2>Enter your Client Code</h2>
   <form method="POST">
-    <input type="text" name="client_id" placeholder="Enter Client ID" required />
-    <button type="submit">Submit</button>
+    <input type="text" name="client_id" required placeholder="Client Code">
+    <button type="submit">View Dashboard</button>
   </form>
 
   {% if error %}
-    <p class="error">{{ error }}</p>
+    <p style="color:red">{{ error }}</p>
   {% endif %}
 
   {% if client_data %}
-    <div class="dashboard">
-      <h3>Client Dashboard</h3>
+    <h3>Dashboard Details</h3>
+    <table border="1" cellpadding="10" id="dashboardTable" style="margin:auto;">
       {% for key, value in client_data.items() %}
-        <div class="dashboard-item">
-          <span class="label">{{ key }}:</span> {{ value }}
-        </div>
+        <tr>
+          <th>{{ key }}</th>
+          <td>{{ value }}</td>
+        </tr>
       {% endfor %}
-    </div>
-  {% endif %}
-</div>
+    </table>
 
+    <br>
+    <button onclick="downloadPDF()">Download as PDF</button>
+  {% endif %}
+
+  <script>
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Client Dashboard Report", 20, 20);
+      const rows = [];
+
+      document.querySelectorAll("#dashboardTable tr").forEach(row => {
+        const cols = row.querySelectorAll("th, td");
+        rows.push([cols[0].innerText, cols[1].innerText]);
+      });
+
+      let y = 30;
+      rows.forEach(row => {
+        doc.text(`${row[0]}: ${row[1]}`, 20, y);
+        y += 10;
+      });
+
+      doc.save("client_dashboard.pdf");
+    }
+  </script>
 </body>
 </html>

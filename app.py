@@ -47,14 +47,17 @@ def register_user():
 
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
-    data = request.get_json()
+    data = request.form  # ← Because you're using HTML forms, not JSON
     username = data.get("username")
     password = data.get("password")
     user = User.query.filter_by(username=username, role="client").first()
+
     if user and user.check_password(password):
-        return jsonify({"success": True, "client_id": user.client_id})
+        # Optional: Save session info
+        session['client_id'] = user.client_id
+        return redirect(url_for('client_dashboard'))  # 👈 redirect to dashboard route
     else:
-        return jsonify({"success": False, "message": "Invalid username or password"})
+        return "Invalid login", 401  # Or render a template with error
     
     
 @app.route('/validate-login', methods=['POST'])
@@ -261,6 +264,34 @@ def get_clients():
             're': str(client.re)
         } for client in clients
     ])
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+def client_dashboard():
+    client_data = None
+    error = None
+
+    if request.method == 'POST':
+        client_id = request.form['client_id']
+        client = ClientDashboard.query.filter_by(client_code=client_id).first()
+
+        if client:
+            client_data = {
+                'Client Name': client.client_name,
+                'Client Code': client.client_code,
+                'Investment Date': client.investment_date.strftime('%Y-%m-%d'),
+                'Total Investment Value': client.total_value,
+                'Investment Portfolio Value': client.portfolio_value,
+                'Return Percentage': f"{client.return_pct}%",
+                'Investment in Equity': client.equity,
+                'Investment in MF': client.mf,
+                'Investment in RE': client.re
+            }
+        else:
+            error = "Client ID not found."
+
+    return render_template('client_dashboard.html', client_data=client_data, error=error)
+
+
 
 @app.route('/')
 def home():
