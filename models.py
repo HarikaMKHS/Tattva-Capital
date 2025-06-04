@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -19,15 +20,14 @@ class User(db.Model):
         return check_password_hash(self.password, plaintext_password)
     
 class ClientDashboard(db.Model):
-    __tablename__ = 'client_dashboard'
-    
+    __tablename__ = 'client_dashboard'  # This must match your DB table name
     id = db.Column(db.Integer, primary_key=True)
     client_code = db.Column(db.String(50), unique=True, nullable=False)
     client_name = db.Column(db.String(100), nullable=False)
-    investment_date = db.Column(db.Date)
-    total_value = db.Column(db.Numeric(15,2))
-    portfolio_value = db.Column(db.Numeric(15,2))
-    return_pct = db.Column(db.Numeric(5,2))
-    equity = db.Column(db.Numeric(15,2))
-    mf = db.Column(db.Numeric(15,2))
-    re = db.Column(db.Numeric(15,2))
+    investment_date = db.Column(db.Date, nullable=True)
+    total_value = db.Column(db.Float, nullable=True)
+    portfolio_value = db.Column(db.Float, nullable=True)
+    return_pct = db.Column(db.Float, nullable=True)
+    equity = db.Column(db.Float, nullable=True)
+    mf = db.Column(db.Float, nullable=True)
+    re = db.Column(db.Float, nullable=True)
