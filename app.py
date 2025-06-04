@@ -7,8 +7,6 @@ import random
 from email.message import EmailMessage
 from flask_sqlalchemy import SQLAlchemy
 from models import db, User  
-import mysql.connector
-import bcrypt
 
 
 app = Flask(__name__)
@@ -47,19 +45,15 @@ def register_user():
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
     data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-
-    # Fetch user from database
-    user = db.execute("SELECT * FROM clients WHERE username = %s AND password = %s", (username, password)).fetchone()
-
-    if user:
-        return jsonify({"success": True, "client_id": user["client_id"]})  # or user["client_id"]
+    username = data.get("username")
+    password = data.get("password")
+    user = User.query.filter_by(username=username, role="client").first()
+    if user and user.check_password(password):
+        return jsonify({"success": True, "client_id": user.client_id})
     else:
-        return jsonify({"success": False})
-
+        return jsonify({"success": False, "message": "Invalid username or password"})
     
-
+    
 @app.route('/validate-login', methods=['POST'])
 def validate_login():
     data = request.get_json()
