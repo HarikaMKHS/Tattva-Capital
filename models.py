@@ -17,3 +17,17 @@ class User(db.Model):
 
     def check_password(self, plaintext_password):
         return check_password_hash(self.password, plaintext_password)
+    
+class ClientDashboard(db.Model):
+    __tablename__ = 'client_dashboard'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    client_code = db.Column(db.String(50), unique=True, nullable=False)
+    client_name = db.Column(db.String(100), nullable=False)
+    investment_date = db.Column(db.Date)
+    total_value = db.Column(db.Numeric(15,2))
+    portfolio_value = db.Column(db.Numeric(15,2))
+    return_pct = db.Column(db.Numeric(5,2))
+    equity = db.Column(db.Numeric(15,2))
+    mf = db.Column(db.Numeric(15,2))
+    re = db.Column(db.Numeric(15,2))

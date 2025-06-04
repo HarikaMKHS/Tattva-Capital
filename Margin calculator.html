@@ -1,162 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>F&O Margin Calculator</title>
+  <title>Client Dashboard</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('calci.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #ffffff;
-    }
-
-    .container {
-  background-color: rgba(0, 0, 0, 0.6); /* black with 40% opacity */
-  max-width: 520px;
-  margin: 70px auto;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6); /* keep some shadow for depth */
-  color: #ffffff; /* keep white text */
-}
-
-
-    h2 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #00e5ff;
-    }
-
-    label {
-      font-weight: 500;
-      color: #eeeeee;
-    }
-
-    select, input {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0 15px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-      background: #ffffff;
-      color: #000000;
-    }
-
-    input:read-only {
-      background: #f5f5f5;
-      color: #444;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      background-color: #00e5ff;
-      color: #000;
-      font-weight: bold;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 12px;
-    }
-
-    button:hover {
-      background-color: #00bcd4;
-    }
-
-    .result {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 6px;
-      margin-top: 20px;
-      color: #c8e6c9;
-    }
+    body { font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 40px; }
+    .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    .error { color: red; }
+    .dashboard { margin-top: 20px; }
+    .dashboard-item { margin-bottom: 10px; }
+    .label { font-weight: bold; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>F&O Margin Calculator</h2>
 
-    <label>Select Exchange:</label>
-    <select id="exchange">
-      <option value="">--Select Exchange--</option>
-      <option value="NSE">NSE</option>
-      <option value="BSE">BSE</option>
-    </select>
+<div class="container">
+  <h2>Enter Client ID</h2>
+  <form method="POST">
+    <input type="text" name="client_id" placeholder="Enter Client ID" required />
+    <button type="submit">Submit</button>
+  </form>
 
-    <label>Select Symbol:</label>
-    <select id="symbol" onchange="setLotSize()">
-      <option value="">--Select Symbol--</option>
-      <option value="NIFTY">NIFTY</option>
-      <option value="SENSEX">SENSEX</option>
-      <option value="BANKNIFTY">BANK NIFTY</option>
-    </select>
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
 
-    <label>Enter Price:</label>
-    <input type="number" id="price" placeholder="Enter Futures Price">
-
-    <label>Lot Size:</label>
-    <input type="number" id="lotSize" readonly>
-
-    <label>No. of Lots:</label>
-    <input type="number" id="numLots" oninput="updateQuantity()">
-
-    <label>Total Quantity:</label>
-    <input type="number" id="quantity" readonly>
-
-    <button onclick="calculateMargin()">Calculate Margin</button>
-
-    <div class="result" id="resultBox" style="display:none;">
-      <p><strong>Contract Value:</strong> ₹<span id="contractVal"></span></p>
-      <p><strong>SPAN Margin (12%):</strong> ₹<span id="spanMargin"></span></p>
-      <p><strong>Exposure Margin (3%):</strong> ₹<span id="exposureMargin"></span></p>
-      <p><strong>Total Margin:</strong> ₹<span id="totalMargin"></span></p>
+  {% if client_data %}
+    <div class="dashboard">
+      <h3>Client Dashboard</h3>
+      {% for key, value in client_data.items() %}
+        <div class="dashboard-item">
+          <span class="label">{{ key }}:</span> {{ value }}
+        </div>
+      {% endfor %}
     </div>
-  </div>
+  {% endif %}
+</div>
 
-  <script>
-    function setLotSize() {
-      const symbol = document.getElementById('symbol').value;
-      let lotSize = 0;
-      if (symbol === "NIFTY") lotSize = 70;
-      else if (symbol === "SENSEX") lotSize = 15;
-      else if (symbol === "BANKNIFTY") lotSize = 15;
-      document.getElementById('lotSize').value = lotSize;
-      updateQuantity();
-    }
-
-    function updateQuantity() {
-      const lotSize = parseInt(document.getElementById('lotSize').value);
-      const numLots = parseInt(document.getElementById('numLots').value);
-      if (!isNaN(lotSize) && !isNaN(numLots)) {
-        document.getElementById('quantity').value = lotSize * numLots;
-      } else {
-        document.getElementById('quantity').value = "";
-      }
-    }
-
-    function calculateMargin() {
-      const price = parseFloat(document.getElementById('price').value);
-      const quantity = parseInt(document.getElementById('quantity').value);
-      if (isNaN(price) || isNaN(quantity)) {
-        alert("Please enter valid price and quantity.");
-        return;
-      }
-
-      const contractValue = price * quantity;
-      const span = contractValue * 0.12;
-      const exposure = contractValue * 0.03;
-      const total = span + exposure;
-
-      document.getElementById('contractVal').innerText = contractValue.toFixed(2);
-      document.getElementById('spanMargin').innerText = span.toFixed(2);
-      document.getElementById('exposureMargin').innerText = exposure.toFixed(2);
-      document.getElementById('totalMargin').innerText = total.toFixed(2);
-      document.getElementById('resultBox').style.display = "block";
-    }
-  </script>
 </body>
 </html>
