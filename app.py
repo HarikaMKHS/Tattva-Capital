@@ -234,8 +234,11 @@ def upload_dashboard():
                     )
                     
                     db.session.add(new_client)
-
+                    print("Adding new client:", new_client.__dict__)
             db.session.commit()
+            db.session.commit()
+            print("Database commit successful")
+
             return jsonify({'status': 'success', 'message': 'Dashboard uploaded successfully'})
         except Exception as e:
             return jsonify({'status': 'error', 'message': str(e)}), 500
