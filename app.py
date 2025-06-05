@@ -4,7 +4,6 @@ import openpyxl
 import os
 import smtplib
 import random
-import bcrypt
 from email.message import EmailMessage
 from flask_sqlalchemy import SQLAlchemy
 from models import db, ClientDashboard, User
@@ -48,20 +47,18 @@ def register_user():
 
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
-    data = request.get_json()
-    client_id = data.get('client_id')
+    data = request.get_json
     username = data.get('username')
     password = data.get('password')
 
-    client = User.query.filter_by(username=username).first()
-    if client:
-        # Assuming passwords are stored hashed using bcrypt
-        if bcrypt.checkpw(password.encode('utf-8'), client.password.encode('utf-8')):
-            return jsonify({'success': True, 'message': 'Login successful'}), 200
-        else:
-            return jsonify({'success': False, 'message': 'Incorrect password'}), 401
+    if not username or not password:
+        return jsonify({"success": False, "message": "Username and password required"}), 400
+
+    user = User.query.filter_by(username=username).first()
+    if user and user.check_password(password):
+        return jsonify({"success": True})
     else:
-        return jsonify({'success': False, 'message': 'Invalid username'}), 404
+        return jsonify({"success": False, "message": "Invalid username or password"}), 401
     
     
 @app.route('/validate-login', methods=['POST'])
