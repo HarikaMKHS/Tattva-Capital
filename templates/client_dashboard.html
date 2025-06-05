@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Client Dashboard</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- jsPDF & html2canvas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
@@ -15,7 +15,7 @@
       text-align: center;
     }
 
-    .dashboard-container {
+    .dashboard-content {
       max-width: 900px;
       margin: 0 auto;
       background: white;
@@ -118,84 +118,85 @@
   </style>
 </head>
 <body>
-  <div class="dashboard-content" class="dashboad-content">
-  <div class="dashboard-container">
-    <h2>Client Dashboard Report</h2>
 
-    <div class="form-section">
-      <form method="POST" action="/dashboard-form">
-        <input type="text" name="client_id" required placeholder="Enter Client Code">
-        <button type="submit">View Dashboard</button>
-      </form>
-    </div>
+<div id="dashboard-content" class="dashboard-content">
+  <h2>Client Dashboard Report</h2>
 
-    {% if error %}
-      <p style="color:red">{{ error }}</p>
-    {% endif %}
-
-    {% if client_data %}
-      <div class="client-info">
-        <p><strong>Client Name:</strong> {{ client_data.client_name }}</p>
-        <p><strong>Client Code:</strong> {{ client_data.client_code }}</p>
-        <p><strong>Investment Date:</strong> {{ client_data.investment_date }}</p>
-      </div>
-
-      <div class="card-row">
-        <div class="info-card">
-          <h4>Total Investment Value</h4>
-          <p>{{ client_data.total_value }}</p>
-        </div>
-        <div class="info-card">
-          <h4>Investment Portfolio Value</h4>
-          <p>{{ client_data.portfolio_value }}</p>
-        </div>
-        <div class="info-card">
-          <h4>Return Percentage</h4>
-          <p>{{ client_data.return_pct }}%</p>
-        </div>
-      </div>
-
-      <h3>Investment Distribution</h3>
-      <table id="dashboardTable">
-        <tr>
-          <th>Investment in Equity</th>
-          <th>Investment in MF</th>
-          <th>Investment in RE</th>
-        </tr>
-        <tr>
-          <td>{{ client_data.equity }}</td>
-          <td>{{ client_data.mf }}</td>
-          <td>{{ client_data.re }}</td>
-        </tr>
-      </table>
-
-      <div class="download-btn">
-        <button onclick="downloadPDF()">Download as PDF</button>
-      </div>
-    {% endif %}
+  <div class="form-section">
+    <form method="POST" action="/dashboard-form">
+      <input type="text" name="client_id" required placeholder="Enter Client Code">
+      <button type="submit">View Dashboard</button>
+    </form>
   </div>
-  </div>
+
+  {% if error %}
+    <p style="color:red">{{ error }}</p>
+  {% endif %}
 
   {% if client_data %}
+    <div class="client-info">
+      <p><strong>Client Name:</strong> {{ client_data.client_name }}</p>
+      <p><strong>Client Code:</strong> {{ client_data.client_code }}</p>
+      <p><strong>Investment Date:</strong> {{ client_data.investment_date }}</p>
+    </div>
+
+    <div class="card-row">
+      <div class="info-card">
+        <h4>Total Investment Value</h4>
+        <p>{{ client_data.total_value }}</p>
+      </div>
+      <div class="info-card">
+        <h4>Investment Portfolio Value</h4>
+        <p>{{ client_data.portfolio_value }}</p>
+      </div>
+      <div class="info-card">
+        <h4>Return Percentage</h4>
+        <p>{{ client_data.return_pct }}%</p>
+      </div>
+    </div>
+
+    <h3>Investment Distribution</h3>
+    <table>
+      <tr>
+        <th>Investment in Equity</th>
+        <th>Investment in MF</th>
+        <th>Investment in RE</th>
+      </tr>
+      <tr>
+        <td>{{ client_data.equity }}</td>
+        <td>{{ client_data.mf }}</td>
+        <td>{{ client_data.re }}</td>
+      </tr>
+    </table>
+
+    <div class="download-btn">
+      <button onclick="downloadPDF()">Download as PDF</button>
+    </div>
+  {% endif %}
+</div>
+
 <script>
   function downloadPDF() {
     const { jsPDF } = window.jspdf;
+    const content = document.getElementById("dashboard-content");
 
-    const dashboard = document.getElementById("dashboard-content");
-    html2canvas(dashboard).then(canvas => {
+    html2canvas(content).then(canvas => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "px",
         format: [canvas.width, canvas.height]
       });
+
       pdf.addImage(imgData, 'PNG', 0, 0);
       pdf.save("client_dashboard.pdf");
+
+      alert("✅ Download completed successfully!");
+    }).catch(err => {
+      alert("❌ Error while generating PDF: " + err.message);
     });
   }
 </script>
-
-{% endif %}
 
 </body>
 </html>
