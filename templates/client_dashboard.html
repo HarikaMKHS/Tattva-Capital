@@ -2,20 +2,17 @@
 <html>
 <head>
   <title>Client Dashboard</title>
-  <!-- jsPDF & html2canvas -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #f4f6f9;
       margin: 0;
       padding: 20px;
-      text-align: center;
     }
 
-    .dashboard-content {
+    .dashboard-container {
       max-width: 900px;
       margin: 0 auto;
       background: white;
@@ -27,9 +24,11 @@
     h2 {
       margin-bottom: 20px;
       color: #333;
+      text-align: center;
     }
 
     .form-section {
+      text-align: center;
       margin-bottom: 30px;
     }
 
@@ -105,6 +104,7 @@
       border: 1px solid #ccc;
       padding: 12px;
       font-size: 15px;
+      text-align: center;
     }
 
     th {
@@ -113,98 +113,110 @@
     }
 
     .download-btn {
+      text-align: center;
       margin-top: 30px;
     }
   </style>
 </head>
 <body>
 
-<div id="dashboard-content" class="dashboard-content">
-  <h2>Client Dashboard Report</h2>
+  <div class="dashboard-container">
 
-  <div class="form-section">
-    <form method="POST" action="/dashboard-form">
-      <input type="text" name="client_id" required placeholder="Enter Client Code">
-      <button type="submit">View Dashboard</button>
-    </form>
-  </div>
+    <h2>Client Dashboard Report</h2>
 
-  {% if error %}
-    <p style="color:red">{{ error }}</p>
-  {% endif %}
-
-  {% if client_data %}
-    <div class="client-info">
-      <p><strong>Client Name:</strong> {{ client_data.client_name }}</p>
-      <p><strong>Client Code:</strong> {{ client_data.client_code }}</p>
-      <p><strong>Investment Date:</strong> {{ client_data.investment_date }}</p>
+    <div class="form-section" id="formSection">
+      <form method="POST" action="/dashboard-form">
+        <input type="text" name="client_id" required placeholder="Enter Client Code">
+        <button type="submit">View Dashboard</button>
+      </form>
     </div>
 
-    <div class="card-row">
-      <div class="info-card">
-        <h4>Total Investment Value</h4>
-        <p>{{ client_data.total_value }}</p>
+    {% if error %}
+      <p style="color:red; text-align:center;">{{ error }}</p>
+    {% endif %}
+
+    {% if client_data %}
+    <div id="dashboardContent">
+
+      <div class="client-info">
+        <p><strong>Client Name:</strong> {{ client_data.client_name }}</p>
+        <p><strong>Client Code:</strong> {{ client_data.client_code }}</p>
+        <p><strong>Investment Date:</strong> {{ client_data.investment_date }}</p>
       </div>
-      <div class="info-card">
-        <h4>Investment Portfolio Value</h4>
-        <p>{{ client_data.portfolio_value }}</p>
+
+      <div class="card-row">
+        <div class="info-card">
+          <h4>Total Investment Value</h4>
+          <p>{{ client_data.total_value }}</p>
+        </div>
+        <div class="info-card">
+          <h4>Investment Portfolio Value</h4>
+          <p>{{ client_data.portfolio_value }}</p>
+        </div>
+        <div class="info-card">
+          <h4>Return Percentage</h4>
+          <p>{{ client_data.return_pct }}%</p>
+        </div>
       </div>
-      <div class="info-card">
-        <h4>Return Percentage</h4>
-        <p>{{ client_data.return_pct }}%</p>
-      </div>
+
+      <h3 style="text-align:center;">Investment Distribution</h3>
+      <table>
+        <tr>
+          <th>Investment in Equity</th>
+          <th>Investment in MF</th>
+          <th>Investment in RE</th>
+        </tr>
+        <tr>
+          <td>{{ client_data.equity }}</td>
+          <td>{{ client_data.mf }}</td>
+          <td>{{ client_data.re }}</td>
+        </tr>
+      </table>
+
     </div>
 
-    <h3>Investment Distribution</h3>
-    <table>
-      <tr>
-        <th>Investment in Equity</th>
-        <th>Investment in MF</th>
-        <th>Investment in RE</th>
-      </tr>
-      <tr>
-        <td>{{ client_data.equity }}</td>
-        <td>{{ client_data.mf }}</td>
-        <td>{{ client_data.re }}</td>
-      </tr>
-    </table>
-
-    <div class="download-btn">
+    <div class="download-btn" id="downloadBtn">
       <button onclick="downloadPDF()">Download as PDF</button>
     </div>
-  {% endif %}
-</div>
+    {% endif %}
 
-<script>
-  function downloadPDF() {
-    const { jsPDF } = window.jspdf;
-    const content = document.getElementById("dashboard-content");
-    const button = document.querySelector(".download-btn");
+  </div>
 
-    // Hide the download button temporarily
-    button.style.display = "none";
+  {% if client_data %}
+  <script>
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const content = document.getElementById("dashboardContent");
+      const form = document.getElementById("formSection");
+      const downloadBtn = document.getElementById("downloadBtn");
 
-    html2canvas(content).then(canvas => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF({
-        orientation: "portrait",
-        unit: "px",
-        format: [canvas.width, canvas.height]
+      // Hide unwanted elements
+      form.style.display = "none";
+      downloadBtn.style.display = "none";
+
+      html2canvas(content).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF({
+          orientation: "portrait",
+          unit: "px",
+          format: [canvas.width, canvas.height]
+        });
+
+        pdf.addImage(imgData, 'PNG', 0, 0);
+        pdf.save("client_dashboard.pdf");
+
+        // Restore after download
+        form.style.display = "block";
+        downloadBtn.style.display = "block";
+        alert("✅ PDF downloaded successfully!");
+      }).catch(err => {
+        form.style.display = "block";
+        downloadBtn.style.display = "block";
+        alert("❌ Error generating PDF: " + err.message);
       });
-
-      pdf.addImage(imgData, 'PNG', 0, 0);
-      pdf.save("client_dashboard.pdf");
-
-      // Show the button again after saving
-      button.style.display = "block";
-      alert("✅ Download completed successfully!");
-    }).catch(err => {
-      button.style.display = "block";
-      alert("❌ Error while generating PDF: " + err.message);
-    });
-  }
-</script>
-
+    }
+  </script>
+  {% endif %}
 
 </body>
 </html>
