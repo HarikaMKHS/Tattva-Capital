@@ -47,18 +47,14 @@ def register_user():
 
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
-    data = request.form
-    username = data.get("username")
-    password = data.get("password")
+    data = request.get_json()
+    client_id = data.get('client_id')
 
-    user = User.query.filter_by(username=username, role="client").first()
-
-    if user and user.check_password(password):
-        session['client_id'] = user.client_id
-        return redirect(url_for('client_dashboard'))
+    client = ClientDashboard.query.filter_by(client_id=client_id).first()
+    if client:
+        return jsonify({'status': 'success', 'message': 'Client validated'}), 200
     else:
-        return "Invalid login", 401
-
+        return jsonify({'status': 'error', 'message': 'Invalid client ID'}), 401
     
     
 @app.route('/validate-login', methods=['POST'])
@@ -164,7 +160,7 @@ def delete_user():
     return jsonify({"success": True, "message": "User deleted successfully."})
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/dashboard-form', methods=['GET', 'POST'])
 def client_dashboard():
     client_data = None
     error = None
@@ -239,7 +235,6 @@ def upload_dashboard():
                     
                     db.session.add(new_client)
                     print("Adding new client:", new_client.__dict__)
-            db.session.commit()
             db.session.commit()
             print("Database commit successful")
 

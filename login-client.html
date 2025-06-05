@@ -329,8 +329,8 @@ function resetPassword() {
           </div>
         </div>
       </form>
-      <p id="loginMessage" aria-live="polite" style="color: green; font-weight: bold; margin-top: 10px;"></p>
-
+      <!--p id="loginMessage" aria-live="polite" style="color: green; font-weight: bold; margin-top: 10px;"></p-->
+      
     </div>
   </div>
 
@@ -345,40 +345,25 @@ function resetPassword() {
 
     fetch(`${BACKEND_URL}/validate-client`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(async res => {
-      const msgEl = document.getElementById("loginMessage");
-      let response;
-      try {
-        response = await res.json();
-      } catch (e) {
-        msgEl.style.color = "red";
-        msgEl.textContent = "Invalid response from server.";
-        return;
-      }
-
-      if (res.status === 200 && response.success) {
-        msgEl.style.color = "green";
-        msgEl.textContent = `Login successful! Client ID: ${response.client_id || "N/A"}`;
-        setTimeout(() => {
-          window.location.href = 'Margin calculator.html';
-        }, 2000);
-      } else if (res.status === 401 || res.status === 403) {
-        msgEl.style.color = "red";
-        msgEl.textContent = "Invalid credentials or not a client.";
-      } else {
-        msgEl.style.color = "red";
-        msgEl.textContent = "Unexpected error. Please try again.";
-      }
-    })
-    .catch(err => {
-      const msgEl = document.getElementById("loginMessage");
-      msgEl.style.color = "red";
-      msgEl.textContent = "Error: " + err.message;
-      console.error("Login Error:", err);
-    });
+      headers: {
+      'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ client_id: data.username }),
+      })
+      .then(response => response.json())
+      .then(data => {
+      if (data.success) {
+    // Redirect to dashboard page on success
+            alert('Login successful!');
+            window.location.href = '/client_dashboard.html';
+  } else {
+    alert('Invalid client ID. Please try again.');
+  }
+})
+.catch(error => {
+  console.error('Error:', error);
+  alert('Server error. Please try later.');
+});
   });
 
   function showForgotForm() {
