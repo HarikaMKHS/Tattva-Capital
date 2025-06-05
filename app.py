@@ -47,16 +47,17 @@ def register_user():
 
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+    data = request.form
+    username = data.get("username")
+    password = data.get("password")
 
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username, role="client").first()
 
-    if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
-        return jsonify({"message": "Login successful", "status": "success"}), 200
+    if user and user.check_password(password):
+        session['client_id'] = user.client_id
+        return redirect(url_for('client_dashboard'))
     else:
-        return jsonify({"message": "Invalid credentials", "status": "fail"}), 401
+        return "Invalid login", 401
 
     
     
