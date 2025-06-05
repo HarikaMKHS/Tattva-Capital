@@ -354,7 +354,8 @@ function resetPassword() {
   .then(data => {
     if (data.success) {
       alert('Login successful!');
-      window.location.href = '/client_dashboard.html';
+      window.location.href = '/static/client_dashboard.html';
+
     } else {
       alert(data.message || 'Invalid username or password.');
     }

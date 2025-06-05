@@ -53,7 +53,7 @@ def validate_client():
 
     user = User.query.filter_by(username=username).first()
     if user and user.check_password(password):
-        return redirect(url_for('client_dashboard'))
+        return jsonify({"success": True})
     else:
         return jsonify({"success": False, "message": "Invalid username or password"}), 401
     
