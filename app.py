@@ -163,11 +163,11 @@ def delete_user():
 
 @app.route('/dashboard-form', methods=['GET', 'POST'])
 def client_dashboard():
-    client_data = None
+    client_data = None 
     error = None
 
     if request.method == 'POST':
-        client_id = request.form['client_id']
+        client_id = request.form('client_id')
         client = ClientDashboard.query.filter_by(client_code=client_id).first()
 
         if client:
