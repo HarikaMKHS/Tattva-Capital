@@ -50,7 +50,7 @@ def validate_client():
     data = request.get_json()
     client_id = data.get('client_id')
 
-    client = ClientDashboard.query.filter_by(client_code=client_id).first()
+    user = User.query.filter_by(client_id=client_id).first()
     if client:
         return jsonify({'status': 'success', 'message': 'Client validated'}), 200
     else:
