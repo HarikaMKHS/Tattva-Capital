@@ -8,7 +8,6 @@ from email.message import EmailMessage
 from flask_sqlalchemy import SQLAlchemy
 from models import db, ClientDashboard, User
 from werkzeug.utils import secure_filename
-from datetime import datetime
 
 
 
@@ -186,7 +185,7 @@ def client_dashboard():
         else:
             error = "Client ID not found."
 
-    render_template('client_dashboard.html', current_date=datetime.today().strftime('%d-%m-%Y'), client_data=your_data)
+    return render_template('client_dashboard.html', client_data=client_data, error=error)
 @app.route('/upload-dashboard', methods=['POST'])
 def upload_dashboard():
     if 'file' not in request.files:
