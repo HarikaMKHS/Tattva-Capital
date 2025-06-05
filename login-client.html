@@ -335,48 +335,51 @@ function resetPassword() {
   </div>
 
 
-  <script>
-  const BACKEND_URL = "https://tattva-capital.onrender.com";  // Replace with your actual Render URL
+ <script>
+  const BACKEND_URL = "https://tattva-capital.onrender.com";  // ✅ Deployed backend
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-  const data = Object.fromEntries(formData.entries());
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
 
-  fetch(`${BACKEND_URL}/validate-client`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
-  })
-  .then(res => {
-    if (!res.ok) throw new Error("Network response was not OK");
-    return res.json();
-  })
-  .then(response => {
-    const msgEl = document.getElementById("loginMessage");
+    fetch(`${BACKEND_URL}/validate-client`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(async res => {
+      const msgEl = document.getElementById("loginMessage");
+      let response;
+      try {
+        response = await res.json();
+      } catch (e) {
+        msgEl.style.color = "red";
+        msgEl.textContent = "Invalid response from server.";
+        return;
+      }
 
-    if (response.success) {
-      msgEl.style.color = "green";
-      msgEl.textContent = `Login successful! Client ID: ${response.client_id || "N/A"}`;
-      
-      // Redirect after 2 seconds
-      setTimeout(() => {
-        window.location.href = 'Margin calculator.html';
-      }, 2000);
-    } else {
+      if (res.status === 200 && response.success) {
+        msgEl.style.color = "green";
+        msgEl.textContent = `Login successful! Client ID: ${response.client_id || "N/A"}`;
+        setTimeout(() => {
+          window.location.href = 'Margin calculator.html';
+        }, 2000);
+      } else if (res.status === 401 || res.status === 403) {
+        msgEl.style.color = "red";
+        msgEl.textContent = "Invalid credentials or not a client.";
+      } else {
+        msgEl.style.color = "red";
+        msgEl.textContent = "Unexpected error. Please try again.";
+      }
+    })
+    .catch(err => {
+      const msgEl = document.getElementById("loginMessage");
       msgEl.style.color = "red";
-      msgEl.textContent = "Invalid credentials or not a client.";
-    }
-  })
-  .catch(err => {
-    const msgEl = document.getElementById("loginMessage");
-    msgEl.style.color = "red";
-    msgEl.textContent = "Error: " + err.message;
-    console.error("Login Error:", err);
+      msgEl.textContent = "Error: " + err.message;
+      console.error("Login Error:", err);
+    });
   });
-});
-
-
 
   function showForgotForm() {
     document.getElementById("forgotForm").style.display = "block";
@@ -397,6 +400,9 @@ function resetPassword() {
       } else {
         alert(data.message);
       }
+    })
+    .catch(err => {
+      alert("Failed to send OTP: " + err.message);
     });
   }
 
@@ -424,9 +430,13 @@ function resetPassword() {
       } else {
         alert(data.message);
       }
+    })
+    .catch(err => {
+      alert("Failed to reset password: " + err.message);
     });
   }
 </script>
+
 
 </body>
 </html>
