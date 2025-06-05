@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  
   <title>Contact Us - Tattva Capital</title>
   <style>
     body {
@@ -12,73 +11,55 @@
       margin: 0;
       padding: 40px;
     }
-    /*.contact-container {
+
+    .contact-container {
       max-width: 600px;
       margin: auto;
-      background-image: url('https://aicdn.picsart.com/db539e92-68a1-4cd4-b532-83dc683158cf.png');
-      background-size: cover;
-      background-color: white;
       padding: 30px;
-      border-radius: 12px;
-      
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }*/
-    .contact-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 30px;
-  border-radius: none;
-  position: relative;
-  /*background-color: white;  Keeps form content solid */
-  box-shadow:none;
-  border: none;
-  z-index: 1;
-  overflow: hidden;
-}
+      position: relative;
+      box-shadow: none;
+      border: none;
+      z-index: 1;
+      overflow: hidden;
+    }
 
-/*.contact-container::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-image: url('https://aicdn.picsart.com/db539e92-68a1-4cd4-b532-83dc683158cf.png');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.4; /* Image transparency 
-  z-index: -1;
-}*/
     h2 {
       text-align: center;
       color: #1a237e;
     }
+
     .email-info {
       display: flex;
       align-items: center;
       margin-bottom: 20px;
     }
+
     .email-info img {
       width: 40px;
       margin-right: 10px;
     }
+
     form {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  padding: 0;
-}
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+    }
+
     form label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
+
     form input, form textarea, form select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-  }
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
 
     button {
       margin-top: 20px;
@@ -90,27 +71,38 @@
       cursor: pointer;
       font-size: 16px;
     }
+
     button:hover {
       background-color: #125ea5;
     }
+
     .home-button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 20px;
-  background-color: #00b386;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 16px;
-  text-align: center;
-}
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #00b386;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 16px;
+      text-align: center;
+    }
 
     .home-button:hover {
-  background-color: #008f6b;
-}
-  #fileUploadSection {
-    display: none;
-  }
+      background-color: #008f6b;
+    }
+
+    #fileUploadSection {
+      display: none;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -118,94 +110,81 @@
     <h2>Contact Us</h2>
     <div class="email-info">
       <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
-      <span>Send queries to: <strong>query.tattvainvestmentadvisory@gmail.com.com</strong></span>
+      <span>Send queries to: <strong>query.tattvainvestmentadvisory@gmail.com</strong></span>
     </div>
-    <form action="https://formsubmit.co/query.tattvainvestmentadvisory@gmail.com" method="POST" enctype="multipart/form-data" id="contactForm">
-  <input type="hidden" name="_subject" value="New Query from Tattva Capital Site!">
-  <input type="hidden" name="_captcha" value="true">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_redirect" value="https://harikamkhs.github.io/Tattva-capital/">
 
-  <label for="fullName">Full Name</label>
-  <input type="text" name="Full Name" id="fullName" placeholder="John Doe" required>
+    <form id="contactForm">
+      <label for="fullName">Full Name</label>
+      <input type="text" name="Full Name" id="fullName" placeholder="John Doe" required>
 
-  <label for="email">Your Email</label>
-  <input type="email" name="Email" id="email" placeholder="yourname@example.com" required>
+      <label for="email">Your Email</label>
+      <input type="email" name="Email" id="email" placeholder="yourname@example.com" required>
 
-  <label for="mobile">Mobile Number</label>
-  <input type="tel" name="Mobile" id="mobile" placeholder="9876543210" required>
+      <label for="mobile">Mobile Number</label>
+      <input type="tel" name="Mobile" id="mobile" placeholder="9876543210" required>
 
-  <label for="query">Your Query</label>
-  <textarea name="Query" id="query" rows="5" placeholder="Type your message here..." ></textarea>
+      <label for="query">Your Query</label>
+      <textarea name="Query" id="query" rows="5" placeholder="Type your message here..."></textarea>
 
-  <label for="fileOption">Do you want to submit any files?</label>
-  <select name="File Option" id="fileOption" onchange="toggleFileInput(this)">
-    <option value="No">No</option>
-    <option value="Yes">Yes</option>
-  </select>
+      <label for="fileOption">Do you want to submit any files?</label>
+      <select name="File Option" id="fileOption" onchange="toggleFileInput(this)">
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+      </select>
 
-  <div id="fileUploadSection" style="display:none;">
-    <label for="uploadedFile">Upload File</label>
-    <input type="file" name="attachment" id="uploadedFile" />
-  </div>
+      <div id="fileUploadSection">
+        <label for="uploadedFile">Upload File</label>
+        <input type="file" name="attachment" id="uploadedFile" />
+      </div>
 
-  <button type="submit">Submit</button>
-  <a href="https://harikamkhs.github.io/Tattva-capital/" class="home-button">Go To Home</a>
-</form>
-    
+      <button type="submit">Submit</button>
+      <a href="https://harikamkhs.github.io/Tattva-capital/" class="home-button">Go To Home</a>
+    </form>
 
+    <div class="success-message" id="successMessage">
+      Thank you! Your submission was successful. Redirecting to homepage...
+    </div>
   </div>
 
   <script>
-  function toggleFileInput(select) {
-    const fileSection = document.getElementById("fileUploadSection");
-    fileSection.style.display = select.value === "Yes" ? "block" : "none";
-  }
-</script>
+    function toggleFileInput(select) {
+      const fileSection = document.getElementById("fileUploadSection");
+      fileSection.style.display = select.value === "Yes" ? "block" : "none";
+    }
 
-  <script>
-    // Target the form and confirmation elements
     const form = document.getElementById("contactForm");
-    const confirmation = document.getElementById("confirmation");
-    const countdownSpan = document.getElementById("countdown");
+    const successMessage = document.getElementById("successMessage");
 
-    // Handle form submission with JavaScript
     form.addEventListener("submit", async function (e) {
-      e.preventDefault(); // Prevent default browser submission
+      e.preventDefault();
 
-      const formData = new FormData(form); // Collect form data
+      const formData = new FormData(form);
 
       try {
-        // Send form data to FormSubmit
-        const response = await fetch("https://formsubmit.co/query.tattvainvestmentadvisory@gmail.com", {
+        const response = await fetch("https://formspree.io/f/xgvyvdld", {
           method: "POST",
           body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
         });
 
         if (response.ok) {
-          form.style.display = "none"; // Hide the form
-          confirmation.style.display = "block"; // Show confirmation message
+          form.reset();
+          form.style.display = "none";
+          successMessage.style.display = "block";
 
-          let seconds = 3;
-
-          // Countdown timer before redirect
-          const timer = setInterval(() => {
-            seconds--;
-            countdownSpan.textContent = seconds;
-            if (seconds === 0) {
-              clearInterval(timer);
-              // Redirect to homepage after 3 seconds
-              window.location.href = "https://harikamkhs.github.io/Tattva-capital/";
-            }
-          }, 1000);
+          setTimeout(() => {
+            window.location.href = "https://harikamkhs.github.io/Tattva-capital/";
+          }, 3000);
 
         } else {
-          alert("Something went wrong. Please try again.");
+          alert("Error submitting form. Please try again.");
         }
 
       } catch (error) {
         console.error("Form submission error:", error);
-        alert("Error occurred. Please try again later.");
+        alert("An error occurred. Please try again later.");
       }
     });
   </script>
