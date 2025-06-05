@@ -19,9 +19,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql12782354:aTSPDpkmY9@
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 #db = SQLAlchemy(app)
-
-#FILE = "credentials.xlsx
-
 @app.route('/register-user', methods=['POST'])
 def register_user():
     data = request.get_json()
@@ -47,7 +44,7 @@ def register_user():
 
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
-    data = request.get_json
+    data = request.get_json()
     username = data.get('username')
     password = data.get('password')
 
