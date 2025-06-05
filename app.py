@@ -167,7 +167,7 @@ def client_dashboard():
     error = None
 
     if request.method == 'POST':
-        client_id = request.form('client_id')
+        client_id = request.form.get('client_id')
         client = ClientDashboard.query.filter_by(client_code=client_id).first()
 
         if client:
