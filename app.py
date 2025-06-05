@@ -289,7 +289,7 @@ def dashboard_form():
     return render_template('client_dashboard.html', client_data=client_data, error=error)
 
 @app.route('/client_dashboard')
-def client_dashboard():
+def client_dashboard_page():
     return render_template('client_dashboard.html')
 
 @app.route('/')
