@@ -47,17 +47,17 @@ def register_user():
 
 @app.route('/validate-client', methods=['POST'])
 def validate_client():
-    data = request.form  # ← Because you're using HTML forms, not JSON
-    username = data.get("username")
-    password = data.get("password")
-    user = User.query.filter_by(username=username, role="client").first()
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
 
-    if user and user.check_password(password):
-        # Optional: Save session info
-        session['client_id'] = user.client_id
-        return redirect(url_for('client_dashboard'))  # 👈 redirect to dashboard route
+    user = User.query.filter_by(username=username).first()
+
+    if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
+        return jsonify({"message": "Login successful", "status": "success"}), 200
     else:
-        return "Invalid login", 401  # Or render a template with error
+        return jsonify({"message": "Invalid credentials", "status": "fail"}), 401
+
     
     
 @app.route('/validate-login', methods=['POST'])
