@@ -179,6 +179,10 @@
   function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const content = document.getElementById("dashboard-content");
+    const button = document.querySelector(".download-btn");
+
+    // Hide the download button temporarily
+    button.style.display = "none";
 
     html2canvas(content).then(canvas => {
       const imgData = canvas.toDataURL("image/png");
@@ -191,12 +195,16 @@
       pdf.addImage(imgData, 'PNG', 0, 0);
       pdf.save("client_dashboard.pdf");
 
+      // Show the button again after saving
+      button.style.display = "block";
       alert("✅ Download completed successfully!");
     }).catch(err => {
+      button.style.display = "block";
       alert("❌ Error while generating PDF: " + err.message);
     });
   }
 </script>
+
 
 </body>
 </html>
