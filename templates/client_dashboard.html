@@ -1,136 +1,35 @@
+<!-- templates/client_dashboard.html -->
 <!DOCTYPE html>
 <html>
 <head>
   <title>Client Dashboard</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 30px;
-      background-color: #fff;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      font-size: 18px;
-    }
-
-    .summary-cards {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-    }
-
-    .card {
-      background-color: darkred;
-      color: white;
-      flex: 1;
-      margin: 0 10px;
-      text-align: center;
-      padding: 10px;
-      border-radius: 4px;
-    }
-
-    .card-value {
-      background-color: #e8f5e9;
-      color: darkblue;
-      padding: 10px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-
-    th, td {
-      border: 1px solid #444;
-      padding: 10px;
-      text-align: left;
-    }
-
-    th {
-      background-color: orange;
-      color: darkblue;
-    }
-
-    .section-label {
-      font-weight: bold;
-      color: brown;
-    }
-
-    .highlight {
-      background-color: #f0f8ff;
-    }
-
-    .negative {
-      background-color: #ffe6f0;
-      color: #d6336c;
-    }
-
-    .positive {
-      background-color: #e0f7fa;
-      color: #00695c;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: teal;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #00796b;
-    }
-  </style>
 </head>
-<body>
-  <div class="header">
-    <div><strong>Name :</strong> Mr. Amit Varma</div>
-    <div><strong>Date :</strong> {{ current_date }}</div>
-  </div>
+<body style="font-family: sans-serif; text-align: center;">
+  <h2>Enter your Client Code</h2>
+  <form method="POST" action="/dashboard-form">
+    <input type="text" name="client_id" required placeholder="Client Code">
+    <button type="submit">View Dashboard</button>
+  </form>
 
-  <div class="summary-cards">
-    <div class="card">
-      <div>Total Investment (TI)</div>
-      <div class="card-value">{{ client_data.TI or "N/A" }}</div>
-    </div>
-    <div class="card">
-      <div>Current Investment Value (CIV)</div>
-      <div class="card-value">{{ client_data.CIV or "N/A" }}</div>
-    </div>
-    <div class="card">
-      <div>Portfolio Return (APR)</div>
-      <div class="card-value">{{ client_data.APR or "N/A" }}</div>
-    </div>
-  </div>
+  {% if error %}
+    <p style="color:red">{{ error }}</p>
+  {% endif %}
 
-  <table>
-    <tr>
-      <th>Investment Amount (IA)</th>
-      <th>Current Investment Value (CIV)</th>
-      <th>Performance</th>
-      <th>Suggestion</th>
-      <th>Profit Payout</th>
-    </tr>
-    {% for item in client_data.details %}
-    <tr class="highlight">
-      <td class="section-label">{{ item.name }}</td>
-      <td>{{ item.ia }}</td>
-      <td class="{{ 'negative' if item.performance < 0 else 'positive' }}">{{ item.performance }}</td>
-      <td>{{ item.suggestion }}</td>
-      <td>{{ item.payout }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+  {% if client_data %}
+    <h3>Dashboard Details</h3>
+    <table border="1" cellpadding="10" id="dashboardTable" style="margin:auto;">
+      {% for key, value in client_data.items() %}
+        <tr>
+          <th>{{ key }}</th>
+          <td>{{ value }}</td>
+        </tr>
+      {% endfor %}
+    </table>
 
-  <button onclick="downloadPDF()">Download as PDF</button>
+    <br>
+    <button onclick="downloadPDF()">Download as PDF</button>
+  {% endif %}
 
   <script>
     function downloadPDF() {
@@ -139,16 +38,14 @@
       doc.text("Client Dashboard Report", 20, 20);
       const rows = [];
 
-      document.querySelectorAll("table tr").forEach(row => {
+      document.querySelectorAll("#dashboardTable tr").forEach(row => {
         const cols = row.querySelectorAll("th, td");
-        const rowData = [];
-        cols.forEach(col => rowData.push(col.innerText));
-        rows.push(rowData);
+        rows.push([cols[0].innerText, cols[1].innerText]);
       });
 
       let y = 30;
       rows.forEach(row => {
-        doc.text(row.join(" | "), 20, y);
+        doc.text(`${row[0]}: ${row[1]}`, 20, y);
         y += 10;
       });
 
