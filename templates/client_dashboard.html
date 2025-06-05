@@ -1,56 +1,203 @@
-<!-- templates/client_dashboard.html -->
 <!DOCTYPE html>
 <html>
 <head>
   <title>Client Dashboard</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-</head>
-<body style="font-family: sans-serif; text-align: center;">
-  <h2>Enter your Client Code</h2>
-  <form method="POST" action="/dashboard-form">
-    <input type="text" name="client_id" required placeholder="Client Code">
-    <button type="submit">View Dashboard</button>
-  </form>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
 
-  {% if error %}
-    <p style="color:red">{{ error }}</p>
-  {% endif %}
+    .dashboard-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-section {
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 15px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .client-info {
+      text-align: left;
+      margin-bottom: 30px;
+      padding: 15px;
+      background-color: #e9f5ff;
+      border-radius: 8px;
+    }
+
+    .client-info p {
+      margin: 6px 0;
+      font-size: 16px;
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .info-card {
+      flex: 1;
+      min-width: 250px;
+      background-color: #ffedf0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+
+    .info-card h4 {
+      margin: 0;
+      font-size: 14px;
+      color: #888;
+    }
+
+    .info-card p {
+      margin: 5px 0 0;
+      font-size: 20px;
+      font-weight: bold;
+      color: #d6336c;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      font-size: 15px;
+    }
+
+    th {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .download-btn {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h2>Client Dashboard Report</h2>
+
+    <div class="form-section">
+      <form method="POST" action="/dashboard-form">
+        <input type="text" name="client_id" required placeholder="Enter Client Code">
+        <button type="submit">View Dashboard</button>
+      </form>
+    </div>
+
+    {% if error %}
+      <p style="color:red">{{ error }}</p>
+    {% endif %}
+
+    {% if client_data %}
+      <div class="client-info">
+        <p><strong>Client Name:</strong> {{ client_data.client_name }}</p>
+        <p><strong>Client Code:</strong> {{ client_data.client_code }}</p>
+        <p><strong>Investment Date:</strong> {{ client_data.investment_date }}</p>
+      </div>
+
+      <div class="card-row">
+        <div class="info-card">
+          <h4>Total Investment Value</h4>
+          <p>{{ client_data.total_value }}</p>
+        </div>
+        <div class="info-card">
+          <h4>Investment Portfolio Value</h4>
+          <p>{{ client_data.portfolio_value }}</p>
+        </div>
+        <div class="info-card">
+          <h4>Return Percentage</h4>
+          <p>{{ client_data.return_pct }}%</p>
+        </div>
+      </div>
+
+      <h3>Investment Distribution</h3>
+      <table id="dashboardTable">
+        <tr>
+          <th>Investment in Equity</th>
+          <th>Investment in MF</th>
+          <th>Investment in RE</th>
+        </tr>
+        <tr>
+          <td>{{ client_data.equity }}</td>
+          <td>{{ client_data.mf }}</td>
+          <td>{{ client_data.re }}</td>
+        </tr>
+      </table>
+
+      <div class="download-btn">
+        <button onclick="downloadPDF()">Download as PDF</button>
+      </div>
+    {% endif %}
+  </div>
 
   {% if client_data %}
-    <h3>Dashboard Details</h3>
-    <table border="1" cellpadding="10" id="dashboardTable" style="margin:auto;">
-      {% for key, value in client_data.items() %}
-        <tr>
-          <th>{{ key }}</th>
-          <td>{{ value }}</td>
-        </tr>
-      {% endfor %}
-    </table>
+<script>
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  doc.text("Client Dashboard Report", 20, 20);
 
-    <br>
-    <button onclick="downloadPDF()">Download as PDF</button>
-  {% endif %}
+  const info = [
+    ["Client Name", "{{ client_data.client_name or 'N/A' }}"],
+    ["Client Code", "{{ client_data.client_code or 'N/A' }}"],
+    ["Investment Date", "{{ client_data.investment_date or 'N/A' }}"],
+    ["Total Investment Value", "{{ client_data.total_value or 'N/A' }}"],
+    ["Portfolio Value", "{{ client_data.portfolio_value or 'N/A' }}"],
+    ["Return %", "{{ client_data.return_pct or 'N/A' }}%"],
+    ["Equity", "{{ client_data.equity or 'N/A' }}"],
+    ["MF", "{{ client_data.mf or 'N/A' }}"],
+    ["RE", "{{ client_data.re or 'N/A' }}"]
+  ];
 
-  <script>
-    function downloadPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      doc.text("Client Dashboard Report", 20, 20);
-      const rows = [];
+  let y = 30;
+  info.forEach(row => {
+    doc.text(`${row[0]}: ${row[1]}`, 20, y);
+    y += 10;
+  });
 
-      document.querySelectorAll("#dashboardTable tr").forEach(row => {
-        const cols = row.querySelectorAll("th, td");
-        rows.push([cols[0].innerText, cols[1].innerText]);
-      });
+  doc.save("client_dashboard.pdf");
+</script>
+{% endif %}
 
-      let y = 30;
-      rows.forEach(row => {
-        doc.text(`${row[0]}: ${row[1]}`, 20, y);
-        y += 10;
-      });
-
-      doc.save("client_dashboard.pdf");
-    }
-  </script>
 </body>
 </html>

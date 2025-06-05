@@ -185,7 +185,7 @@ def client_dashboard():
         else:
             error = "Client ID not found."
 
-    return render_template('client_dashboard.html', client_data=client_data, error=error)
+    return render_template('client_dashboard.html', client_data=client, error=error)
 @app.route('/upload-dashboard', methods=['POST'])
 def upload_dashboard():
     if 'file' not in request.files:
