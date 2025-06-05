@@ -3,6 +3,9 @@
 <head>
   <title>Client Dashboard</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -115,6 +118,7 @@
   </style>
 </head>
 <body>
+  <div class="dashboard-content">
   <div class="dashboard-container">
     <h2>Client Dashboard Report</h2>
 
@@ -170,33 +174,27 @@
       </div>
     {% endif %}
   </div>
+  </div>
 
   {% if client_data %}
 <script>
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  doc.text("Client Dashboard Report", 20, 20);
+  function downloadPDF() {
+    const { jsPDF } = window.jspdf;
 
-  const info = [
-    ["Client Name", "{{ client_data.client_name or 'N/A' }}"],
-    ["Client Code", "{{ client_data.client_code or 'N/A' }}"],
-    ["Investment Date", "{{ client_data.investment_date or 'N/A' }}"],
-    ["Total Investment Value", "{{ client_data.total_value or 'N/A' }}"],
-    ["Portfolio Value", "{{ client_data.portfolio_value or 'N/A' }}"],
-    ["Return %", "{{ client_data.return_pct or 'N/A' }}%"],
-    ["Equity", "{{ client_data.equity or 'N/A' }}"],
-    ["MF", "{{ client_data.mf or 'N/A' }}"],
-    ["RE", "{{ client_data.re or 'N/A' }}"]
-  ];
-
-  let y = 30;
-  info.forEach(row => {
-    doc.text(`${row[0]}: ${row[1]}`, 20, y);
-    y += 10;
-  });
-
-  doc.save("client_dashboard.pdf");
+    const dashboard = document.getElementById("dashboard-content");
+    html2canvas(dashboard).then(canvas => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "px",
+        format: [canvas.width, canvas.height]
+      });
+      pdf.addImage(imgData, 'PNG', 0, 0);
+      pdf.save("client_dashboard.pdf");
+    });
+  }
 </script>
+
 {% endif %}
 
 </body>
