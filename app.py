@@ -266,7 +266,7 @@ def get_clients():
     ])
 
 @app.route('/dashboard', methods=['GET', 'POST'])
-def client_dashboard():
+def dashboard_form():
     client_data = None
     error = None
 
