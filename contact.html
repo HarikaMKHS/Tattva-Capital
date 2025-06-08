@@ -9,29 +9,26 @@
       font-family: Arial, sans-serif;
       background-color: #a1cef3;
       margin: 0;
-      padding: 40px;
+      padding: 0px 40px;
     }
 
     .contact-container {
-      max-width: 600px;
+      max-width: 700px;
       margin: auto;
-      padding: 30px;
-      position: relative;
-      box-shadow: none;
-      border: none;
-      z-index: 1;
-      overflow: hidden;
+      padding: 50px;
     }
 
     h2 {
-      text-align: center;
+       text-align: center;
       color: #1a237e;
+      margin-top: 10px;
+      margin-bottom: 25px;
     }
 
     .email-info {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     .email-info img {
@@ -40,30 +37,49 @@
     }
 
     form {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
       background: transparent;
       border: none;
-      box-shadow: none;
-      padding: 0;
-    }
-
-    form label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    form input, form textarea, form select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      border-bottom: 1px solid #555;
+      padding: 10px 5px;
       font-size: 16px;
+      color: #333;
+      width: 100%;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #aaa;
+    }
+
+    textarea {
+      resize: vertical;
+      border: 1px solid #555;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    #fileUploadSection {
+      display: none;
     }
 
     button {
-      margin-top: 20px;
-      padding: 12px 20px;
+      padding: 12px 25px;
       background-color: #1976d2;
       color: white;
       border: none;
@@ -78,22 +94,13 @@
 
     .home-button {
       display: inline-block;
-      margin-top: 20px;
+      margin-left: 15px;
       padding: 12px 20px;
       background-color: #00b386;
       color: white;
       text-decoration: none;
       border-radius: 6px;
       font-size: 16px;
-      text-align: center;
-    }
-
-    .home-button:hover {
-      background-color: #008f6b;
-    }
-
-    #fileUploadSection {
-      display: none;
     }
 
     .success-message {
@@ -114,31 +121,43 @@
     </div>
 
     <form id="contactForm">
-      <label for="fullName">Full Name</label>
-      <input type="text" name="Full Name" id="fullName" placeholder="John Doe" required>
+      <div>
+        <label for="fullName"><strong> Name*</strong></label>
+        <input type="text" name="Full Name" id="fullName" placeholder="John Doe" required>
+      </div>
 
-      <label for="email">Your Email</label>
-      <input type="email" name="Email" id="email" placeholder="yourname@example.com" required>
+      <div>
+        <label for="email"><strong>Address*</strong> </label>
+        <input type="email" name="Email" id="email" placeholder="yourname@example.com" required>
+      </div>
 
-      <label for="mobile">Mobile Number</label>
-      <input type="tel" name="Mobile" id="mobile" placeholder="9876543210" required>
+      <div>
+        <label for="mobile"><strong> Number*</strong></label>
+        <input type="tel" name="Mobile" id="mobile" placeholder="9876543210" required>
+      </div>
 
-      <label for="query">Your Query</label>
-      <textarea name="Query" id="query" rows="5" placeholder="Type your message here..."></textarea>
+      <div>
+        <label for="query"><strong>Query</strong> </label>
+        <textarea name="Query" id="query" rows="4" placeholder="Type your message here..."></textarea>
+      </div>
 
-      <label for="fileOption">Do you want to submit any files?</label>
-      <select name="File Option" id="fileOption" onchange="toggleFileInput(this)">
-        <option value="No">No</option>
-        <option value="Yes">Yes</option>
-      </select>
+      <div>
+        <label for="fileOption"><strong>you want to submit any files?</strong> </label>
+        <select name="File Option" id="fileOption" onchange="toggleFileInput(this)">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </div>
 
       <div id="fileUploadSection">
-        <label for="uploadedFile">Upload File</label>
+        <label for="uploadedFile"><strong>File</strong> </label>
         <input type="file" name="attachment" id="uploadedFile" />
       </div>
 
-      <button type="submit">Submit</button>
-      <a href="https://harikamkhs.github.io/Tattva-capital/" class="home-button">Go To Home</a>
+      <div>
+        <button type="submit">Submit</button>
+        <a href="https://harikamkhs.github.io/Tattva-capital/" class="home-button">Go To Home</a>
+      </div>
     </form>
 
     <div class="success-message" id="successMessage">
@@ -177,7 +196,6 @@
           setTimeout(() => {
             window.location.href = "https://harikamkhs.github.io/Tattva-capital/";
           }, 3000);
-
         } else {
           alert("Error submitting form. Please try again.");
         }
