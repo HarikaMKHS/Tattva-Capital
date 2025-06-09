@@ -15,7 +15,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_6jtIqEBw5Yvp@ep-shy-river-a8ju7x65-pooler.eastus2.azure.neon.tech/Login%20page%20client?sslmode=require'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://client_login_user:parRwChBKcPwfvlcs6A2sT3K3aQNvQYP@dpg-d138vubuibrs73fuo0ng-a:5432/client_login'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 #db = SQLAlchemy(app)
@@ -291,6 +291,33 @@ def dashboard_form():
 @app.route('/client_dashboard')
 def client_dashboard_page():
     return render_template('client_dashboard.html')
+
+@app.route('/show-tables')
+def show_tables():
+    # Optional: Print users
+    users = User.query.all()
+    dashboards = ClientDashboard.query.all()
+
+    return jsonify({
+        "users": [
+            {
+                "username": u.username,
+                "email": u.email,
+                "role": u.role
+            } for u in users
+        ],
+        "client_dashboards": [
+            {
+                "client_code": d.client_code,
+                "client_name": d.client_name,
+                "investment_date": d.investment_date.isoformat() if d.investment_date else None,
+                "total_value": d.total_value,
+                "portfolio_value": d.portfolio_value
+            } for d in dashboards
+        ]
+    })
+
+
 
 @app.route('/')
 def home():
