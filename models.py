@@ -32,5 +32,5 @@ class ClientDashboard(db.Model):
     mf = db.Column(db.Float, nullable=True)
     re = db.Column(db.Float, nullable=True)
 
-    #if isinstance(investment_date, datetime):
-        #investment_date = investment_date.date()  # convert datetime to date
+    if isinstance(investment_date, datetime):
+        investment_date = investment_date.date()  # convert datetime to date

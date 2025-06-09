@@ -141,7 +141,7 @@ def reset_password():
     if not user:
         return jsonify({"success": False, "message": "User not found in database"})
 
-    user.set_password(new_password)  # ✅ hash new password
+    user.set_password(new_password)  #  hash new password
     db.session.commit()
 
     return jsonify({"success": True})
@@ -207,12 +207,28 @@ def upload_dashboard():
 
             # Assuming headers are in the first row
             for row in sheet.iter_rows(min_row=2, values_only=True):
-                client_code, client_name, inv_date, total_val, port_val, ret_pct, equity, mf, re = row
-                print("Parsed Row:", row)
+                try:
+                    client_code, client_name, inv_date, total_val, port_val, ret_pct, equity, mf, re = row
+                    if isinstance(inv_date, datetime):
+                        inv_date = inv_date.date()
+                    elif isinstance(inv_date, str):
+                        try:
+                            inv_date = datetime.strptime(inv_date, '%Y-%m-%d').date()
+                        except:
+                            inv_date = None
+                    else:
+                        inv_date = None
+                    total_val = float(total_val) if total_val else 0.0
+                    port_val = float(port_val) if port_val else 0.0
+                    ret_pct = float(ret_pct) if ret_pct else 0.0
+                    equity = float(equity) if equity else 0.0
+                    mf = float(mf) if mf else 0.0
+                    re = float(re) if re else 0.0
 
                 # Check if client already exists, then update
                 client = ClientDashboard.query.filter_by(client_code=client_code).first()
                 if client:
+                    print("Updating client:", client_code)
                     client.client_name = client_name
                     client.investment_date = inv_date
                     client.total_value = total_val
@@ -222,6 +238,7 @@ def upload_dashboard():
                     client.mf = mf
                     client.re = re
                 else:
+                    print("Adding new client:", client_code)
                     new_client = ClientDashboard(
                         client_code=client_code,
                         client_name=client_name,
@@ -236,14 +253,13 @@ def upload_dashboard():
                     
                     db.session.add(new_client)
                     print("Adding new client:", new_client.__dict__)
-            db.session.commit()
-            print("Database commit successful")
-
-            return jsonify({'status': 'success', 'message': 'Dashboard uploaded successfully'})
         except Exception as e:
-            return jsonify({'status': 'error', 'message': str(e)}), 500
-    else:
-        return jsonify({'status': 'error', 'message': 'Only .xlsx files are allowed'}), 400
+            print(f"❌ Error processing row {row}: {e}")
+    db.session.commit()
+    print("Database commit successful")
+
+    return jsonify({'status': 'success', 'message': 'Dashboard uploaded successfully'})
+    
 
 @app.route('/clients', methods=['GET'])
 def get_clients():
