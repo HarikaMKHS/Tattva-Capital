@@ -205,61 +205,69 @@ def upload_dashboard():
             wb = openpyxl.load_workbook(filepath)
             sheet = wb.active
 
-            # Assuming headers are in the first row
             for row in sheet.iter_rows(min_row=2, values_only=True):
                 try:
-                    client_code, client_name, inv_date, total_val, port_val, ret_pct, equity, mf, re = row
+                    # Extract and normalize values
+                    client_code = str(row[0]).strip()
+                    client_name = row[1]
+                    inv_date = row[2]
+                    total_val = float(row[3]) if row[3] is not None else 0.0
+                    port_val = float(row[4]) if row[4] is not None else 0.0
+                    ret_pct = float(row[5]) if row[5] is not None else 0.0
+                    equity = float(row[6]) if row[6] is not None else 0.0
+                    mf = float(row[7]) if row[7] is not None else 0.0
+                    re = float(row[8]) if row[8] is not None else 0.0
+
+                    # Convert investment_date to a date object
                     if isinstance(inv_date, datetime):
                         inv_date = inv_date.date()
                     elif isinstance(inv_date, str):
                         try:
-                            inv_date = datetime.strptime(inv_date, '%Y-%m-%d').date()
+                            inv_date = datetime.strptime(inv_date.strip(), '%Y-%m-%d').date()
                         except:
                             inv_date = None
                     else:
                         inv_date = None
-                    total_val = float(total_val) if total_val else 0.0
-                    port_val = float(port_val) if port_val else 0.0
-                    ret_pct = float(ret_pct) if ret_pct else 0.0
-                    equity = float(equity) if equity else 0.0
-                    mf = float(mf) if mf else 0.0
-                    re = float(re) if re else 0.0
 
-                # Check if client already exists, then update
-                client = ClientDashboard.query.filter_by(client_code=client_code).first()
-                if client:
-                    print("Updating client:", client_code)
-                    client.client_name = client_name
-                    client.investment_date = inv_date
-                    client.total_value = total_val
-                    client.portfolio_value = port_val
-                    client.return_pct = ret_pct
-                    client.equity = equity
-                    client.mf = mf
-                    client.re = re
-                else:
-                    print("Adding new client:", client_code)
-                    new_client = ClientDashboard(
-                        client_code=client_code,
-                        client_name=client_name,
-                        investment_date=inv_date,
-                        total_value=total_val,
-                        portfolio_value=port_val,
-                        return_pct=ret_pct,
-                        equity=equity,
-                        mf=mf,
-                        re=re
-                    )
-                    
-                    db.session.add(new_client)
-                    print("Adding new client:", new_client.__dict__)
+                    # Check for existing client and update or add
+                    client = ClientDashboard.query.filter_by(client_code=client_code).first()
+                    if client:
+                        print(f"🔄 Updating client: {client_code}")
+                        client.client_name = client_name
+                        client.investment_date = inv_date
+                        client.total_value = total_val
+                        client.portfolio_value = port_val
+                        client.return_pct = ret_pct
+                        client.equity = equity
+                        client.mf = mf
+                        client.re = re
+                    else:
+                        print(f"➕ Adding new client: {client_code}")
+                        new_client = ClientDashboard(
+                            client_code=client_code,
+                            client_name=client_name,
+                            investment_date=inv_date,
+                            total_value=total_val,
+                            portfolio_value=port_val,
+                            return_pct=ret_pct,
+                            equity=equity,
+                            mf=mf,
+                            re=re
+                        )
+                        db.session.add(new_client)
+                except Exception as row_error:
+                    print(f"❌ Error processing row {row}: {row_error}")
+
+            db.session.commit()
+            print("✅ Database commit successful")
+            return jsonify({'status': 'success', 'message': 'Dashboard uploaded successfully'})
+
         except Exception as e:
-            print(f"❌ Error processing row {row}: {e}")
-    db.session.commit()
-    print("Database commit successful")
+            print("❌ Upload failed:", e)
+            return jsonify({'status': 'error', 'message': str(e)}), 500
 
-    return jsonify({'status': 'success', 'message': 'Dashboard uploaded successfully'})
-    
+    else:
+        return jsonify({'status': 'error', 'message': 'Only .xlsx files are allowed'}), 400
 
 @app.route('/clients', methods=['GET'])
 def get_clients():
