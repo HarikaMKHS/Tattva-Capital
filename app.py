@@ -15,7 +15,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_6jtIqEBw5Yvp@ep-shy-river-a8ju7x65-pooler.eastus2.azure.neon.tech/Login%20page%20client?sslmode=require'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_6jtIqEBw5Yvp@ep-shy-river-a8ju7x65-pooler.eastus2.azure.neon.tech/Login-client?sslmode=require'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 #db = SQLAlchemy(app)
