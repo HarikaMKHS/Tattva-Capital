@@ -15,7 +15,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://client_login_user:parRwChBKcPwfvlcs6A2sT3K3aQNvQYP@dpg-d138vubuibrs73fuo0ng-a:5432/client_login'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://client_login_user:parRwChBKcPwfvlcs6A2sT3K3aQNvQYP@dpg-d138vubuibrs73fuo0ng-a:5432/client_login'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 #db = SQLAlchemy(app)
