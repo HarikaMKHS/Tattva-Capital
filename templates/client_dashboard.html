@@ -66,15 +66,18 @@
 
     .card-row {
       display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
       gap: 20px;
-      flex-wrap: wrap;
+      justify-content: space-between;
+      /*margin-bottom: 30px;*/
+      flex-wrap:nowrap;
+      /*overflow-x: auto;         allow scrolling on small screens */
+      padding: 20px;
+
     }
 
     .info-card {
-      flex: 1;
-      min-width: 250px;
+      flex:  0 0 50px;
+      min-width: 230px;
       background-color: #ffedf0;
       padding: 20px;
       border-radius: 10px;
@@ -115,6 +118,10 @@
     .download-btn {
       text-align: center;
       margin-top: 30px;
+    }
+    canvas {
+      max-width: 400px;
+      margin: auto;
     }
   </style>
 </head>
@@ -232,6 +239,39 @@
     }
   </script>
   {% endif %}
+   <h2>Investment Composition</h2>
+    <canvas id="investmentChart"></canvas>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('investmentChart').getContext('2d');
+    const investmentChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Equity', 'Mutual Funds', 'Real Estate'],
+        datasets: [{
+          label: 'Investment Composition',
+          data: [2000, 2000, 1000],  // Example data
+          backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.label}: ₹${context.raw}`;
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
 
 </body>
 </html>
