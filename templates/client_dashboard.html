@@ -4,6 +4,10 @@
   <title>Client Dashboard</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Chart.js Data Labels plugin -->
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -140,9 +144,14 @@
     ⬅ Back to Home
   </a>
 </div>
+<div class="dashboard-container">
+  <h2 style="text-align: center; margin-top: 20px;">
+  Tattva Investment Advisory Services (TIAS)
+</h2>
 
 
-  <div class="dashboard-container">
+
+  
 
     <h2>Client Dashboard Report</h2>
 
@@ -197,12 +206,10 @@
 
     </div>
 
-    <div class="download-btn" id="downloadBtn">
-      <button onclick="downloadPDF()">Download as PDF</button>
-    </div>
+    
     {% endif %}
 
-  </div>
+  
 
   {% if client_data %}
   <script>
@@ -239,39 +246,56 @@
     }
   </script>
   {% endif %}
-   <h2>Investment Composition</h2>
-    <canvas id="investmentChart"></canvas>
+   <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+  <h2>Investment Composition</h2>
+  <canvas id="investmentChart" width="400" height="400" style="border: 1px solid #ccc; margin-bottom: 20px;"></canvas>
+  <div class="download-btn" id="downloadBtn">
+    <button onclick="downloadPDF()">Download as PDF</button>
   </div>
+</div>
 
   <script>
-    const ctx = document.getElementById('investmentChart').getContext('2d');
-    const investmentChart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: ['Equity', 'Mutual Funds', 'Real Estate'],
-        datasets: [{
-          label: 'Investment Composition',
-          data: [2000, 2000, 1000],  // Example data
-          backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom',
+window.onload = function () {
+  const ctx = document.getElementById('investmentChart').getContext('2d');
+
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Equity', 'Mutual Funds', 'Real Estate'],
+      datasets: [{
+        label: 'Investment Composition',
+        data: [2000, 2000, 1000],  // Replace with dynamic values if needed
+        backgroundColor: ['#4e73df', '#1cc88a', '#f6c23e'],
+        borderColor: '#ffffff',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'bottom'
+        },
+        datalabels: {
+          color: '#000',
+          formatter: (value, context) => {
+            const label = context.chart.data.labels[context.dataIndex];
+            return `${label}: ${value}`;
           },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return `${context.label}: ₹${context.raw}`;
-              }
-            }
+          anchor: 'end',
+          align: 'start',
+          offset: 10,
+          font: {
+            weight: 'bold'
           }
         }
       }
-    });
-  </script>
+    },
+    plugins: [ChartDataLabels]
+  });
+};
+</script>
+</div>
 
 </body>
 </html>
