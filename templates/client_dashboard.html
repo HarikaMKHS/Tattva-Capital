@@ -5,6 +5,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -199,9 +201,7 @@
 
     </div>
 
-    <div class="download-btn" id="downloadBtn">
-      <button onclick="downloadPDF()">Download as PDF</button>
-    </div>
+    
     {% endif %}
 
   
@@ -249,7 +249,7 @@
       });
     }
   </script>
-  <script>
+ <script>
   const dataElement = document.getElementById("investmentData");
 
   const equity = parseFloat(dataElement.dataset.equity) || 0;
@@ -257,6 +257,10 @@
   const re = parseFloat(dataElement.dataset.re) || 0;
 
   const ctx = document.getElementById('investmentPieChart').getContext('2d');
+
+  // Register the plugin globally (for Chart.js v3+)
+  Chart.register(ChartDataLabels);
+
   const investmentPieChart = new Chart(ctx, {
     type: 'pie',
     data: {
@@ -282,11 +286,25 @@
               return `${label}: ₹${value.toLocaleString()}`;
             }
           }
+        },
+        datalabels: {
+          color: '#fff',
+          font: {
+            weight: 'bold',
+            size: 14
+          },
+          formatter: (value, context) => {
+            return `₹${value.toLocaleString()}`;
+          }
         }
       }
-    }
+    },
+    plugins: [ChartDataLabels]
   });
 </script>
+<div class="download-btn" id="downloadBtn">
+      <button onclick="downloadPDF()">Download as PDF</button>
+    </div>
 
 
   {% endif %}
