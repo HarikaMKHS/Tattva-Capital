@@ -8,44 +8,35 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: white;
-      padding-top: 0px;   /*for fixed navbar */
-    }
-    .mission-section {
-      position: relative;
-      background-image: url('mission.png');
+      background-image: url('mission.png'); /* background image for entire page */
       background-size: cover;
       background-position: center;
-      height: 100vh; /* Full viewport height */
+      background-attachment: fixed;
+      height: 100vh;
       color: white;
+    }
+
+    .mission-section {
       display: flex;
-      align-items: center; /* Vertically center */
-      justify-content: flex-start; /* Left align */
-      padding: 0 5%; /* Horizontal padding only */
-    }
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 1;
-    }
-    .content {
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      padding: 0 5%;
       position: relative;
-      z-index: 2;
-      max-width: 35%;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 40px;
-      border-radius: 12px;
-      backdrop-filter: blur(6px);
-      text-align: left;
+      background: rgba(0, 0, 0, 0.1); /* optional: overlay for readability */
     }
+
+    .content {
+      z-index: 2;
+      max-width: 40%;
+    }
+
     .quote {
       font-style: italic;
-      font-size: 1.4rem;
+      font-size: 1.8rem;
       margin-bottom: 20px;
     }
+
     .mission-text {
       font-size: 1.1rem;
       line-height: 1.6;
@@ -54,7 +45,6 @@
     @media (max-width: 768px) {
       .content {
         max-width: 90%;
-        padding: 20px;
       }
       .quote {
         font-size: 1.2rem;
@@ -63,118 +53,131 @@
         font-size: 1rem;
       }
     }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
   </style>
 </head>
 <body>
-    <div class="hero-background-wrapper">
-<section>
-  <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
-  <script>
-    function toggleMenu() {
-      document.querySelector('.nav-left').classList.toggle('open');
-      document.querySelector('.nav-right').classList.toggle('open');
-    }
-  </script>
-  <nav class="sticky-nav">
-    <ul class="nav-left">
-      <li class="dropdown">
-        <a href="index.html" class="dropbtn">Home</a>
-        <div class="dropdown-horizontal-with-line">
-          <div class="separator-line"></div>
-          <div class="submenu-items">
-            <a href="aboutus.html">About</a>
-            <a href="#">Mission</a>
-            <a href="vision.html">Vision</a>
+  <section>
+    <!-- Navbar Section -->
+    <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
+    <script>
+      function toggleMenu() {
+        document.querySelector('.nav-left').classList.toggle('open');
+        document.querySelector('.nav-right').classList.toggle('open');
+      }
+    </script>
+    <nav class="sticky-nav">
+      <ul class="nav-left">
+        <li class="dropdown">
+          <a href="index.html" class="dropbtn">Home</a>
+          <div class="dropdown-horizontal-with-line">
+            <div class="separator-line"></div>
+            <div class="submenu-items">
+              <a href="aboutus.html">About</a>
+              <a href="#">Mission</a>
+              <a href="vision.html">Vision</a>
+            </div>
           </div>
-        </div>
-      </li>
-      <li class="dropdown">
-        <a href="#" class="dropbtn">Services</a>
-        <div class="dropdown-horizontal">
-          <div class="separator-line"></div>
-          <div class="submenu-items">
-            <a href="Investment.html">Investment Advisory</a>
-            <a href="analytics.html">Analytics & Reports</a>
-            <a href="estate.html">Estate Plan</a>
-            <a href="philonthropy.html">Philanthropy</a>
-            <a href="calculator.html">Calculator</a>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropbtn">Services</a>
+          <div class="dropdown-horizontal">
+            <div class="separator-line"></div>
+            <div class="submenu-items">
+              <a href="Investment.html">Investment Advisory</a>
+              <a href="analytics.html">Analytics & Reports</a>
+              <a href="estate.html">Estate Plan</a>
+              <a href="philonthropy.html">Philanthropy</a>
+              <a href="calculator.html">Calculator</a>
+            </div>
           </div>
-        </div>
-      </li>
-      <li><a href="#">Careers</a></li>
-    </ul>
-    <span class="brand">Tattva Capital</span>
-    <ul class="nav-right">
-      <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Login</a>
-        <div class="dropdown-content">
-          <a href="login-employee.html">Employee</a>
-          <a href="login-client.html">Client</a>
-          <a href="B-p login.html">Business Partner</a>
-        </div>
-      </li>
-      <li><a href="contact.html" target="_blank">Contact Us</a></li>
-    </ul>
-  </nav>
+        </li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+      <span class="brand">Tattva Capital</span>
+      <ul class="nav-right">
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">Login</a>
+          <div class="dropdown-content">
+            <a href="login-employee.html">Employee</a>
+            <a href="login-client.html">Client</a>
+            <a href="B-p login.html">Business Partner</a>
+          </div>
+        </li>
+        <li><a href="contact.html" target="_blank">Contact Us</a></li>
+      </ul>
+    </nav>
 
-
-  <div class="mission-section">
-    <div class="overlay"></div>
-    <div class="content">
-      <div class="quote">"Empowering every step toward financial confidence and well-being."</div>
-      <div class="mission-text">
-        Our mission is to deliver trusted, client-centric wealth management and advisory solutions that not only help individuals and businesses grow but also uplift financially underserved communities—empowering every client, regardless of their starting point, to achieve financial well-being, confidence, and a brighter future.
+    <!-- Mission Section -->
+    <div class="mission-section">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="quote">"Empowering every step toward financial confidence and well-being."</div>
+        <div class="mission-text">
+          Our mission is to deliver trusted, client-centric wealth management and advisory solutions that not only help individuals and businesses grow but also uplift financially underserved communities—empowering every client, regardless of their starting point, to achieve financial well-being, confidence, and a brighter future.
+        </div>
       </div>
     </div>
-    </div>
-</div>
   </section>
+
   <script>
-  function showTab(id, event) {
-    const tabs = document.querySelectorAll('.tab-content');
-    const buttons = document.querySelectorAll('.tab-btn');
-    tabs.forEach((tab) => tab.classList.remove('active'));
-    buttons.forEach((btn) => btn.classList.remove('active'));
+    function showTab(id, event) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-btn');
+      tabs.forEach((tab) => tab.classList.remove('active'));
+      buttons.forEach((btn) => btn.classList.remove('active'));
 
-    document.getElementById(id).classList.add('active');
-    event.target.classList.add('active');
-  }
-
-  // Dropdown + navbar transparency logic
-  document.querySelectorAll('.dropdown').forEach(dropdown => {
-    let timer;
-    dropdown.addEventListener('mouseenter', () => {
-      clearTimeout(timer);
-      dropdown.classList.add('open');
-    });
-    dropdown.addEventListener('mouseleave', () => {
-      timer = setTimeout(() => {
-        dropdown.classList.remove('open');
-      }, 300);
-    });
-  });
-
-  const nav = document.querySelector('.sticky-nav');
-  const dropdowns = document.querySelectorAll('.dropdown');
-  nav.classList.add('transparent');
-
-  dropdowns.forEach(dropdown => {
-    dropdown.addEventListener('mouseenter', () => {
-      nav.classList.remove('transparent');
-      nav.classList.add('solid');
-    });
-
-    dropdown.addEventListener('mouseleave', () => {
-      nav.classList.remove('solid');
-      nav.classList.add('transparent');
-    });
-  });
-
-  nav.addEventListener('mouseenter', () => {
-    if (!nav.classList.contains('solid')) {
-      nav.classList.add('transparent');
+      document.getElementById(id).classList.add('active');
+      event.target.classList.add('active');
     }
-  });
-</script>
+
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+      let timer;
+      dropdown.addEventListener('mouseenter', () => {
+        clearTimeout(timer);
+        dropdown.classList.add('open');
+      });
+      dropdown.addEventListener('mouseleave', () => {
+        timer = setTimeout(() => {
+          dropdown.classList.remove('open');
+        }, 300);
+      });
+    });
+
+    const nav = document.querySelector('.sticky-nav');
+    const dropdowns = document.querySelectorAll('.dropdown');
+    nav.classList.add('transparent');
+
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('mouseenter', () => {
+        nav.classList.remove('transparent');
+        nav.classList.add('solid');
+      });
+
+      dropdown.addEventListener('mouseleave', () => {
+        nav.classList.remove('solid');
+        nav.classList.add('transparent');
+      });
+    });
+
+    nav.addEventListener('mouseenter', () => {
+      if (!nav.classList.contains('solid')) {
+        nav.classList.add('transparent');
+      }
+    });
+  </script>
 </body>
 </html>

@@ -5,19 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tattva Capital</title>
   <link rel="stylesheet" href="styles.css"/>
-  <!--style>
-  body {
-  background-image: url('https://media.istockphoto.com/id/1383796215/photo/silhouette-of-man-holding-binoculars-on-mountain-peak-against-bright-sunlight-sky-background.jpg?s=612x612&w=0&k=20&c=Y1bdRKzRcs6DVSPjqAn3fVQIdkrA-s1-uWHvnFviCOQ='); /* or full URL */
-  background-size: cover;          /* ensures it fills the screen */
-  background-repeat: no-repeat;    /* prevents tiling */
-  background-position: center;     /* centers the image */
-  background-attachment: fixed;    /* optional: keeps image in place when scrolling */
-  margin: 0; /* ensure body fills the screen */
-  padding: 0;
-}
-
-
-</style-->
+<!-- AOS CSS -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <style>
   .hero {
   padding-top: 0 !important;
@@ -28,12 +17,12 @@ main.hero {
 }
 
  .hero-section {
-  background-image: url('https://media.istockphoto.com/id/1383796215/photo/silhouette-of-man-holding-binoculars-on-mountain-peak-against-bright-sunlight-sky-background.jpg?s=612x612&w=0&k=20&c=Y1bdRKzRcs6DVSPjqAn3fVQIdkrA-s1-uWHvnFviCOQ=');
+  background-image: url('https://aicdn.picsart.com/5aadfab4-8b1b-41bf-97cb-6f34557ac550.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
-  height: 70vh;           /* Ensures full height of screen */
+  height: 90vh;           /* Ensures full height of screen */
   padding: 0 80px 120px;   /* ✅ no top padding */
   color: white;
   text-align: center;
@@ -51,8 +40,9 @@ main.hero {
 <body>
   <section>
     <div class="mobile-menu-toggle" onclick="toggleMenu()">☰</div>
-    <script> toggleMenu() 
-    {
+    <script> 
+      function toggleMenu() 
+      {
   document.querySelector('.nav-left').classList.toggle('open');
   document.querySelector('.nav-right').classList.toggle('open');
     }</script>
@@ -101,12 +91,12 @@ main.hero {
 
   <main class="hero hero-section">
      <div class="hero-content">
-    <h1>"Vision is the art of seeing what is invisible to others."</h1>
-    <p> – Jonathan Swift</p>
+    <h1 style="color: #ed8e09;">"Vision is the art of seeing what is invisible to others."</h1>
+    <p style="color: #080564;"> – Jonathan Swift</p>
     <!--<a href="https://live.meon.co.in/lkpsec/individual_rm?YnJhbmNoX3JlZmVyZW5jZV9jb2RlPUI4MzAz" class="get-started-btn">Get started</a>
 
      Correct Search Container -->
-    <div class="search-container">
+    <!--div class="search-container">
       <form id="searchForm" class="search-bar">
         <input type="text" id="searchInput" placeholder="Search stocks, dividends, updates..." required />
         <button type="submit">Search</button>
@@ -123,7 +113,7 @@ main.hero {
         <div class="tab-content" id="tabContent"></div>
       </div>
       </div>
-    </div>
+    </div-->
 
     <iframe id="calculatorFrame" src="" style="width: 100%; height: 700px; border: none; display: none;"></iframe>
   </main>
@@ -198,21 +188,28 @@ main.hero {
   </div>
 </section>
 </div>
-<hr class="section-separator">
-
-<!-- START: Mission Section -->
-<section id="mission-section" style="padding: 60px 90px; background-color: #a1cef3;">
-  <div class="zigzag-card">
-    <div class="zigzag-image" style="background-image: url('https://aicdn.picsart.com/2e13e5e6-0547-4939-a0c5-53d3ca78f1f6.png'); min-height: 400px;"></div>
-    <div class="zigzag-content" style="background-color: #f7f9fc; border-left: 4px solid #2784ee; border-bottom: 4px solid #1a237e; border-radius: 12px; padding: 24px;">
+<div class="separator-container">
+  <div class="separator-line"></div>
+</div>
+<section class="mission-section" id="mission-section">
+  <div class="mission-container">
+    <div class="mission-text">
       <h3>Our Mission</h3>
-      <p><em>"Empowering every step toward financial confidence and well-being."</em></p>
-      <p>Our mission is to deliver trusted, client-centric wealth management and advisory solutions that not only help individuals and businesses grow but also uplift financially underserved communities—empowering every client, regardless of their starting point, to achieve financial well-being, confidence, and a brighter future.</p>
+      <p>
+        At Tattva Investment Advisory Services, our mission is to provide insightful, reliable, and personalized investment solutions that empower individuals and organizations to achieve their financial goals. We are committed to upholding the highest standards of integrity and professionalism while fostering long-term relationships built on trust and performance.
+      </p>
+    </div>
+    <div class="mission-image">
+      <img src="mission.png" alt="Mission Image">
     </div>
   </div>
 </section>
-<hr class="section-separator">
-<!-- START: Vision Section -->
+
+
+<div class="separator-container">
+  <div class="separator-line"></div>
+</div>
+<!-- START: Vision Section >
 <section id="vision-section" style="padding: 60px 90px; background-color:#a1cef3;">
   <div class="zigzag-card">
     <div class="zigzag-content" style="background-color: #f7f9fc; border-left: 4px solid #2784ee; border-bottom: 4px solid #1a237e; border-radius: 12px; padding: 24px;">
@@ -221,6 +218,14 @@ main.hero {
       <p>To establish ourselves as a highly respected and trusted name in the wealth management and advisory industry, while also serving as a catalyst for financial empowerment among underserved communities—bridging the gap through inclusive initiatives that promote growth, stability, and long-term well-being.</p>
     </div>
     <div class="zigzag-image" style="background-image: url('https://aicdn.picsart.com/f9e3c6e9-5020-4220-a5be-a335b26c3816.png'); min-height: 400px;"></div>
+  </div>
+</section-->
+<section id="vision-section"class="vision-section" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="10">
+  <div class="vision-content">
+    <h2>Our Vision</h2>
+    <p>
+      Our vision is to lead the financial advisory space by consistently delivering value-driven investment strategies, fostering trust, and empowering clients to achieve long-term success through ethical and insightful decision-making.
+    </p>
   </div>
 </section>
 
@@ -246,65 +251,7 @@ main.hero {
   </div>
 </section>
 
-
-
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      const suggestions = {
-        all: ["What is Sensex?", "Nifty today live", "Best dividend stocks 2024", "How to apply for IPO", "T+1 settlement rules"],
-        stocks: ["Reliance Industries share price", "Infosys quarterly results", "HDFC Bank dividend record date", "TCS bonus history"],
-        fo: ["Nifty 50 options chain", "Bank Nifty futures lot size", "How to trade F&O in India"],
-        mf: ["Top mutual funds for SIP", "Nippon India Small Cap Fund", "HDFC Flexi Cap Fund"],
-        etf: ["Groww Nifty India Defence ETF", "Tata Gold Exchange Traded Fund", "Nippon India ETF Gold BeES", "Groww Gold ETF", "Nippon India Silver ETF"],
-        faqs: ["How to open demat account?", "Is trading safe for beginners?", "What are ETFs?", "What is intraday trading?"]
-      };
-
-      const searchInput = document.getElementById('searchInput');
-      const suggestionsBox = document.getElementById('searchSuggestions');
-      const tabContent = document.getElementById('tabContent');
-
-      window.showTab = function(tabType) {
-        document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
-        document.querySelector(`.tab[onclick="showTab('${tabType}')"]`).classList.add('active');
-
-        const items = suggestions[tabType].map(text => `<li onclick="selectSuggestion('${text}')">${text}</li>`).join('');
-        tabContent.innerHTML = `<ul>${items}</ul>`;
-      };
-
-      window.selectSuggestion = function(text) {
-        searchInput.value = text;
-        suggestionsBox.style.display = 'none';
-        window.open(`https://www.google.com/search?q=${encodeURIComponent(text)}`, '_blank');
-      };
-
-      searchInput.addEventListener('focus', () => {
-        suggestionsBox.style.display = 'block';
-        showTab('all');
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!suggestionsBox.contains(e.target) && e.target !== searchInput) {
-          suggestionsBox.style.display = 'none';
-        }
-      });
-
-      document.getElementById('searchForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const query = searchInput.value.trim().toLowerCase();
-        const allowedKeywords = ['stock', 'nifty', 'sensex', 'dividend', 'ipo', 'trading', 'market', 'share', 'exchange', 'equity'];
-        const isTradingRelated = allowedKeywords.some(keyword => query.includes(keyword));
-
-        if (!isTradingRelated) {
-          alert('Please search for trading-related information only.');
-          return;
-        }
-
-        const googleSearchURL = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-        window.open(googleSearchURL, '_blank');
-      });
-    });
-  </script>
-  <script>
+<script>
   document.querySelectorAll('.dropdown').forEach(dropdown => {
     let timer;
 
@@ -363,6 +310,12 @@ main.hero {
     showSectionTab('who'); // Default visible
   });
 </script>
+<!-- AOS JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+
 
 
 </body>

@@ -260,7 +260,7 @@ nav a {
 }
 
 body {
-  background-color: #ffffff;
+  background-color: #f5ebeb;
   color: #2d2f3a;
 }
 
@@ -569,7 +569,7 @@ nav a {
 /* Optional separator below the Services item */
 .separator-line {
   height: 1px;
-  background-color: #ccc;
+  background-color: #940f0f;
   margin: 0 16px;
 }
 
@@ -954,7 +954,7 @@ main.hero {
 
 
  .tab-nav {
-      background: #fff;
+      background: #9f4848;
       padding: 15px 40px 15px 20px;
       display: flex;
       gap: 20px;
@@ -984,7 +984,7 @@ main.hero {
 
     .tab-content {
       display: none;
-      background-color: #e8f0fe;
+      background-color: #bcc7db;
     }
 
     .tab-content.active {
@@ -1078,11 +1078,11 @@ main.hero {
 }
 /* Tab Navigation Bar */
 .tab-nav {
-  background: #fff;
+  background: #a3a7a9;
   padding: 15px 40px 15px 20px;
   display: flex;
   gap: 20px;
-  justify-content: flex-start;
+  justify-content: center;
   margin-left: 0;
   margin-top: 0;
   border-bottom: 1px solid #ccc;
@@ -1097,7 +1097,7 @@ main.hero {
   border-radius: 6px;
   background: #dce3ed;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 900;
   transition: 0.3s;
 }
 
@@ -1211,20 +1211,8 @@ blockquote {
   }
 }
 
-
-.section-separator {
-  border: none;
-  height: 2px;
-  background: linear-gradient(to right, #1a237e, #2784ee);
-  margin: 0;
-  margin: 40px auto;         /* vertical spacing + center */
-  width: 80%;                /* leaves 10% gap on left and right */
-  border-radius: 2px;   
-}
-
-
 .investment-interest-section {
-   background-image: url('https://aicdn.picsart.com/533d16e8-5204-4192-9bdf-945bfa4c6489.png');
+  background-image: url('https://aicdn.picsart.com/00b0c9c2-6118-482b-bbac-62cdca44fdb2.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1248,7 +1236,7 @@ blockquote {
   max-width: 1000px;
   margin: auto;
   text-align: left;
-  background: rgba(255, 255, 255, 0.1); /* optional subtle contrast */
+  background: rgba(40, 34, 34, 0.1); /* optional subtle contrast */
   padding: 40px;
   border-radius: 12px;
   backdrop-filter: blur(4px);
@@ -1316,7 +1304,7 @@ blockquote {
 
 .cta-consultation {
   background: linear-gradient(to right, #e8f0fe, #f7f9fc);
-  padding: 80px 20px;
+  padding: 40px 20px;
   text-align: center;
 }
 
@@ -1365,4 +1353,108 @@ blockquote {
     font-size: 16px;
   }
 }
+
+/*mission section*/
+.mission-section {
+  background-color:#a1cef3; /* subtle background like screenshot */
+  padding: 50px 0;
+}
+
+.mission-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 10px;
+  flex-wrap: wrap;
+}
+
+.mission-text {
+  flex: 1;
+  padding-right: 20px;
+}
+
+.mission-text h3 {
+  font-size: 2.5rem;
+  color: #2f2f4f;
+  margin-bottom: 20px;
+}
+
+.mission-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.mission-image {
+  flex: 1;
+}
+
+.mission-image img {
+  width: 120%;
+  height: 65vh;
+  /*border-radius: 10px;*/
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .mission-container {
+    flex-direction: column;
+  }
+  .mission-text {
+    padding-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+/*vision section*/
+.vision-section {
+    background-color: #a1cef3; /* Soft background to match design */
+    text-align: center;
+    padding: 80px 20px;
+    
+  }
+
+  .vision-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .vision-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #2e2a4a;
+  }
+
+  .vision-content p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #444;
+  }
+
+  @media (max-width: 768px) {
+    .vision-content h2 {
+      font-size: 2rem;
+    }
+
+    .vision-content p {
+      font-size: 1rem;
+    }
+  }
+
+/*seperator line*/
+.separator-container {
+  background-color: #a1cef3; /* Light sky blue or adjust to your site's blue */
+  padding: 20px 0;
+  text-align: center;
+}
+
+.separator-line {
+  border: none;
+  height: 2px;
+  background-color: #000080; /* Navy or dark blue */
+  width: 80%;
+  margin: auto;
+}
+
 
