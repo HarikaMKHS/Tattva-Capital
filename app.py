@@ -181,7 +181,9 @@ def client_dashboard():
                 'Return Percentage': f"{client.return_pct}%",
                 'Investment in Equity': client.equity,
                 'Investment in MF': client.mf,
-                'Investment in RE': client.re
+                'Investment in RE': client.re,
+                'Investment on Others': client.others
+
             }
         else:
             error = "Client ID not found."
@@ -218,7 +220,7 @@ def upload_dashboard():
                     equity = float(row[6]) if row[6] is not None else 0.0
                     mf = float(row[7]) if row[7] is not None else 0.0
                     re = float(row[8]) if row[8] is not None else 0.0
-
+                    others=row[9]
                     # Convert investment_date to a date object
                     if isinstance(inv_date, datetime):
                         inv_date = inv_date.date()
@@ -242,6 +244,8 @@ def upload_dashboard():
                         client.equity = equity
                         client.mf = mf
                         client.re = re
+                        client.others = float(others) if others is not None else 0.0
+
                     else:
                         print(f"➕ Adding new client: {client_code}")
                         new_client = ClientDashboard(
@@ -253,7 +257,8 @@ def upload_dashboard():
                             return_pct=ret_pct,
                             equity=equity,
                             mf=mf,
-                            re=re
+                            re=re,
+                            others=float(others) if others is not None else 0.0
                         )
                         db.session.add(new_client)
                 except Exception as row_error:
@@ -283,7 +288,9 @@ def get_clients():
             'return_pct': str(client.return_pct),
             'equity': str(client.equity),
             'mf': str(client.mf),
-            're': str(client.re)
+            're': str(client.re),
+            'others': str(client.others)
+
         } for client in clients
     ])
 
@@ -306,7 +313,9 @@ def dashboard_form():
                 'Return Percentage': f"{client.return_pct}%",
                 'Investment in Equity': client.equity,
                 'Investment in MF': client.mf,
-                'Investment in RE': client.re
+                'Investment in RE': client.re,
+                'Investment on Others': client.others
+
             }
         else:
             error = "Client ID not found."

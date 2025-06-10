@@ -160,11 +160,13 @@
         <th>Investment in Equity</th>
         <th>Investment in MF</th>
         <th>Investment in RE</th>
+        <th>Investment on Others</th>
       </tr>
       <tr>
         <td>{{ client_data.equity }}</td>
         <td>{{ client_data.mf }}</td>
         <td>{{ client_data.re }}</td>
+         <td>{{ client_data.others }}</td>
       </tr>
     </table>
     <h3 style="text-align:center;">Investment Distribution Chart</h3>
@@ -172,7 +174,8 @@
     <div id="investmentData"
          data-equity="{{ client_data.equity }}"
          data-mf="{{ client_data.mf }}"
-         data-re="{{ client_data.re }}"></div>
+         data-re="{{ client_data.re }}"
+         data-others="{{ client_data.others }}"></div>
   </div>
   <div class="download-btn" id="downloadBtn">
     <button onclick="downloadPDF()">Download as PDF</button>
@@ -231,7 +234,7 @@
       new Chart(canvas.getContext("2d"), {
         type: 'pie',
         data: {
-          labels: ['Equity', 'Mutual Funds', 'Real Estate'],
+          labels: ['Equity', 'Mutual Funds', 'Real Estate','Others'],
           datasets: [{
             data: [equity, mf, re],
             backgroundColor: ['#007bff', '#ffc107', '#28a745'],
