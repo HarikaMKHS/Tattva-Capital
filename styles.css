@@ -1392,7 +1392,7 @@ blockquote {
 }
 
 .mission-image img {
-  width: 100%;
+  width: 99%;
   height: 60vh;
   /*border-radius: 10px;*/
   object-fit: cover;
