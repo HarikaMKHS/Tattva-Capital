@@ -186,14 +186,16 @@
     const equity = parseFloat(dataElement.dataset.equity) || 0;
     const mf = parseFloat(dataElement.dataset.mf) || 0;
     const re = parseFloat(dataElement.dataset.re) || 0;
+    const others = parseFloat(dataElement.dataset.others) || 0;
+
     const ctx = document.getElementById('investmentPieChart').getContext('2d');
     new Chart(ctx, {
       type: 'pie',
       data: {
-        labels: ['Equity', 'Mutual Funds', 'Real Estate'],
+        labels: ['Equity', 'Mutual Funds', 'Real Estate','Others'],
         datasets: [{
-          data: [equity, mf, re],
-          backgroundColor: ['#007bff', '#ffc107', '#28a745'],
+          data: [equity, mf, re,others],
+          backgroundColor: ['#007bff', '#ffc107', '#28a745','#ff6384'],
           borderColor: ['#ffffff'],
           borderWidth: 2
         }]
@@ -230,14 +232,16 @@
       const equity = parseFloat(dataElement.dataset.equity) || 0;
       const mf = parseFloat(dataElement.dataset.mf) || 0;
       const re = parseFloat(dataElement.dataset.re) || 0;
+      const others = parseFloat(dataElement.dataset.others) || 0;
+
       Chart.register(ChartDataLabels);
       new Chart(canvas.getContext("2d"), {
         type: 'pie',
         data: {
           labels: ['Equity', 'Mutual Funds', 'Real Estate','Others'],
           datasets: [{
-            data: [equity, mf, re],
-            backgroundColor: ['#007bff', '#ffc107', '#28a745'],
+            data: [equity, mf, re,others],
+            backgroundColor: ['#007bff', '#ffc107', '#28a745','#ff6384'],
             borderColor: ['#ffffff'],
             borderWidth: 2
           }]
