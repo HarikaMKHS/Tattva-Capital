@@ -845,7 +845,7 @@ main.hero {
   border-radius: 6px;
   background: #dce3ed;
   cursor: pointer;
-  font-weight: 900;
+  font-weight: 650;
   transition: 0.3s;
 }
 
@@ -859,6 +859,7 @@ main.hero {
 .tab-content {
   display: none;
   background-color: #e8f0fe;
+  min-height: 500px;
 }
 
 .tab-content.active {
