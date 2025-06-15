@@ -17,9 +17,9 @@ from flask import session
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_secret_key_2025")
-CORS(app, supports_credentials=True, resources={r"/*": {
-    "origins": ["https://harikamkhs.github.io"]
-}})
+CORS(app,
+     supports_credentials=True,
+     origins=["https://harikamkhs.github.io"])
 #CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_6jtIqEBw5Yvp@ep-shy-river-a8ju7x65-pooler.eastus2.azure.neon.tech/Login-client?sslmode=require'

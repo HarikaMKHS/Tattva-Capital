@@ -363,6 +363,7 @@ function resetPassword() {
 
   fetch(`${BACKEND_URL}/validate-client`, {
     method: 'POST',
+    credentials: "include",
     headers: {
       'Content-Type': 'application/json',
     },
