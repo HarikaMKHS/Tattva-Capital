@@ -55,6 +55,8 @@ def validate_client():
 
     user = User.query.filter_by(username=username).first()
     if user and user.check_password(password):
+        session['username'] = user.username
+        session['client_id'] = user.client_id
         return jsonify({"success": True})
     else:
         return jsonify({"success": False, "message": "Invalid username or password"}), 401
@@ -327,25 +329,38 @@ from flask import session
 
 @app.route('/client_dashboard')
 def client_dashboard_page():
+    client_data = None
+
     username = session.get("username")
+    client_id = session.get("client_id")
+
+    if not username or not client_id:
+        print("🔒 User not logged in. Redirecting...")
+        return redirect("/login-client")
+
+    # Now safe to query
     user = User.query.filter_by(username=username).first()
-    if user:
-        client = ClientDashboard.query.filter_by(client_code=user.client_id).first()
-        if client:
-            client_data = {
-                "client_name": client.client_name,
-                "client_code": client.client_code,
-                "investment_date": client.investment_date.strftime('%Y-%m-%d'),
-                "total_value": client.total_value,
-                "portfolio_value": client.portfolio_value,
-                "return_pct": client.return_pct,
-                "equity": client.equity,
-                "mf": client.mf,
-                "re": client.re,
-                "others": client.others
-            }
-            return render_template('client_dashboard.html', client_data=client_data)
-    return "Client not found", 404
+    if not user:
+        print("❌ User not found in DB.")
+        return redirect("/login-client")
+
+    client = ClientDashboard.query.filter_by(client_code=user.client_id).first()
+    if client:
+        client_data = {
+            "client_name": client.client_name,
+            "client_code": client.client_code,
+            "investment_date": client.investment_date.strftime('%Y-%m-%d'),
+            "total_value": client.total_value,
+            "portfolio_value": client.portfolio_value,
+            "return_pct": client.return_pct,
+            "equity": client.equity,
+            "mf": client.mf,
+            "re": client.re,
+            "others": client.others
+        }
+
+    return render_template("client_dashboard.html", client_data=client_data)
+
 
 
 @app.route('/show-tables')

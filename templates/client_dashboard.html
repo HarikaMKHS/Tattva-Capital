@@ -218,7 +218,6 @@
 {% if client_data is defined and client_data %}
   <script>
     let data = {};
-    
 
       data = JSON.parse('{{ client_data | tojson | safe }}');
 
@@ -262,9 +261,9 @@
           }
         }
       });
-    {% endif %}
+    
   </script>
-
+  {% endif %}
   <script>
     function downloadPDF() {
       const dashboard = document.querySelector('.dashboard-container');
