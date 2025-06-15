@@ -127,156 +127,159 @@
     </a>
   </div>
   <h2>Client Dashboard Report</h2>
+
+  {% if not client_data %}
   <div class="form-section" id="formSection">
     <form method="POST" action="/dashboard-form">
       <input type="text" name="client_id" required placeholder="Enter Client Code">
       <button type="submit">View Dashboard</button>
     </form>
   </div>
-    <!-- assuming you wrap with Star Admin's layout -->
-  {% block content %}
-<div class="content-wrapper">
-  <div class="row mb-4">
-    <div class="col-md-12">
-      <h3 class="font-weight-bold">Good morning, {{ client_data.client_name }} 👋</h3>
-      <h6 class="text-muted">Your portfolio performance report</h6>
+  {% endif %}
+
+  {% if client_data %}
+  <div class="content-wrapper">
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <h3 class="font-weight-bold">Good morning, {{ client_data.client_name }} 👋</h3>
+        <h6 class="text-muted">Your portfolio performance report</h6>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Client Code</h5>
+            <p class="card-text">{{ client_data.client_code }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Investment Date</h5>
+            <p class="card-text">{{ client_data.investment_date }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            <h5>Total Investment Value</h5>
+            <h3>₹{{ client_data.total_value }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-success text-white">
+          <div class="card-body">
+            <h5>Portfolio Value</h5>
+            <h3>₹{{ client_data.portfolio_value }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-warning text-white">
+          <div class="card-body">
+            <h5>Return Percentage</h5>
+            <h3>{{ client_data.return_pct }}%</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Investment Distribution (Pie)</h5>
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Investment Distribution (Bar)</h5>
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="download-btn">
+      <button onclick="downloadPDF()">Download Dashboard</button>
     </div>
   </div>
+{% if client_data is defined and client_data %}
+  <script>
+    let data = {};
+    
 
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Client Code</h5>
-          <p class="card-text">{{ client_data.client_code }}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Investment Date</h5>
-          <p class="card-text">{{ client_data.investment_date }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+      data = JSON.parse('{{ client_data | tojson | safe }}');
 
-  <div class="row mt-4">
-    <div class="col-md-4">
-      <div class="card bg-primary text-white">
-        <div class="card-body">
-          <h5>Total Investment Value</h5>
-          <h3>₹{{ client_data.total_value }}</h3>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-success text-white">
-        <div class="card-body">
-          <h5>Portfolio Value</h5>
-          <h3>₹{{ client_data.portfolio_value }}</h3>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card bg-warning text-white">
-        <div class="card-body">
-          <h5>Return Percentage</h5>
-          <h3>{{ client_data.return_pct }}%</h3>
-        </div>
-      </div>
-    </div>
-  </div>
+      const equity = parseInt(data.equity) || 0;
+      const mf = parseInt(data.mf) || 0;
+      const re = parseInt(data.re) || 0;
+      const others = parseInt(data.others) || 0;
 
-  <div class="row mt-5">
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Investment Distribution (Pie)</h5>
-          <canvas id="pieChart"></canvas>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Investment Distribution (Bar)</h5>
-          <canvas id="barChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+      const pieCtx = document.getElementById('pieChart');
+      const barCtx = document.getElementById('barChart');
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  let data = {};
+      new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+          labels: ['Equity', 'Mutual Funds', 'Real Estate', 'Others'],
+          datasets: [{
+            data: [equity, mf, re, others],
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: 'bottom' } }
+        }
+      });
 
-    data = JSON.parse('{{ client_data | tojson | safe }}');
+      new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Equity', 'Mutual Funds', 'Real Estate', 'Others'],
+          datasets: [{
+            label: 'Investment Value',
+            data: [equity, mf, re, others],
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    {% endif %}
+  </script>
 
-  const equity = parseInt(data.equity) || 0;
-  const mf = parseInt(data.mf) || 0;
-  const re = parseInt(data.re) || 0;
-  const others = parseInt(data.others) || 0;
-
-  const pieCtx = document.getElementById('pieChart');
-  const barCtx = document.getElementById('barChart');
-
-  new Chart(pieCtx, {
-    type: 'pie',
-    data: {
-      labels: ['Equity', 'Mutual Funds', 'Real Estate', 'Others'],
-      datasets: [{
-        data: [equity, mf, re, others],
-        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: { legend: { position: 'bottom' } }
+  <script>
+    function downloadPDF() {
+      const dashboard = document.querySelector('.dashboard-container');
+      html2canvas(dashboard).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('dashboard.pdf');
+      });
     }
-  });
-
-  new Chart(barCtx, {
-    type: 'bar',
-    data: {
-      labels: ['Equity', 'Mutual Funds', 'Real Estate', 'Others'],
-      datasets: [{
-        label: 'Investment Value',
-        data: [equity, mf, re, others],
-        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true }
-      }
-    }
-  });
-</script>
-<div class="download-btn">
-  <button onclick="downloadPDF()">Download Dashboard</button>
-</div>
-
-<script>
-function downloadPDF() {
-  const dashboard = document.querySelector('.dashboard-container');
-  html2canvas(dashboard).then(canvas => {
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save('dashboard.pdf');
-  });
-}
-</script>
-
-{% endblock %}
-
+  </script>
+  {% endif %}
 </div>
 </body>
 </html>

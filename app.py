@@ -336,6 +336,7 @@ from flask import session
 
 @app.route('/client_dashboard')
 def client_dashboard_page():
+    client_data = None
     client_id = session.get('client_id')
     if not client_id:
         return "Unauthorized access", 401
