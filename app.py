@@ -12,10 +12,15 @@ from datetime import datetime
 from flask import redirect, url_for
 from flask import render_template
 from flask import send_file
+from flask import session
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_secret_key_2025")
+CORS(app, supports_credentials=True, resources={r"/*": {
+    "origins": ["https://harikamkhs.github.io"]
+}})
+#CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_6jtIqEBw5Yvp@ep-shy-river-a8ju7x65-pooler.eastus2.azure.neon.tech/Login-client?sslmode=require'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -44,12 +49,13 @@ def register_user():
     db.session.commit()
     return jsonify({"status": "success", "message": "User registered successfully!"})
 
-@app.route('/validate-client', methods=['POST'])
+@app.route('/validate-client', methods=['GET','POST'])
 def validate_client():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-
+    if request.method == 'GET':
+        return "This endpoint accepts POST requests only.", 405
     if not username or not password:
         return jsonify({"success": False, "message": "Username and password required"}), 400
 
@@ -57,9 +63,15 @@ def validate_client():
     if user and user.check_password(password):
         session['username'] = user.username
         session['client_id'] = user.client_id
-        return jsonify({"success": True})
+        
+        response = jsonify({"success": True})
+        response.headers.add("Access-Control-Allow-Origin", "https://harikamkhs.github.io")
+        response.headers.add("Access-Control-Allow-Credentials", "true")
+        return response
+         
     else:
         return jsonify({"success": False, "message": "Invalid username or password"}), 401
+    
     
     
 @app.route('/validate-login', methods=['POST'])
@@ -325,7 +337,7 @@ def dashboard_form():
 
     return render_template('client_dashboard.html', client_data=client_data, error=error)
 
-from flask import session
+
 
 @app.route('/client_dashboard')
 def client_dashboard_page():
