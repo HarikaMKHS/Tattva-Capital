@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Client Dashboard - Tattva Capital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/feather/feather.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/ti-icons/css/themify-icons.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendors/css/vendor.bundle.base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/vertical-layout-light/style.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+</head>
+<body>
+  <div class="container-scroller">
+    <div class="container mt-5">
+      {% if client_data %}
+        <h2 class="text-primary mb-4">Good Morning, {{ client_data['Client Name'] }}</h2>
+        <p class="mb-4">Your portfolio performance report:</p>
+
+        <div class="row">
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card bg-info text-white">
+              <div class="card-body">
+                <h4>Total Investment</h4>
+                <h3>₹{{ client_data['Total Investment Value'] }}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card bg-success text-white">
+              <div class="card-body">
+                <h4>Portfolio Value</h4>
+                <h3>₹{{ client_data['Investment Portfolio Value'] }}</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 grid-margin stretch-card">
+            <div class="card bg-warning text-white">
+              <div class="card-body">
+                <h4>Return %</h4>
+                <h3>{{ client_data['Return Percentage'] }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pie Chart -->
+        <div class="row mt-5">
+          <div class="col-md-6 offset-md-3">
+            <canvas id="investmentPie"></canvas>
+          </div>
+        </div>
+      {% else %}
+        <h4 class="text-danger">Client ID not found or data missing.</h4>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='vendors/js/vendor.bundle.base.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendors/chart.js/Chart.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/off-canvas.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/template.js') }}"></script>
+
+  <!-- Chart Script -->
+  <script>
+    
+    let data = {};
+
+    data = JSON.parse('{{ client_data | tojson | safe }}');
+  const chartData = [
+    parseFloat(data["Investment in Equity"]) || 0,
+    parseFloat(data["Investment in MF"]) || 0,
+    parseFloat(data["Investment in RE"]) || 0,
+    parseFloat(data["Investment on Others"]) || 0
+  ];
+
+  const config = {
+    type: 'pie',
+    data: {
+      labels: ["Equity", "Mutual Funds", "Real Estate", "Others"],
+      datasets: [{
+        data: chartData,
+        backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc", "#f6c23e"]
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { position: 'bottom' } }
+    }
+  };
+
+  window.onload = () => {
+    const ctx = document.getElementById('investmentPie').getContext('2d');
+    new Chart(ctx, config);
+  };
+  </script>
+</body>
+</html>
