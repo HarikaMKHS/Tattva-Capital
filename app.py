@@ -54,19 +54,10 @@ def validate_client():
         return jsonify({"success": False, "message": "Username and password required"}), 400
 
     user = User.query.filter_by(username=username).first()
-    if not user or not user.check_password(password):
-        return jsonify({"success": False, "message": "Invalid credentials"}), 401
-
-    # ✅ Check client_id matches a valid client_code
-    client = ClientDashboard.query.filter_by(client_code=user.client_id).first()
-    if not client:
-        return jsonify({"success": False, "message": "Client ID not linked to dashboard"}), 404
-
-    # ✅ Save to session
-    session['username'] = username
-    session['client_id'] = user.client_id
-
-    return jsonify({"success": True})
+    if user and user.check_password(password):
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False, "message": "Invalid username or password"}), 401
     
     
 @app.route('/validate-login', methods=['POST'])
@@ -336,29 +327,25 @@ from flask import session
 
 @app.route('/client_dashboard')
 def client_dashboard_page():
-    client_data = None
-    client_id = session.get('client_id')
-    if not client_id:
-        return "Unauthorized access", 401
-
-    client = ClientDashboard.query.filter_by(client_code=client_id).first()
-    if not client:
-        return "Client not found", 404
-
-    client_data = {
-        "client_name": client.client_name,
-        "client_code": client.client_code,
-        "investment_date": client.investment_date.strftime('%Y-%m-%d'),
-        "total_value": client.total_value,
-        "portfolio_value": client.portfolio_value,
-        "return_pct": client.return_pct,
-        "equity": client.equity,
-        "mf": client.mf,
-        "re": client.re,
-        "others": client.others
-    }
-
-    return render_template('client_dashboard.html', client_data=client_data)
+    username = session.get("username")
+    user = User.query.filter_by(username=username).first()
+    if user:
+        client = ClientDashboard.query.filter_by(client_code=user.client_id).first()
+        if client:
+            client_data = {
+                "client_name": client.client_name,
+                "client_code": client.client_code,
+                "investment_date": client.investment_date.strftime('%Y-%m-%d'),
+                "total_value": client.total_value,
+                "portfolio_value": client.portfolio_value,
+                "return_pct": client.return_pct,
+                "equity": client.equity,
+                "mf": client.mf,
+                "re": client.re,
+                "others": client.others
+            }
+            return render_template('client_dashboard.html', client_data=client_data)
+    return "Client not found", 404
 
 
 @app.route('/show-tables')
