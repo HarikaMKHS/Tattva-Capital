@@ -323,9 +323,30 @@ def dashboard_form():
 
     return render_template('client_dashboard.html', client_data=client_data, error=error)
 
+from flask import session
+
 @app.route('/client_dashboard')
 def client_dashboard_page():
-    return render_template('client_dashboard.html')
+    username = session.get("username")
+    user = User.query.filter_by(username=username).first()
+    if user:
+        client = ClientDashboard.query.filter_by(client_code=user.client_id).first()
+        if client:
+            client_data = {
+                "client_name": client.client_name,
+                "client_code": client.client_code,
+                "investment_date": client.investment_date.strftime('%Y-%m-%d'),
+                "total_value": client.total_value,
+                "portfolio_value": client.portfolio_value,
+                "return_pct": client.return_pct,
+                "equity": client.equity,
+                "mf": client.mf,
+                "re": client.re,
+                "others": client.others
+            }
+            return render_template('client_dashboard.html', client_data=client_data)
+    return "Client not found", 404
+
 
 @app.route('/show-tables')
 def show_tables():
