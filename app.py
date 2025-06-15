@@ -9,7 +9,8 @@ from flask_sqlalchemy import SQLAlchemy
 from models import db, ClientDashboard, User
 from werkzeug.utils import secure_filename
 from datetime import datetime
-
+from flask import redirect, url_for
+from flask import render_template
 
 
 
@@ -355,7 +356,10 @@ def show_tables():
 
 @app.route('/')
 def home():
-    return "Flask App is Running!"
+    return redirect(url_for('login_client'))
+@app.route('/login-client')
+def login_client():
+    return render_template('login-client.html')
 
 with app.app_context():
     db.create_all()
