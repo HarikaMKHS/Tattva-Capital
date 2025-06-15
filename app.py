@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 from flask import redirect, url_for
 from flask import render_template
-from flask import send_file,
+from flask import send_file
 
 
 app = Flask(__name__)
