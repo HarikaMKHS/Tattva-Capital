@@ -11,7 +11,7 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 from flask import redirect, url_for
 from flask import render_template
-
+from flask import send_file,
 
 
 app = Flask(__name__)
@@ -359,7 +359,7 @@ def home():
     return redirect(url_for('login_client'))
 @app.route('/login-client')
 def login_client():
-    return render_template('login-client.html')
+    return send_file('login-client.html')  # ✅ loads from root directory
 
 with app.app_context():
     db.create_all()
