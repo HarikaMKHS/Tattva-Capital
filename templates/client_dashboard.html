@@ -128,14 +128,14 @@
   </div>
   <h2>Client Dashboard Report</h2>
 
-  {% if not client_data %}
+  <!--{% if not client_data %}-->
   <div class="form-section" id="formSection">
     <form method="POST" action="/dashboard-form">
       <input type="text" name="client_id" required placeholder="Enter Client Code">
       <button type="submit">View Dashboard</button>
     </form>
   </div>
-  {% endif %}
+  <!--{% endif %}-->
 
   {% if client_data %}
   <div class="content-wrapper">
