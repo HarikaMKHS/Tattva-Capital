@@ -16,6 +16,9 @@ from flask import session
 
 
 app = Flask(__name__)
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = True
+
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_secret_key_2025")
 CORS(app,
      supports_credentials=True,
