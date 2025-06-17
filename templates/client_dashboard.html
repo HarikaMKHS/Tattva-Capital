@@ -10,6 +10,45 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.png') }}" />
 
   <style>
+    @media print {
+    #bar-chart-container,
+    #pie-chart-container {
+      width: 48% !important;
+      min-width: 300px;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    #barChart,
+    #investmentChart {
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    .row {
+      display: flex !important;
+      flex-wrap: wrap !important;
+    }
+
+    .btn,
+    .navbar,
+    .sidebar,
+    .footer {
+      display: none !important;
+    }
+  }
+    #pdf-area {
+    width: 100%;
+    max-width: 7.5in; /* slightly smaller than A4 width to prevent cut-off */
+    margin: auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    background: white;
+  }
+
+  @media print {
+    .page-break { page-break-after: always; }
+  }
     .content-wrapper {
       width: 100%;
       padding: 2rem 1.5rem;
@@ -28,10 +67,11 @@
   Tattva Capital
 </a>
       </div>
-      <div class="navbar-menu-wrapper d-flex align-items-center">
-        <h2 class="text-dark ms-3 fs-3">Welcome, {{ client_data.client_name }}</h2><br>
-        <p class="text-muted fs-4">Your portfolio performance report</p>
-      </div>
+      <div class="ms-3 mt-2">
+  <h2 class="text-dark fs-3 mb-1">Welcome, {{ client_data.client_name }}</h2>
+  <p class="text-muted fs-4 mb-0">Your portfolio performance report</p>
+</div>
+
     </nav>
 
     <div class="container-fluid page-body-wrapper">
@@ -96,7 +136,7 @@
             <!-- Charts Row -->
             <div class="row">
               <!-- Bar Chart -->
-              <div class="col-md-6 grid-margin stretch-card">
+              <div class="col-md-6 grid-margin stretch-card" id="bar-chart-container">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Investment Split - Bar Graph</h4>
@@ -108,7 +148,7 @@
               </div>
 
               <!-- Pie Chart -->
-              <div class="col-md-6 grid-margin stretch-card">
+              <div class="col-md-6 grid-margin stretch-card" id="pie-chart-container">
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Portfolio Allocation - Pie Chart</h4>
