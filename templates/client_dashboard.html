@@ -115,17 +115,17 @@
     }
   }
   .card-light-blue {
-    background-color: #57a7fd;
+    background-color: #ffb866;
     color: white;
   }
 
   .card-medium-blue {
-    background-color: #2073cb;
+    background-color: #94d5de;
     color: white;
   }
 
   .card-dark-blue {
-    background-color: #0e4c8e;
+    background-color: #49efaa;
     color: white;
   }
 </style>
@@ -270,30 +270,32 @@
             </div>
 
             <!-- Stat Cards -->
-            <!-- Card 1: Light Blue -->
-              <div class="card card-light-blue">
-                <div class="card-body">
-                  <p class="mb-4">Total Investment Value</p>
-                  <p class="fs-30 mb-2">₹{{ client_data.total_value }}</p>
-                </div>
-              </div>
+            <div class="row">
+              <!-- Card 1: Light Blue -->
+<div class="card card-light-blue">
+  <div class="card-body">
+    <p class="mb-4">Total Investment Value</p>
+    <p class="fs-30 mb-2">₹{{ client_data.total_value }}</p>
+  </div>
+</div>
 
-              <!-- Card 2: Medium Blue -->
-              <div class="card card-medium-blue">
-                <div class="card-body">
-                  <p class="mb-4">Portfolio Value</p>
-                  <p class="fs-30 mb-2">₹{{ client_data.portfolio_value }}</p>
-                </div>
-              </div>
+<!-- Card 2: Medium Blue -->
+<div class="card card-medium-blue">
+  <div class="card-body">
+    <p class="mb-4">Portfolio Value</p>
+    <p class="fs-30 mb-2">₹{{ client_data.portfolio_value }}</p>
+  </div>
+</div>
 
-              <!-- Card 3: Dark Blue -->
-              <div class="card card-dark-blue">
-                <div class="card-body">
-                  <p class="mb-4">Return %</p>
-                  <p class="fs-30 mb-2">{{ client_data.return_pct }}%</p>
-                </div>
-              </div>
+<!-- Card 3: Dark Blue -->
+<div class="card card-dark-blue">
+  <div class="card-body">
+    <p class="mb-4">Return %</p>
+    <p class="fs-30 mb-2">{{ client_data.return_pct }}%</p>
+  </div>
+</div>
 
+            </div>
 
             <!-- Charts Row -->
             <div class="row">
