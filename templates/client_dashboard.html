@@ -60,7 +60,22 @@
     .page-break {
       page-break-after: always;
     }
+    @media print {
+  #bar-chart-container, #pie-chart-container {
+    display: inline-block !important;
+    width: 48% !important;
+    vertical-align: top;
   }
+
+  #pdf-area .row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between;
+  }
+}
+
+  }
+
 </style>
 <style>
   @media print {
@@ -165,8 +180,17 @@
                        📄 Download PDF
                             </button>
                       <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
-                      <li><a class="dropdown-item" href="#" onclick="downloadPDFDesktop()">💻 Download for Desktop</a></li>
-                        <li><a class="dropdown-item" href="#" onclick="downloadPDFMobile()">📱 Download for Mobile</a></li>
+                      <li>
+  <a class="dropdown-item" href="#" onclick="downloadPDFDesktop(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+    💻 Download for Desktop
+  </a>
+</li>
+<li>
+  <a class="dropdown-item" href="#" onclick="downloadPDFMobile(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+    📱 Download for Mobile
+  </a>
+</li>
+
                         </ul>
                     </div>
 
@@ -375,27 +399,41 @@ function downloadPDFMobile() {
 function adjustChartsForPDF(viewType) {
   const barChartContainer = document.getElementById('bar-chart-container');
   const pieChartContainer = document.getElementById('pie-chart-container');
+  const pdfArea = document.getElementById('pdf-area');
 
-  if (viewType === 'desktop') {
-    barChartContainer.style.minWidth = '400px';
-    barChartContainer.style.maxWidth = '48%';
-    pieChartContainer.style.minWidth = '400px';
-    pieChartContainer.style.maxWidth = '48%';
+  pdfArea.style.backgroundColor = '#ffffff'; // White background for clarity
+
+  const chartsRow = pdfArea.querySelector('.row'); // Get chart row
+  chartsRow.style.flexDirection = 'row'; // Force row layout
+  chartsRow.style.display = 'flex';
+  chartsRow.style.flexWrap = 'wrap';
+  chartsRow.style.justifyContent = 'space-between';
+
+  if (viewType === 'desktop' || viewType === 'mobile') {
+    barChartContainer.style.width = '48%';
+    pieChartContainer.style.width = '48%';
     pieChartContainer.style.pageBreakBefore = 'auto';
-  } else {
-    // Mobile: stack vertically
-    barChartContainer.style.width = '100%';
-    pieChartContainer.style.width = '100%';
-    pieChartContainer.style.pageBreakBefore = 'always';
   }
 
   window.dispatchEvent(new Event('resize'));
 }
 
-function resetChartStyles() {
+
+/*function resetChartStyles() {
   document.getElementById('bar-chart-container').style = '';
   document.getElementById('pie-chart-container').style = '';
+}*/
+function resetChartStyles() {
+  const bar = document.getElementById('bar-chart-container');
+  const pie = document.getElementById('pie-chart-container');
+  const chartsRow = document.querySelector('#pdf-area .row');
+
+  bar.style = '';
+  pie.style = '';
+  chartsRow.style = '';
+  document.getElementById('pdf-area').style.backgroundColor = '';
 }
+
 
 function generatePDFFileName() {
   const today = new Date();
