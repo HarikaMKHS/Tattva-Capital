@@ -115,17 +115,17 @@
     }
   }
   .card-light-blue {
-    background-color: #ffb866;
+    background-color: #ffb866!important;
     color: white;
   }
 
   .card-medium-blue {
-    background-color: #94d5de;
+    background-color: #94d5de!important;
     color: white;
   }
 
   .card-dark-blue {
-    background-color: #49efaa;
+    background-color: #49efaa!important;
     color: white;
   }
 </style>
@@ -272,7 +272,7 @@
             <!-- Stat Cards -->
             <div class="row">
               <!-- Card 1: Light Blue -->
-                <div class="card card-light-blue">
+                <div class="card " style="background:#ffb866">
                   <div class="card-body">
                     <p class="mb-4">Total Investment Value</p>
                     <p class="fs-30 mb-2">₹{{ client_data.total_value }}</p>
@@ -280,7 +280,7 @@
                 </div>
 
                 <!-- Card 2: Medium Blue -->
-                <div class="card card-medium-blue">
+                <div class="card" style="background:#94d5de">
                   <div class="card-body">
                     <p class="mb-4">Portfolio Value</p>
                     <p class="fs-30 mb-2">₹{{ client_data.portfolio_value }}</p>
@@ -288,7 +288,7 @@
                 </div>
 
                 <!-- Card 3: Dark Blue -->
-                <div class="card card-dark-blue">
+                <div class="card " style="background:#49efaa">
                   <div class="card-body">
                     <p class="mb-4">Return %</p>
                     <p class="fs-30 mb-2">{{ client_data.return_pct }}%</p>
