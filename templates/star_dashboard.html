@@ -99,3 +99,290 @@
   </script>
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Client Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .dashboard-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+      text-align: center;
+    }
+    .form-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 15px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .client-info {
+      text-align: left;
+      margin-bottom: 30px;
+      padding: 15px;
+      background-color: #e9f5ff;
+      border-radius: 8px;
+    }
+    .client-info p {
+      margin: 6px 0;
+      font-size: 16px;
+    }
+    .card-row {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      padding: 20px;
+    }
+    .info-card {
+      flex:  0 0 50px;
+      min-width: 230px;
+      background-color: #ffedf0;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+    .info-card h4 {
+      margin: 0;
+      font-size: 14px;
+      color: #888;
+    }
+    .info-card p {
+      margin: 5px 0 0;
+      font-size: 20px;
+      font-weight: bold;
+      color: #d6336c;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      font-size: 15px;
+      text-align: center;
+    }
+    th {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    .download-btn {
+      text-align: center;
+      margin-top: 30px;
+    }
+    canvas {
+      max-width: 500px;
+      margin: 20px auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<div class="dashboard-container">
+  <div style="text-align: left; margin-bottom: 20px;">
+    <a href="login-client.html" style="
+      text-decoration: none;
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-size: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: background-color 0.3s;
+    " onmouseover="this.style.backgroundColor='#5a6268'" onmouseout="this.style.backgroundColor='#6c757d'">
+      ⬅ home
+    </a>
+  </div>
+  <h2>Client Dashboard Report</h2>
+
+  <!--{% if not client_data %}-->
+  <div class="form-section" id="formSection">
+    <form method="POST" action="/dashboard-form">
+      <input type="text" name="client_id" required placeholder="Enter Client Code">
+      <button type="submit">View Dashboard</button>
+    </form>
+  </div>
+  <!--{% endif %}-->
+
+  {% if client_data %}
+  <div class="content-wrapper">
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <h3 class="font-weight-bold">Good morning, {{ client_data.client_name }} 👋</h3>
+        <h6 class="text-muted">Your portfolio performance report</h6>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Client Code</h5>
+            <p class="card-text">{{ client_data.client_code }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Investment Date</h5>
+            <p class="card-text">{{ client_data.investment_date }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="card bg-primary text-white">
+          <div class="card-body">
+            <h5>Total Investment Value</h5>
+            <h3>₹{{ client_data.total_value }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-success text-white">
+          <div class="card-body">
+            <h5>Portfolio Value</h5>
+            <h3>₹{{ client_data.portfolio_value }}</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-warning text-white">
+          <div class="card-body">
+            <h5>Return Percentage</h5>
+            <h3>{{ client_data.return_pct }}%</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Investment Distribution (Pie)</h5>
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Investment Distribution (Bar)</h5>
+            <canvas id="barChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="download-btn">
+      <button onclick="downloadPDF()">Download Dashboard</button>
+    </div>
+  </div>
+{% if client_data is defined and client_data %}
+  <script>
+    let data = {};
+
+      data = JSON.parse('{{ client_data | tojson | safe }}');
+
+      const equity = parseInt(data.equity) || 0;
+      const mf = parseInt(data.mf) || 0;
+      const re = parseInt(data.re) || 0;
+      const others = parseInt(data.others) || 0;
+
+      const pieCtx = document.getElementById('pieChart');
+      const barCtx = document.getElementById('barChart');
+
+      new Chart(pieCtx, {
+        type: 'pie',
+        data: {
+          labels: ['Equity', 'Mutual Funds', 'Real Estate', 'Others'],
+          datasets: [{
+            data: [equity, mf, re, others],
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { position: 'bottom' } }
+        }
+      });
+
+      new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Equity', 'Mutual Funds', 'Real Estate', 'Others'],
+          datasets: [{
+            label: 'Investment Value',
+            data: [equity, mf, re, others],
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e']
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    
+  </script>
+  {% endif %}
+  <script>
+    function downloadPDF() {
+      const dashboard = document.querySelector('.dashboard-container');
+      html2canvas(dashboard).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('dashboard.pdf');
+      });
+    }
+  </script>
+  {% endif %}
+</div>
+</body>
+</html>
+

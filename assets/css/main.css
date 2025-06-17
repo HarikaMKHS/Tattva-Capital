@@ -932,7 +932,7 @@ section,
 
 .hero:before {
   content: "";
-  background: color-mix(in srgb, var(--background-color), transparent 30%);
+  background: rgba(0, 0, 0, 0.5);
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -945,7 +945,7 @@ section,
 
 .hero h2 {
   margin: 0;
-  font-size: 48px;
+  font-size: 35px;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -1844,3 +1844,43 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+
+/* WHO ARE WE tab */
+.features .tab-who:hover,
+.features .tab-who.active {
+  background-color: #ff7f50 !important; /* Coral */
+  color: white !important;
+  border-color: #ff7f50 !important;
+}
+
+/* OUR STORY tab */
+.features .tab-story:hover,
+.features .tab-story.active {
+  background-color: #f2982b !important; /* SlateBlue */
+  color: white !important;
+  border-color: #f2982b !important;
+}
+
+/* CORE VALUES tab */
+.features .tab-values:hover,
+.features .tab-values.active {
+  background-color: #e8b10d !important; /* LightSeaGreen */
+  color: white !important;
+  border-color: #e8b10d !important;
+}
+
+/* TEAM tab */
+.features .tab-team:hover,
+.features .tab-team.active {
+  background-color: #a5770c !important; /* HotPink */
+  color: white !important;
+  border-color: #a5770c !important;
+}
+
+/* Ensure text inside stays white */
+.features .nav-link:hover h4,
+.features .nav-link.active h4 {
+  color: white !important;
+}
+
