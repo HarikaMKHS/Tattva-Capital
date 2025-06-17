@@ -60,22 +60,7 @@
     .page-break {
       page-break-after: always;
     }
-    @media print {
-  #bar-chart-container, #pie-chart-container {
-    display: inline-block !important;
-    width: 48% !important;
-    vertical-align: top;
   }
-
-  #pdf-area .row {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: space-between;
-  }
-}
-
-  }
-
 </style>
 <style>
   @media print {
@@ -142,10 +127,57 @@
   Tattva Capital
 </a>
       </div>
-      <div class="ms-3 mt-2">
+      <!--div class="ms-3 mt-2">
   <h2 class="text-dark fs-3 mb-1" class="text-start">Welcome, {{ client_data.client_name }}</h2>
   <p class="text-muted fs-4 mb-0" class="text-start">Your portfolio performance report</p>
-</div>
+  <div class="text-end">
+                  <div class="dropdown">
+                      <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                       📄 Download PDF
+                            </button>
+                      <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+                      <li>
+  <a class="dropdown-item" href="#" onclick="downloadPDFDesktop(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+    💻 Download for Desktop
+  </a>
+</li>
+<li>
+  <a class="dropdown-item" href="#" onclick="downloadPDFMobile(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+    📱 Download for Mobile
+  </a>
+</li>
+
+                        </ul>
+                    </div>
+
+                </div>
+</div-->
+          <div class="navbar-menu-wrapper d-flex align-items-center">
+        <h2 class="text-dark ms-3 fs-3">Welcome, {{ client_data.client_name }}</h2><br>
+        <p class="text-muted fs-4">Your portfolio performance report</p>
+            <div class="text-end">
+                  <div class="dropdown">
+                      <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                       📄 Download PDF
+                            </button>
+                      <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+                      <li>
+  <a class="dropdown-item" href="#" onclick="downloadPDFDesktop(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+    💻 Download for Desktop
+  </a>
+</li>
+<li>
+  <a class="dropdown-item" href="#" onclick="downloadPDFMobile(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+    📱 Download for Mobile
+  </a>
+</li>
+
+                        </ul>
+                    </div>
+
+                </div>
+        
+      </div>
 
     </nav>
 
@@ -174,27 +206,7 @@
                 
                 <p class="text-muted">Your ID: <strong>{{ client_data.client_code }}</strong></p>
                 <p class="text-muted">Date: <strong>{{ client_data.investment_date }}</strong></p>
-                <div class="text-end">
-                  <div class="dropdown">
-                      <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                       📄 Download PDF
-                            </button>
-                      <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
-                      <li>
-  <a class="dropdown-item" href="#" onclick="downloadPDFDesktop(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
-    💻 Download for Desktop
-  </a>
-</li>
-<li>
-  <a class="dropdown-item" href="#" onclick="downloadPDFMobile(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
-    📱 Download for Mobile
-  </a>
-</li>
-
-                        </ul>
-                    </div>
-
-                </div>
+                
               </div>
             </div>
 
@@ -399,41 +411,27 @@ function downloadPDFMobile() {
 function adjustChartsForPDF(viewType) {
   const barChartContainer = document.getElementById('bar-chart-container');
   const pieChartContainer = document.getElementById('pie-chart-container');
-  const pdfArea = document.getElementById('pdf-area');
 
-  pdfArea.style.backgroundColor = '#ffffff'; // White background for clarity
-
-  const chartsRow = pdfArea.querySelector('.row'); // Get chart row
-  chartsRow.style.flexDirection = 'row'; // Force row layout
-  chartsRow.style.display = 'flex';
-  chartsRow.style.flexWrap = 'wrap';
-  chartsRow.style.justifyContent = 'space-between';
-
-  if (viewType === 'desktop' || viewType === 'mobile') {
-    barChartContainer.style.width = '48%';
-    pieChartContainer.style.width = '48%';
+  if (viewType === 'desktop') {
+    barChartContainer.style.minWidth = '400px';
+    barChartContainer.style.maxWidth = '48%';
+    pieChartContainer.style.minWidth = '400px';
+    pieChartContainer.style.maxWidth = '48%';
     pieChartContainer.style.pageBreakBefore = 'auto';
+  } else {
+    // Mobile: stack vertically
+    barChartContainer.style.width = '100%';
+    pieChartContainer.style.width = '100%';
+    pieChartContainer.style.pageBreakBefore = 'always';
   }
 
   window.dispatchEvent(new Event('resize'));
 }
 
-
-/*function resetChartStyles() {
+function resetChartStyles() {
   document.getElementById('bar-chart-container').style = '';
   document.getElementById('pie-chart-container').style = '';
-}*/
-function resetChartStyles() {
-  const bar = document.getElementById('bar-chart-container');
-  const pie = document.getElementById('pie-chart-container');
-  const chartsRow = document.querySelector('#pdf-area .row');
-
-  bar.style = '';
-  pie.style = '';
-  chartsRow.style = '';
-  document.getElementById('pdf-area').style.backgroundColor = '';
 }
-
 
 function generatePDFFileName() {
   const today = new Date();
