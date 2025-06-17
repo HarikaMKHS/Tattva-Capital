@@ -10,53 +10,41 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.png') }}" />
 
   <style>
-    @media print {
-    #bar-chart-container,
-    #pie-chart-container {
+  @media print {
+    /* Apply styles only inside the #pdf-area for print */
+    #pdf-area #bar-chart-container,
+    #pdf-area #pie-chart-container {
       width: 48% !important;
       min-width: 300px;
-      display: inline-block;
+      display: inline-block !important;
       vertical-align: top;
     }
 
-    #barChart,
-    #investmentChart {
+    #pdf-area #barChart,
+    #pdf-area #investmentChart {
       width: 100% !important;
       height: auto !important;
     }
 
-    .row {
+    #pdf-area .row {
       display: flex !important;
       flex-wrap: wrap !important;
     }
 
+    /* Hide non-PDF elements in PDF view */
     .btn,
     .navbar,
     .sidebar,
     .footer {
       display: none !important;
     }
-  }
-    #pdf-area {
-    width: 100%;
-    max-width: 7.5in; /* slightly smaller than A4 width to prevent cut-off */
-    margin: auto;
-    padding: 1rem;
-    box-sizing: border-box;
-    background: white;
-  }
 
-  @media print {
-    .page-break { page-break-after: always; }
+    .page-break {
+      page-break-after: always;
+    }
   }
-    .content-wrapper {
-      width: 100%;
-      padding: 2rem 1.5rem;
-    }
-    @media print {
-      .page-break { page-break-after: always; }
-    }
-  </style>
+</style>
+
 </head>
 <body>
   <div class="container-scroller">
