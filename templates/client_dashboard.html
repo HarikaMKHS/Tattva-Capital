@@ -153,14 +153,16 @@
                 </div>
 </div-->
           <div class="navbar-menu-wrapper d-flex align-items-center">
-        <h2 class="text-dark ms-3 fs-3">Welcome, {{ client_data.client_name }}</h2>
-        <p class="text-muted fs-4">Your portfolio performance report</p>
+        <div class="d-flex flex-column">
+    <h2 class="text-dark mb-0">Welcome, {{ client_data.client_name }}</h2>
+    <p class="text-muted fs-6 mt-0 mb-0">Your portfolio performance report</p>
+  </div>
             <div class="text-end">
                   <div class="dropdown">
                       <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                        📄 Download PDF
                             </button>
-                      <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+                      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="downloadDropdown">
                       <li>
   <a class="dropdown-item" href="#" onclick="downloadPDFDesktop(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
     💻 Download for Desktop
@@ -422,7 +424,6 @@ function adjustChartsForPDF(viewType) {
     // Mobile: stack vertically
     barChartContainer.style.width = '100%';
     pieChartContainer.style.width = '100%';
-    pieChartContainer.style.pageBreakBefore = 'always';
   }
 
   window.dispatchEvent(new Event('resize'));
