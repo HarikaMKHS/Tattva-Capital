@@ -10,20 +10,6 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.png') }}" />
 
   <style>
-  .navbar-brand-wrapper {
-    width: auto !important;
-    overflow: visible !important;
-    padding: 0 1rem;
-  }
-  .navbar-brand {
-    font-size: 20px;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: visible;
-    text-decoration: none;
-  }
-
-
     .content-wrapper {
       width: 100%;
       padding: 2rem 1.5rem;
@@ -38,14 +24,13 @@
     <!-- Navbar -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
-  <a class="navbar-brand text-black fs-3" href="#" style="white-space: nowrap;">
-    Tattva Capital
-  </a>
-</div>
-
+        <a class="navbar-brand brand-logo text-dark fw-bold fs-3 m-0 px-3" href="#" style="text-decoration: none;">
+  Tattva Capital
+</a>
+      </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
-        <h2 class="text-dark ms-3 fs-2">Welcome, {{ client_data.client_name }}</h2>
-        <p class="text-muted fs-5">Your portfolio performance report</p>
+        <h2 class="text-dark ms-3 fs-3">Welcome, {{ client_data.client_name }}</h2><br>
+        <p class="text-muted fs-4">Your portfolio performance report</p>
       </div>
     </nav>
 
