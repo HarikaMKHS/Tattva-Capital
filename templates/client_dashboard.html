@@ -4,12 +4,20 @@
   <meta charset="utf-8" />
   <title>Client Dashboard | Tattva Capital</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/mdi/css/materialdesignicons.min.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='assets/vendors/css/vendor.bundle.base.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}">
   <link rel="shortcut icon" href="{{ url_for('static', filename='assets/images/favicon.png') }}" />
+
+  <style>
+    .content-wrapper {
+      width: 100%;
+      padding: 2rem 1.5rem;
+    }
+    @media print {
+      .page-break { page-break-after: always; }
+    }
+  </style>
 </head>
 <body>
   <div class="container-scroller">
@@ -17,7 +25,7 @@
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="#">
-          <img src="{{ url_for('static', filename='assets/images/logo.svg') }}" alt="logo" />
+          <img src="{{ url_for('static', filename='assets/images/tattva-logo.svg') }}" alt="Tattva Capital" style="max-height: 40px;" />
         </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -37,27 +45,25 @@
           </li>
         </ul>
       </nav>
-      <div id="pdf-area">
-      <!-- Main Panel -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <!-- Header + Button -->
-          <div class="row mb-2">
-  <div class="col-12">
-    <h3 class="welcome-text">Welcome, <span class="text-black fw-bold">{{ client_data.client_name }}</span></h3>
-    <h5 class="text-muted">Your portfolio performance report</h5>
-    <p class="text-muted">Your ID: <strong>{{ client_data.client_code }}</strong></p>
-    <p class="text-muted">Date: <strong>{{ client_data.investment_date }}</strong></p>
 
-    <div class="text-end">
-      <button class="btn btn-sm btn-primary" onclick="downloadPDF()">⬇️ Download PDF</button>
-    </div>
-  </div>
-</div>
+      <!-- Wrap main-panel in pdf-area -->
+      
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <!-- Header -->
+             <div id="pdf-area">
+            <div class="row mb-2">
+              <div class="col-12">
+                <h3 class="welcome-text">Welcome, <span class="text-black fw-bold">{{ client_data.client_name }}</span></h3>
+                <h5 class="text-muted">Your portfolio performance report</h5>
+                <p class="text-muted">Your ID: <strong>{{ client_data.client_code }}</strong></p>
+                <p class="text-muted">Date: <strong>{{ client_data.investment_date }}</strong></p>
+                <div class="text-end">
+                  <button class="btn btn-sm btn-primary" onclick="downloadPDF()">⬇️ Download PDF</button>
+                </div>
+              </div>
+            </div>
 
-
-          <!-- PDF Area -->
-          
             <!-- Stat Cards -->
             <div class="row">
               <div class="col-md-4 grid-margin stretch-card">
@@ -86,9 +92,9 @@
               </div>
             </div>
 
-            <!-- Graphs Row -->
+            <!-- Charts Row -->
             <div class="row">
-              <!-- Bar Graph -->
+              <!-- Bar Chart -->
               <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
@@ -112,18 +118,18 @@
                 </div>
               </div>
             </div>
-          </div><!-- End of pdf-area -->
-        </div>
+          </div> <!-- content-wrapper -->
 
-        <!-- Footer -->
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Tattva Capital © 2025</span>
-          </div>
-        </footer>
-      </div>
-    </div>
-  </div>
+          <!-- Footer -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Tattva Capital © 2025</span>
+            </div>
+          </footer>
+        </div> <!-- main-panel -->
+      </div> <!-- pdf-area -->
+    </div> <!-- page-body-wrapper -->
+  </div> <!-- container-scroller -->
 
   <!-- JS -->
   <script src="{{ url_for('static', filename='assets/vendors/js/vendor.bundle.base.js') }}"></script>
@@ -191,13 +197,22 @@
 
     function downloadPDF() {
       const element = document.getElementById('pdf-area');
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      const formattedDate = `${yyyy}-${mm}-${dd}`;
+      const clientName = "{{ client_data.client_name | replace(' ', '_') }}";
+      const filename = `${clientName}_Report_${formattedDate}.pdf`;
+
       const opt = {
         margin: 0.5,
-        filename: '{{ client_data.client_name | replace(" ", "_") }}_portfolio.pdf',
+        filename: filename,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
+        html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
       };
+
       html2pdf().set(opt).from(element).save();
     }
   </script>
