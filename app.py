@@ -24,6 +24,13 @@ CORS(app,
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_6jtIqEBw5Yvp@ep-shy-river-a8ju7x65-pooler.eastus2.azure.neon.tech/Login-client?sslmode=require'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_pre_ping': True,
+    'pool_recycle': 280,
+    'pool_size': 10,
+    'max_overflow': 5
+}
+
 db.init_app(app)
 #db = SQLAlchemy(app)
 @app.route('/register-user', methods=['POST'])
@@ -59,7 +66,15 @@ def validate_client():
     if not username or not password:
         return jsonify({"success": False, "message": "Username and password required"}), 400
 
-    user = User.query.filter_by(username=username).first()
+    #user = User.query.filter_by(username=username).first()
+    try:
+        user = User.query.filter_by(username=username).first()
+    except Exception as e:
+         db.session.rollback()
+         print("DB Error:", e)
+    finally:
+         db.session.close()
+
     if user and user.check_password(password):
         session['username'] = user.username
         session['client_id'] = user.client_id
@@ -351,7 +366,15 @@ def client_dashboard_page():
         return redirect("/login-client")
 
     # Now safe to query
-    user = User.query.filter_by(username=username).first()
+    #user = User.query.filter_by(username=username).first()
+    try:
+        user = User.query.filter_by(username=username).first()
+    except Exception as e:
+        db.session.rollback()
+        print("DB Error:", e)
+    finally:
+        db.session.close()
+
     if not user:
         print("❌ User not found in DB.")
         return redirect("/login-client")
@@ -417,5 +440,4 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))  # Use Render's PORT or default 10000
     with app.app_context():
         db.create_all()  # Creates tables if they don't exist
-    app.run(host="0.0.0.0", port=port, debug=False)
-    app.run(debug=True, port=10000)
+    app.run(host="0.0.0.0", port=port, debug=True)
