@@ -17,7 +17,8 @@
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo" href="#">
-          <img src="{{ url_for('static', filename='assets/images/logo.svg') }}" alt="logo" />
+         <img src="{{ url_for('static', filename='assets/images/tattva-logo.svg') }}" alt="Tattva Capital" style="max-height: 40px;" />
+
         </a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center">
@@ -190,16 +191,29 @@
     });
 
     function downloadPDF() {
-      const element = document.getElementById('pdf-area');
-      const opt = {
-        margin: 0.5,
-        filename: '{{ client_data.client_name | replace(" ", "_") }}_portfolio.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
-    }
+    const element = document.getElementById('pdf-area');
+
+    // Format today's date as YYYY-MM-DD
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+    // Format filename: Name_Date.pdf
+    const clientName = "{{ client_data.client_name | replace(' ', '_') }}";
+    const filename = `${clientName}_Report_${formattedDate}.pdf`;
+
+    const opt = {
+      margin:       0.2,
+      filename:     filename,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  }
   </script>
   <script src="{{ url_for('static', filename='assets/js/off-canvas.js') }}"></script>
   <script src="{{ url_for('static', filename='assets/js/template.js') }}"></script>
