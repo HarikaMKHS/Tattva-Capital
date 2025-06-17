@@ -152,7 +152,7 @@
 
                 </div>
 </div-->
-          <div class="navbar-menu-wrapper d-flex align-items-center">
+          <!--div class="navbar-menu-wrapper d-flex align-items-center">
         <div class="d-flex flex-column">
     <h2 class="text-dark mb-0">Welcome, {{ client_data.client_name }}</h2>
     <p class="text-muted fs-6 mt-0 mb-0">Your portfolio performance report</p>
@@ -178,8 +178,36 @@
                     </div>
 
                 </div>
-        
-      </div>
+      </div-->
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between w-100 px-3">
+  <!-- Left side: Welcome + subtitle -->
+  <div class="d-flex flex-column">
+    <h2 class="text-dark mb-0">Welcome, {{ client_data.client_name }}</h2>
+    <p class="text-muted fs-6 mt-0 mb-0">Your portfolio performance report</p>
+  </div>
+
+  <!-- Right side: Download button -->
+  <div class="ms-auto">
+    <div class="dropdown">
+      <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        📄 Download PDF
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="downloadDropdown">
+        <li>
+          <a class="dropdown-item" href="#" onclick="downloadPDFDesktop(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+            💻 Download for Desktop
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item" href="#" onclick="downloadPDFMobile(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+            📱 Download for Mobile
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 
     </nav>
 
@@ -246,7 +274,7 @@
               <div class="col-md-6 grid-margin stretch-card" id="bar-chart-container">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Investment Split - Bar Graph</h4>
+                    <h4 class="card-title">Investment Split </h4>
                     <div style="height: 280px;">
                       <canvas id="barChart"></canvas>
                     </div>
@@ -258,7 +286,7 @@
               <div class="col-md-6 grid-margin stretch-card" id="pie-chart-container">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Portfolio Allocation - Pie Chart</h4>
+                    <h4 class="card-title">Portfolio Allocation </h4>
                     <div class="d-flex justify-content-center" style="height: 280px;">
                       <canvas id="investmentChart"></canvas>
                     </div>
