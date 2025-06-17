@@ -128,8 +128,8 @@
 </a>
       </div>
       <div class="ms-3 mt-2">
-  <h2 class="text-dark fs-3 mb-1" style="text-align: left;">Welcome, {{ client_data.client_name }}</h2>
-  <p class="text-muted fs-4 mb-0" style="text-align: left;">Your portfolio performance report</p>
+  <h2 class="text-dark fs-3 mb-1" class="text-start">Welcome, {{ client_data.client_name }}</h2>
+  <p class="text-muted fs-4 mb-0" class="text-start">Your portfolio performance report</p>
 </div>
 
     </nav>
@@ -160,7 +160,16 @@
                 <p class="text-muted">Your ID: <strong>{{ client_data.client_code }}</strong></p>
                 <p class="text-muted">Date: <strong>{{ client_data.investment_date }}</strong></p>
                 <div class="text-end">
-                  <button class="btn btn-sm btn-primary" onclick="downloadPDF()">⬇️ Download PDF</button>
+                  <div class="dropdown">
+                      <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                       📄 Download PDF
+                            </button>
+                      <ul class="dropdown-menu" aria-labelledby="downloadDropdown">
+                      <li><a class="dropdown-item" href="#" onclick="downloadPDFDesktop()">💻 Download for Desktop</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="downloadPDFMobile()">📱 Download for Mobile</a></li>
+                        </ul>
+                    </div>
+
                 </div>
               </div>
             </div>
@@ -296,7 +305,7 @@
       }
     });
 
-   function downloadPDF() {
+   /*function downloadPDF() {
   // Add temporary styles just for PDF
   const barChartContainer = document.getElementById('bar-chart-container');
   const pieChartContainer = document.getElementById('pie-chart-container');
@@ -332,7 +341,67 @@
     barChartContainer.style.cssText = originalBarStyle;
     pieChartContainer.style.cssText = originalPieStyle;
   });
+}*/
+    function downloadPDFDesktop() {
+  adjustChartsForPDF('desktop');
+
+  const element = document.getElementById('pdf-area');
+  const opt = {
+    margin: 0.5,
+    filename: generatePDFFileName(),
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save().then(() => resetChartStyles());
 }
+
+function downloadPDFMobile() {
+  adjustChartsForPDF('mobile');
+
+  const element = document.getElementById('pdf-area');
+  const opt = {
+    margin: 0.5,
+    filename: generatePDFFileName(),
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save().then(() => resetChartStyles());
+}
+
+function adjustChartsForPDF(viewType) {
+  const barChartContainer = document.getElementById('bar-chart-container');
+  const pieChartContainer = document.getElementById('pie-chart-container');
+
+  if (viewType === 'desktop') {
+    barChartContainer.style.minWidth = '400px';
+    barChartContainer.style.maxWidth = '48%';
+    pieChartContainer.style.minWidth = '400px';
+    pieChartContainer.style.maxWidth = '48%';
+    pieChartContainer.style.pageBreakBefore = 'auto';
+  } else {
+    // Mobile: stack vertically
+    barChartContainer.style.width = '100%';
+    pieChartContainer.style.width = '100%';
+    pieChartContainer.style.pageBreakBefore = 'always';
+  }
+
+  window.dispatchEvent(new Event('resize'));
+}
+
+function resetChartStyles() {
+  document.getElementById('bar-chart-container').style = '';
+  document.getElementById('pie-chart-container').style = '';
+}
+
+function generatePDFFileName() {
+  const today = new Date();
+  return `{{ client_data.client_name | replace(' ', '_') }}_Report_${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}.pdf`;
+}
+
 
   </script>
   <script src="{{ url_for('static', filename='assets/js/off-canvas.js') }}"></script>
