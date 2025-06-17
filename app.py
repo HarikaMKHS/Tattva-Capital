@@ -66,14 +66,7 @@ def validate_client():
     if not username or not password:
         return jsonify({"success": False, "message": "Username and password required"}), 400
 
-    #user = User.query.filter_by(username=username).first()
-    try:
-        user = User.query.filter_by(username=username).first()
-    except Exception as e:
-         db.session.rollback()
-         print("DB Error:", e)
-    finally:
-         db.session.close()
+    user = User.query.filter_by(username=username).first()
 
     if user and user.check_password(password):
         session['username'] = user.username
@@ -366,14 +359,8 @@ def client_dashboard_page():
         return redirect("/login-client")
 
     # Now safe to query
-    #user = User.query.filter_by(username=username).first()
-    try:
-        user = User.query.filter_by(username=username).first()
-    except Exception as e:
-        db.session.rollback()
-        print("DB Error:", e)
-    finally:
-        db.session.close()
+    user = User.query.filter_by(username=username).first()
+
 
     if not user:
         print("❌ User not found in DB.")
