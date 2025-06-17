@@ -354,6 +354,9 @@ def client_dashboard_page():
     username = session.get("username")
     client_id = session.get("client_id")
 
+    print("🔍 username:", session.get("username"))
+    print("🔍 client_id:", session.get("client_id"))
+
     if not username or not client_id:
         print("🔒 User not logged in. Redirecting...")
         return redirect("/login-client")
@@ -382,6 +385,7 @@ def client_dashboard_page():
         }
 
     return render_template("client_dashboard.html", client_data=client_data)
+
 
 
 
