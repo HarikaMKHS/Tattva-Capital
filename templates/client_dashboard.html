@@ -128,8 +128,8 @@
 </a>
       </div>
       <div class="ms-3 mt-2">
-  <h2 class="text-dark fs-3 mb-1">Welcome, {{ client_data.client_name }}</h2>
-  <p class="text-muted fs-4 mb-0">Your portfolio performance report</p>
+  <h2 class="text-dark fs-3 mb-1" style="text-align: left;">Welcome, {{ client_data.client_name }}</h2>
+  <p class="text-muted fs-4 mb-0" style="text-align: left;">Your portfolio performance report</p>
 </div>
 
     </nav>
@@ -296,26 +296,44 @@
       }
     });
 
-    function downloadPDF() {
-      const element = document.getElementById('pdf-area');
-      const today = new Date();
-      const yyyy = today.getFullYear();
-      const mm = String(today.getMonth() + 1).padStart(2, '0');
-      const dd = String(today.getDate()).padStart(2, '0');
-      const formattedDate = `${yyyy}-${mm}-${dd}`;
-      const clientName = "{{ client_data.client_name | replace(' ', '_') }}";
-      const filename = `${clientName}_Report_${formattedDate}.pdf`;
+   function downloadPDF() {
+  // Add temporary styles just for PDF
+  const barChartContainer = document.getElementById('bar-chart-container');
+  const pieChartContainer = document.getElementById('pie-chart-container');
 
-      const opt = {
-        margin: 0.5,
-        filename: filename,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-      };
+  // Store original styles
+  const originalBarStyle = barChartContainer.style.cssText;
+  const originalPieStyle = pieChartContainer.style.cssText;
 
-      html2pdf().set(opt).from(element).save();
-    }
+  // Apply fixed styles for better rendering in PDF
+  barChartContainer.style.minWidth = '400px';
+  barChartContainer.style.maxWidth = '48%';
+  pieChartContainer.style.minWidth = '400px';
+  pieChartContainer.style.maxWidth = '48%';
+
+  // Resize/re-render charts if needed
+  window.dispatchEvent(new Event('resize'));
+
+  // Generate PDF
+  const element = document.getElementById('pdf-area');
+  const today = new Date();
+  const filename = `{{ client_data.client_name | replace(' ', '_') }}_Report_${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}.pdf`;
+
+  const opt = {
+    margin: 0.5,
+    filename: filename,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save().then(() => {
+    // Revert back original styles after download
+    barChartContainer.style.cssText = originalBarStyle;
+    pieChartContainer.style.cssText = originalPieStyle;
+  });
+}
+
   </script>
   <script src="{{ url_for('static', filename='assets/js/off-canvas.js') }}"></script>
   <script src="{{ url_for('static', filename='assets/js/template.js') }}"></script>
