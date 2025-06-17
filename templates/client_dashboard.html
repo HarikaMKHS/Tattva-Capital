@@ -120,7 +120,7 @@
 </head>
 <body>
   <div class="container-scroller">
-    <!-- Navbar -->
+    <!-- Navbar >
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
         <a class="navbar-brand brand-logo text-dark fw-bold fs-3 m-0 px-3" href="#" style="text-decoration: none;">
@@ -178,39 +178,51 @@
                     </div>
 
                 </div>
-      </div-->
-      <div class="navbar-menu-wrapper d-flex align-items-center px-3 w-100">
-  <!-- Left content -->
-  <div>
-    <h2 class="text-dark mb-0">Welcome, {{ client_data.client_name }}</h2>
-    <p class="text-muted fs-6 mt-0 mb-0">Your portfolio performance report</p>
+              </div>
+
+
+
+    </nav-->
+
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+  <!-- Tattva logo or text -->
+  <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
+    <a class="navbar-brand text-dark fw-bold fs-3 m-0 px-3" href="#" style="text-decoration: none;">
+      Tattva Capital
+    </a>
   </div>
 
-  <!-- Right-aligned button using ms-auto -->
-  <div class="ms-auto">
-    <div class="dropdown">
-      <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        📄 Download PDF
-      </button>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="downloadDropdown">
-        <li>
-          <a class="dropdown-item" href="#" onclick="downloadPDFDesktop(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
-            💻 Download for Desktop
-          </a>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#" onclick="downloadPDFMobile(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
-            📱 Download for Mobile
-          </a>
-        </li>
-      </ul>
+  <!-- Content wrapper (DO NOT give w-100) -->
+  <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1 px-3">
+    <!-- Left side: Welcome text -->
+    <div>
+      <h2 class="text-dark mb-0">Welcome, {{ client_data.client_name }}</h2>
+      <p class="text-muted fs-6 mt-0 mb-0">Your portfolio performance report</p>
+    </div>
+
+    <!-- Right side: Download button -->
+    <div class="ms-auto">
+      <div class="dropdown">
+        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          📄 Download PDF
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="downloadDropdown">
+          <li>
+            <a class="dropdown-item" href="#" onclick="downloadPDFDesktop(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+              💻 Download for Desktop
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="#" onclick="downloadPDFMobile(); bootstrap.Dropdown.getInstance(document.getElementById('downloadDropdown')).hide();">
+              📱 Download for Mobile
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
+</nav>
 
-
-
-    </nav>
 
     <div class="container-fluid page-body-wrapper">
       <!-- Sidebar -->
