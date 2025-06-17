@@ -39,18 +39,19 @@
       </nav>
 
       <!-- Main Panel -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-          <!-- Header + Button -->
-          <div class="row mb-2">
-            <div class="col-12">
-              <h3 class="welcome-text">Welcome, <span class="text-black fw-bold">{{ client_data.client_name }}</span></h3>
-              <h5 class="text-muted">Your portfolio performance report</h5>
-              <div class="text-end">
-                <button class="btn btn-sm btn-primary" onclick="downloadPDF()">⬇️ Download PDF</button>
-              </div>
-            </div>
-          </div>
+      <div class="row mb-2">
+  <div class="col-12">
+    <h3 class="welcome-text">Welcome, <span class="text-black fw-bold">{{ client_data.client_name }}</span></h3>
+    <h5 class="text-muted">Your portfolio performance report</h5>
+    <p class="text-muted">Your ID: <strong>{{ client_data.client_code }}</strong></p>
+    <p class="text-muted">Date: <strong>{{ client_data.investment_date }}</strong></p>
+
+    <div class="text-end">
+      <button class="btn btn-sm btn-primary" onclick="downloadPDF()">⬇️ Download PDF</button>
+    </div>
+  </div>
+</div>
+
 
           <!-- PDF Area -->
           <div id="pdf-area">
@@ -101,7 +102,7 @@
                 <div class="card">
                   <div class="card-body">
                     <h4 class="card-title">Portfolio Allocation - Pie Chart</h4>
-                    <div style="height: 280px;">
+                    <div class="d-flex justify-content-center" style="height: 280px;">
                       <canvas id="investmentChart"></canvas>
                     </div>
                   </div>
@@ -109,7 +110,7 @@
               </div>
             </div>
           </div><!-- End of pdf-area -->
-        </div>
+        
 
         <!-- Footer -->
         <footer class="footer">
@@ -119,6 +120,7 @@
         </footer>
       </div>
     </div>
+  </div>
   </div>
 
   <!-- JS -->
@@ -186,16 +188,29 @@
     });
 
     function downloadPDF() {
-      const element = document.getElementById('pdf-area');
-      const opt = {
-        margin: 0.5,
-        filename: '{{ client_data.client_name | replace(" ", "_") }}_portfolio.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-      };
-      html2pdf().set(opt).from(element).save();
-    }
+    const element = document.getElementById('pdf-area');
+
+    // Format today's date as YYYY-MM-DD
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+    // Format filename: Name_Date.pdf
+    const clientName = "{{ client_data.client_name | replace(' ', '_') }}";
+    const filename = `${clientName}_Report_${formattedDate}.pdf`;
+
+    const opt = {
+      margin:       0.2,
+      filename:     filename,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save();
+  }
   </script>
   <script src="{{ url_for('static', filename='assets/js/off-canvas.js') }}"></script>
   <script src="{{ url_for('static', filename='assets/js/template.js') }}"></script>
