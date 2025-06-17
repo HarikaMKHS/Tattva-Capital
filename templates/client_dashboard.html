@@ -37,9 +37,12 @@
           </li>
         </ul>
       </nav>
-
+      <div id="pdf-area">
       <!-- Main Panel -->
-      <div class="row mb-2">
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <!-- Header + Button -->
+          <div class="row mb-2">
   <div class="col-12">
     <h3 class="welcome-text">Welcome, <span class="text-black fw-bold">{{ client_data.client_name }}</span></h3>
     <h5 class="text-muted">Your portfolio performance report</h5>
@@ -54,7 +57,7 @@
 
 
           <!-- PDF Area -->
-          <div id="pdf-area">
+          
             <!-- Stat Cards -->
             <div class="row">
               <div class="col-md-4 grid-margin stretch-card">
@@ -110,7 +113,7 @@
               </div>
             </div>
           </div><!-- End of pdf-area -->
-        
+        </div>
 
         <!-- Footer -->
         <footer class="footer">
@@ -120,7 +123,6 @@
         </footer>
       </div>
     </div>
-  </div>
   </div>
 
   <!-- JS -->
@@ -188,29 +190,16 @@
     });
 
     function downloadPDF() {
-    const element = document.getElementById('pdf-area');
-
-    // Format today's date as YYYY-MM-DD
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    const formattedDate = `${yyyy}-${mm}-${dd}`;
-
-    // Format filename: Name_Date.pdf
-    const clientName = "{{ client_data.client_name | replace(' ', '_') }}";
-    const filename = `${clientName}_Report_${formattedDate}.pdf`;
-
-    const opt = {
-      margin:       0.2,
-      filename:     filename,
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
-      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-    };
-
-    html2pdf().set(opt).from(element).save();
-  }
+      const element = document.getElementById('pdf-area');
+      const opt = {
+        margin: 0.5,
+        filename: '{{ client_data.client_name | replace(" ", "_") }}_portfolio.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(element).save();
+    }
   </script>
   <script src="{{ url_for('static', filename='assets/js/off-canvas.js') }}"></script>
   <script src="{{ url_for('static', filename='assets/js/template.js') }}"></script>
