@@ -1857,25 +1857,25 @@ section,
 /* OUR STORY tab */
 .features .tab-story:hover,
 .features .tab-story.active {
-  background-color: #f2982b !important; /* SlateBlue */
+  background-color: #4ac913 !important; /* SlateBlue */
   color: white !important;
-  border-color: #f2982b !important;
+  border-color: #4ac913 !important;
 }
 
 /* CORE VALUES tab */
 .features .tab-values:hover,
 .features .tab-values.active {
-  background-color: #e8b10d !important; /* LightSeaGreen */
+  background-color: #1fbd98 !important; /* LightSeaGreen */
   color: white !important;
-  border-color: #e8b10d !important;
+  border-color: #1fbd98 !important;
 }
 
 /* TEAM tab */
 .features .tab-team:hover,
 .features .tab-team.active {
-  background-color: #a5770c !important; /* HotPink */
+  background-color: #d819d1 !important; /* HotPink */
   color: white !important;
-  border-color: #a5770c !important;
+  border-color: #d819d1 !important;
 }
 
 /* Ensure text inside stays white */
