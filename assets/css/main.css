@@ -1216,10 +1216,20 @@ section,
   margin: 0;
 }
 
-.features .nav-link:hover {
+/*.features .nav-link:hover {
   color: var(--accent-color);
   border-color: var(--accent-color);
+}*/
+.features .nav-link:hover {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  border-color: var(--accent-color);
 }
+
+.features .nav-link:hover h4 {
+  color: var(--contrast-color);
+}
+
 
 .features .nav-link.active {
   background: var(--accent-color);
@@ -1849,9 +1859,9 @@ section,
 /* WHO ARE WE tab */
 .features .tab-who:hover,
 .features .tab-who.active {
-  background-color: #ff7f50 !important; /* Coral */
+  background-color: #ea8966 !important; /* Coral */
   color: white !important;
-  border-color: #ff7f50 !important;
+  border-color: #ea8966 !important;
 }
 
 /* OUR STORY tab */
