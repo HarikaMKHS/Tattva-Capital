@@ -968,7 +968,8 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
   }
 
   window.addEventListener('DOMContentLoaded', function () {
-    const path = window.location.pathname.replace('/', '').toLowerCase();;
+    const path = window.location.pathname.replace('/', '').toLowerCase();
+
     const map = {
       'home': 'hero',
       'aboutus': 'features',
@@ -980,18 +981,19 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
       'philonthropy': 'about4',
       'calculator': 'about5'
     };
-     const targetId = map[path];
+
+    const targetId = map[path];
+
     if (targetId) {
-      const scrollToSection = () => {
+      const tryScroll = () => {
         const section = document.getElementById(targetId);
         if (section) {
           section.scrollIntoView({ behavior: 'smooth' });
         } else {
-          // Wait and try again (section may not be in DOM yet)
-          setTimeout(scrollToSection, 100);
+          setTimeout(tryScroll, 100);
         }
       };
-      scrollToSection();
+      tryScroll();
     }
   });
 </script>
