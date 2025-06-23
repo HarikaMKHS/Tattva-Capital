@@ -454,6 +454,8 @@ def services():
 @app.route('/contact')
 def contact():
     return send_file('index.html')
+def static_routes():
+    return send_file('index.html')
 
 
 
