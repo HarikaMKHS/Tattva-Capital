@@ -960,42 +960,44 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
   <script src="assets/js/main.js"></script>
   <script>
   function navigateTo(sectionId, urlPath) {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      history.pushState(null, '', '/' + urlPath);
-    }
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => history.pushState(null, '', '/' + urlPath), 500); // delay URL update
   }
+}
 
   window.addEventListener('DOMContentLoaded', function () {
-    const path = window.location.pathname.replace('/', '').toLowerCase();
+  const path = window.location.pathname.replace('/', '').toLowerCase();
 
-    const map = {
-      'home': 'hero',
-      'aboutus': 'features',
-      'services': 'services-2',
-      'contact': 'contact',
-      'investmentadvisory': 'about1',
-      'analytics': 'about2',
-      'estateplan': 'about3',
-      'philonthropy': 'about4',
-      'calculator': 'about5'
-    };
+  const map = {
+    'home': 'hero',
+    'aboutus': 'features',
+    'services': 'services-2',
+    'contact': 'contact',
+    'investmentadvisory': 'about1',
+    'analytics': 'about2',
+    'estateplan': 'about3',
+    'philonthropy': 'about4',
+    'calculator': 'about5'
+  };
 
-    const targetId = map[path];
+  const targetId = map[path];
+  if (!targetId) return;
 
-    if (targetId) {
-      const tryScroll = () => {
-        const section = document.getElementById(targetId);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          setTimeout(tryScroll, 100);
-        }
-      };
-      tryScroll();
+  let attempts = 0;
+  const scrollToTarget = () => {
+    const section = document.getElementById(targetId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    } else if (attempts < 10) {
+      attempts++;
+      setTimeout(scrollToTarget, 200);
     }
-  });
+  };
+  scrollToTarget();
+});
+
 </script>
 
 
