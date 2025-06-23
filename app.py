@@ -20,9 +20,7 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = True
 
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "dev_secret_key_2025")
-CORS(app,
-     supports_credentials=True,
-     origins=["https://harikamkhs.github.io"])
+CORS(app, origins=["https://tattvainvestmentadvisory.com"])
 #CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://neondb_owner:npg_6jtIqEBw5Yvp@ep-shy-river-a8ju7x65-pooler.eastus2.azure.neon.tech/Login-client?sslmode=require'
