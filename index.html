@@ -959,15 +959,31 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-  function navigateTo(sectionId, urlPath) {
-  const section = document.getElementById(sectionId);
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => history.pushState(null, '', '/' + urlPath), 500); // delay URL update
-  }
+function navigateTo(sectionId, urlPath) {
+  const scrollToSection = () => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ block: "start", behavior: "smooth" });
+
+      // Push or refresh the URL to reflect navigation
+      if (window.location.pathname.endsWith(urlPath)) {
+        history.replaceState(null, '', '/' + urlPath + '#dummy');
+        setTimeout(() => history.replaceState(null, '', '/' + urlPath), 100);
+      } else {
+        history.pushState(null, '', '/' + urlPath);
+      }
+    } else {
+      // Retry if section not found yet
+      setTimeout(scrollToSection, 200);
+    }
+  };
+
+  // Ensure AOS or slow DOM doesn't block scroll
+  setTimeout(scrollToSection, 100);
 }
 
-  window.addEventListener('DOMContentLoaded', function () {
+// On page load — scroll if a section ID is in the path
+window.addEventListener('DOMContentLoaded', function () {
   const path = window.location.pathname.replace('/', '').toLowerCase();
 
   const map = {
@@ -989,17 +1005,16 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
   const scrollToTarget = () => {
     const section = document.getElementById(targetId);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+      section.scrollIntoView({ block: "start", behavior: "smooth" });
     } else if (attempts < 10) {
       attempts++;
-      setTimeout(scrollToTarget, 200);
+      setTimeout(scrollToTarget, 300);
     }
   };
-  scrollToTarget();
+
+  setTimeout(scrollToTarget, 200); // slight delay to allow layout
 });
-
 </script>
-
 
 
 </body>
