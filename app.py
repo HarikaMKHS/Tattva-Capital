@@ -445,17 +445,22 @@ def login_client():
 #@app.route('/')
 #def home():
  #   return send_file('index.html')  # Load main site homepage
+
+# Serve the main index.html
 @app.route('/')
-def root():
-    return send_from_directory('', 'index.html')
-
 @app.route('/services')
-def services():
-    return send_from_directory('', 'index.html')
+def serve_index():
+    return send_from_directory('.', 'index.html')
 
+# Serve static files from ./assets (your root-level assets folder)
+@app.route('/assets/<path:filename>')
+def serve_assets(filename):
+    return send_from_directory('./assets', filename)
+
+# Catch-all route to serve index.html for frontend routing
 @app.route('/<path:path>')
 def catch_all(path):
-    return send_from_directory('', 'index.html')
+    return send_from_directory('.', 'index.html')
 
 
 

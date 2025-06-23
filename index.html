@@ -961,30 +961,27 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
   <script>
 function navigateTo(sectionId) {
   const section = document.getElementById(sectionId);
-
   if (section) {
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    // Always change URL to /services
     if (window.location.pathname !== '/services') {
       history.pushState(null, '', '/services');
     }
   } else {
-    // Retry if not yet found
-    setTimeout(() => navigateTo(sectionId), 200);
+    setTimeout(() => navigateTo(sectionId), 200); // retry if not rendered yet
   }
 }
 
 window.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname === '/services') {
     const hash = window.location.hash || '#services-2';
-    const target = document.querySelector(hash);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const section = document.querySelector(hash);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 });
 </script>
+
 
 
 </body>
