@@ -8,7 +8,7 @@
 
   <style>
     body {
-      background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)),
+      background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)),
                   url('assets/img/philo1.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
@@ -20,13 +20,26 @@
     }
 
     .appointment-container {
-      width: 100%;
-      max-width: 600px;
-      background-color: #ffffffdd;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
+        width: 100%;
+        max-width: 600px;
+        background-color: #b0b0b0; /* medium gray */
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-primary,
+      .btn-home {
+        background-color: #f57c00;
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover,
+      .btn-home:hover {
+        background-color: #e65100;
+      }
+
 
     h2 {
       text-align: center;
@@ -39,14 +52,7 @@
       font-weight: 500;
     }
 
-    .btn-primary {
-      background-color: #f57c00;
-      border: none;
-    }
-
-    .btn-primary:hover {
-      background-color: #e65100;
-    }
+    
   </style>
 </head>
 <body>
@@ -92,9 +98,11 @@
           <label class="form-check-label" for="offline">Offline</label>
         </div>
       </div>
-      <div class="text-center">
-        <button type="submit" class="btn btn-primary px-4">Submit</button>
-      </div>
+      <div class="text-center d-flex justify-content-center gap-3 mt-4">
+  <button type="submit" class="btn btn-primary px-4">Submit</button>
+  <a href="/" class="btn btn-home px-4">Go to Home</a>
+</div>
+
     </form>
   </div>
 
