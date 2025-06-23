@@ -57,13 +57,26 @@ def register_user():
     db.session.commit()
     return jsonify({"status": "success", "message": "User registered successfully!"})
 
-@app.route('/validate-client', methods=['GET','POST'])
+from flask import request, jsonify, session, make_response
+
+@app.route('/validate-client', methods=['GET', 'POST', 'OPTIONS'])
 def validate_client():
+    if request.method == 'OPTIONS':
+        response = make_response()
+        response.headers.add("Access-Control-Allow-Origin", "https://tattvainvestmentadvisory.com")
+        response.headers.add("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+        response.headers.add("Access-Control-Allow-Credentials", "true")
+        return response, 204
+
+    if request.method == 'GET':
+        return "This endpoint accepts POST requests only.", 405
+
+    # POST method
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
-    if request.method == 'GET':
-        return "This endpoint accepts POST requests only.", 405
+
     if not username or not password:
         return jsonify({"success": False, "message": "Username and password required"}), 400
 
@@ -72,14 +85,14 @@ def validate_client():
     if user and user.check_password(password):
         session['username'] = user.username
         session['client_id'] = user.client_id
-        
+
         response = jsonify({"success": True})
-        response.headers.add("Access-Control-Allow-Origin", "https://harikamkhs.github.io")
+        response.headers.add("Access-Control-Allow-Origin", "https://tattvainvestmentadvisory.com")
         response.headers.add("Access-Control-Allow-Credentials", "true")
         return response
-         
-    else:
-        return jsonify({"success": False, "message": "Invalid username or password"}), 401
+
+    return jsonify({"success": False, "message": "Invalid username or password"}), 401
+
     
     
     
