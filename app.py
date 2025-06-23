@@ -443,6 +443,21 @@ def home():
 def login_client():
     return send_file('login-client.html')  # ✅ loads from root directory
 
+@app.route('/aboutus')
+def aboutus():
+    return send_file('index.html')
+
+@app.route('/services')
+def services():
+    return send_file('index.html')
+
+@app.route('/contact')
+def contact():
+    return send_file('index.html')
+
+
+
+
 with app.app_context():
     db.create_all()
     

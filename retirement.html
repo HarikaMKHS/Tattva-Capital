@@ -12,18 +12,27 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      
-      /* Background image for whole page with overlay */
       background: 
         linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),
         url('https://media.istockphoto.com/id/2043931633/photo/shot-of-a-joyful-senior-couple-enjoying-a-road-trip.jpg?b=1&s=612x612&w=0&k=20&c=_QojOGhyZZ_MQxoXvrmGbhM_PJQvugLhQ3ITtkoe3wQ=')
         no-repeat center center fixed;
       background-size: cover;
-
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      padding: 30px;
+      width: 100%;
+      max-width: 1200px;
+    }
+
     .calculator {
       background: #b3dcf9;
       padding: 30px;
@@ -33,16 +42,33 @@
       max-width: 500px;
       color: #2c3e50;
     }
+
+    .result-box {
+  background: #b3dcf9;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+  color: #2c3e50;
+  text-align: center;
+  height: auto;
+  overflow: hidden; /* Prevent overflow from chart */
+  padding: 0; /* Remove default padding */
+}
+
+
     h2 {
       text-align: center;
       color: #2c3e50;
       margin-bottom: 20px;
     }
+
     label {
       display: block;
       margin-top: 15px;
       font-weight: bold;
     }
+
     input {
       width: 100%;
       padding: 10px;
@@ -50,6 +76,7 @@
       border-radius: 6px;
       border: 1px solid #ccc;
     }
+
     button {
       width: 100%;
       padding: 12px;
@@ -61,9 +88,11 @@
       font-size: 16px;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #27ae60;
     }
+
     .result {
       margin-top: 20px;
       background: #ecf0f1;
@@ -73,71 +102,61 @@
       text-align: center;
       color: #2c3e50;
     }
+
     .back-button {
-    display: inline-block;
-    margin-bottom: 20px;
-    background-color: #ffffff;
-    color: #0d47a1;
-    text-decoration: none;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-weight: bold;
-    border: 2px solid #0d47a1;
-    transition: background-color 0.3s;
-  }
+      display: inline-block;
+      margin-bottom: 20px;
+      background-color: #ffffff;
+      color: #0d47a1;
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      border: 2px solid #0d47a1;
+      transition: background-color 0.3s;
+    }
 
-  .back-button:hover {
-    background-color: #e3f2fd;
-  }
-  .container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  padding: 30px;
-  width: 100%;
-  max-width: 1200px;
-}
+    .back-button:hover {
+      background-color: #e3f2fd;
+    }
 
-.result-box {
-  background: #b3dcf9;
+    .progress-container {
+      width: 100%;
+      background-color: #ecf0f1;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 15px;
+      height: 24px;
+    }
+
+    #progressBar {
+      height: 100%;
+      width: 0%;
+      background-color: #2ecc71;
+      text-align: center;
+      line-height: 24px;
+      color: white;
+      font-weight: bold;
+      transition: width 0.5s ease-in-out;
+    }
+
+    #retirementChart {
+      width: 100% !important;
+      max-width: 300px;
+      height: auto !important;
+      margin: 20px auto 0;
+      display: block;
+    }
+
+    .result-inner {
   padding: 35px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 500px;
-  color: #2c3e50;
-  text-align: center;
-}
-
-
-.progress-container {
-  width: 100%;
-  background-color: #ecf0f1;
-  border-radius: 10px;
-  overflow: hidden;
-  margin-top: 15px;
-  height: 24px;
-}
-
-#progressBar {
-  height: 100%;
-  width: 0%;
-  background-color: #2ecc71;
-  text-align: center;
-  line-height: 24px;
-  color: white;
-  font-weight: bold;
-  transition: width 0.5s ease-in-out;
 }
 
   </style>
-  
 </head>
 <body>
   <div class="container">
-    <div class="calculator">
+    <div class="calculator" id="calculatorBox">
       <a href="index.html" class="back-button">← Back</a>
       <h2>Retirement Calculator</h2>
 
@@ -159,98 +178,103 @@
       <button onclick="calculateRetirement()">Calculate</button>
     </div>
 
-    <div class="result-box">
-  <div class="result" id="result">Estimate your retirement savings .</div>
+    <div class="result-box" id="resultBoxSection">
+  <div class="result-inner">
+    <div class="result" id="result">Estimate your retirement savings.</div>
 
-  <!-- Progress bar -->
-  <div class="progress-container">
-    <div id="progressBar"></div>
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div id="progressBar"></div>
+    </div>
+
+    <!-- Pie chart -->
+    <canvas id="retirementChart"></canvas>
   </div>
-
-  <!-- Pie chart -->
-  <canvas id="retirementChart" width="400" height="400" style="margin-top: 30px;"></canvas>
 </div>
 
-
+  </div>
 
   <script>
-  let chartInstance = null;
+    let chartInstance = null;
 
-  function calculateRetirement() {
-    const currentAge = parseInt(document.getElementById("currentAge").value);
-    const retirementAge = parseInt(document.getElementById("retirementAge").value);
-    const currentSavings = parseFloat(document.getElementById("currentSavings").value);
-    const monthlyContribution = parseFloat(document.getElementById("monthlyContribution").value);
-    const annualReturn = parseFloat(document.getElementById("annualReturn").value) / 100;
+    function calculateRetirement() {
+      const currentAge = parseInt(document.getElementById("currentAge").value);
+      const retirementAge = parseInt(document.getElementById("retirementAge").value);
+      const currentSavings = parseFloat(document.getElementById("currentSavings").value);
+      const monthlyContribution = parseFloat(document.getElementById("monthlyContribution").value);
+      const annualReturn = parseFloat(document.getElementById("annualReturn").value) / 100;
 
-    const resultBox = document.getElementById("result");
-    const progressBar = document.getElementById("progressBar");
+      const resultBox = document.getElementById("result");
+      const progressBar = document.getElementById("progressBar");
 
-    if (
-      isNaN(currentAge) || isNaN(retirementAge) || isNaN(currentSavings) ||
-      isNaN(monthlyContribution) || isNaN(annualReturn) || currentAge >= retirementAge
-    ) {
-      resultBox.innerText = "Please enter valid inputs and ensure Retirement Age > Current Age.";
-      progressBar.style.width = "0%";
-      progressBar.innerText = "";
+      if (
+        isNaN(currentAge) || isNaN(retirementAge) || isNaN(currentSavings) ||
+        isNaN(monthlyContribution) || isNaN(annualReturn) || currentAge >= retirementAge
+      ) {
+        resultBox.innerText = "Please enter valid inputs and ensure Retirement Age > Current Age.";
+        progressBar.style.width = "0%";
+        progressBar.innerText = "";
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+        return;
+      }
+
+      const yearsToInvest = retirementAge - currentAge;
+      const monthsToInvest = yearsToInvest * 12;
+      const monthlyReturn = annualReturn / 12;
+
+      let futureValue = currentSavings * Math.pow(1 + monthlyReturn, monthsToInvest);
+      for (let i = 1; i <= monthsToInvest; i++) {
+        futureValue += monthlyContribution * Math.pow(1 + monthlyReturn, monthsToInvest - i);
+      }
+
+      const formattedValue = futureValue.toFixed(2);
+      resultBox.innerText = "Total Savings by Retirement: ₹" + formattedValue;
+
+      // Progress bar update
+      const maxGoal = 10000000; // ₹1 Crore goal
+      const progress = Math.min((futureValue / maxGoal) * 100, 100).toFixed(2);
+      progressBar.style.width = progress + "%";
+      progressBar.innerText = progress + "%";
+
+      // Pie chart data
+      const totalContributed = currentSavings + (monthlyContribution * monthsToInvest);
+      const totalGrowth = futureValue - totalContributed;
+      const ctx = document.getElementById("retirementChart").getContext("2d");
+
       if (chartInstance) {
         chartInstance.destroy();
       }
-      return;
-    }
 
-    const yearsToInvest = retirementAge - currentAge;
-    const monthsToInvest = yearsToInvest * 12;
-    const monthlyReturn = annualReturn / 12;
-
-    let futureValue = currentSavings * Math.pow(1 + monthlyReturn, monthsToInvest);
-    for (let i = 1; i <= monthsToInvest; i++) {
-      futureValue += monthlyContribution * Math.pow(1 + monthlyReturn, monthsToInvest - i);
-    }
-
-    const formattedValue = futureValue.toFixed(2);
-    resultBox.innerText = "Total Savings by Retirement: ₹" + formattedValue;
-
-    // Progress bar update
-    const maxGoal = 10000000; // ₹1 Crore goal
-    const progress = Math.min((futureValue / maxGoal) * 100, 100).toFixed(2);
-    progressBar.style.width = progress + "%";
-    progressBar.innerText = progress + "%";
-
-    // Pie chart
-    const totalContributed = currentSavings + (monthlyContribution * monthsToInvest);
-    const totalGrowth = futureValue - totalContributed;
-
-    const ctx = document.getElementById("retirementChart").getContext("2d");
-
-    if (chartInstance) {
-      chartInstance.destroy();
-    }
-
-    chartInstance = new Chart(ctx, {
-      type: "pie",
-      data: {
-        labels: ["Your Contributions", "Estimated Growth"],
-        datasets: [{
-          data: [totalContributed, totalGrowth],
-          backgroundColor: ["#3498db", "#2ecc71"]
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'bottom'
-          },
-          title: {
-            display: true,
-            text: 'Retirement Portfolio Breakdown'
+      chartInstance = new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Your Contributions", "Estimated Growth"],
+          datasets: [{
+            data: [totalContributed, totalGrowth],
+            backgroundColor: ["#3498db", "#2ecc71"]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'bottom'
+            },
+            title: {
+              display: true,
+              text: 'Retirement Portfolio Breakdown'
+            }
           }
         }
-      }
-    });
-  }
-</script>
+      });
 
+      // 🔄 Match height of result box to calculator box
+      const calculatorBox = document.getElementById("calculatorBox");
+      const resultBoxSection = document.getElementById("resultBoxSection");
+      resultBoxSection.style.height = calculatorBox.offsetHeight + "px";
+    }
+  </script>
 </body>
 </html>
