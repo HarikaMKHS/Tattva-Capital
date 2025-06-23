@@ -15,7 +15,8 @@ from flask import send_file
 from flask import session
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='.')
+
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = True
 
@@ -456,6 +457,10 @@ def contact():
     return send_file('index.html')
 def static_routes():
     return send_file('index.html')
+@app.errorhandler(404)
+def not_found(e):
+    return send_file('index.html')
+
 
 
 
