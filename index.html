@@ -294,7 +294,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-briefcase icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about1" onclick="navigateTo('about1', 'services'); return false;">Investment Advisory</a></h4>
+                <h4 class="title"><a href="#about1" onclick="navigateTo('about1'); return false;">Investment Advisory</a></h4>
                 <p class="description">Strategic Advice for Long-Term Growth</p>
               </div>
             </div>
@@ -304,7 +304,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-card-checklist icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about2" onclick="navigateTo('about2', 'services'); return false;">Analytics & Reports</a></h4>
+                <h4 class="title"><a href="#about2" onclick="navigateTo('about2'); return false;">Analytics & Reports</a></h4>
                 <p class="description">From Numbers to Knowledge — Your Edge in the Market.</p>
               </div>
             </div>
@@ -314,7 +314,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-bar-chart icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about3" onclick="navigateTo('about3', 'services'); return false;">Estate Plan</a></h4>
+                <h4 class="title"><a href="#about3" onclick="navigateTo('about3'); return false;">Estate Plan</a></h4>
                 <p class="description">Planning Today for Peace of Mind Tomorrow.</p>
               </div>
             </div>
@@ -324,7 +324,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-binoculars icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about4" onclick="navigateTo('about4', 'services'); return false;">Philonthropy</a></h4>
+                <h4 class="title"><a href="#about4" onclick="navigateTo('about4'); return false;">Philonthropy</a></h4>
                 <p class="description">Empowering Communities Starts with You.</p>
               </div>
             </div>
@@ -335,7 +335,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-calendar4-week icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about5" onclick="navigateTo('about5', 'services'); return false;">Calculator</a></h4>
+                <h4 class="title"><a href="#about5" onclick="navigateTo('about5'); return false;">Calculator</a></h4>
                 <p class="description">Know the Risk. Measure the Reward.</p>
               </div>
             </div>
@@ -959,49 +959,30 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-function navigateTo(sectionId, urlPath) {
-  const scrollToSection = () => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ block: "start", behavior: "smooth" });
+function navigateTo(sectionId) {
+  const section = document.getElementById(sectionId);
 
-      // Only update URL if it isn't already /services
-      if (window.location.pathname !== '/' + urlPath) {
-        history.pushState(null, '', '/' + urlPath);
-      }
-    } else {
-      setTimeout(scrollToSection, 200);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Always change URL to /services
+    if (window.location.pathname !== '/services') {
+      history.pushState(null, '', '/services');
     }
-  };
-
-  setTimeout(scrollToSection, 100);
+  } else {
+    // Retry if not yet found
+    setTimeout(() => navigateTo(sectionId), 200);
+  }
 }
 
-window.addEventListener('DOMContentLoaded', function () {
-  const path = window.location.pathname.replace('/', '').toLowerCase();
-
-  const map = {
-    'home': 'hero',
-    'aboutus': 'features',
-    'services': 'services-2',
-    'contact': 'contact'
-  };
-
-  const targetId = map[path];
-  if (!targetId) return;
-
-  let attempts = 0;
-  const scrollToTarget = () => {
-    const section = document.getElementById(targetId);
-    if (section) {
-      section.scrollIntoView({ block: "start", behavior: "smooth" });
-    } else if (attempts < 10) {
-      attempts++;
-      setTimeout(scrollToTarget, 300);
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.location.pathname === '/services') {
+    const hash = window.location.hash || '#services-2';
+    const target = document.querySelector(hash);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  };
-
-  setTimeout(scrollToTarget, 200);
+  }
 });
 </script>
 

@@ -13,7 +13,7 @@ from flask import redirect, url_for
 from flask import render_template
 from flask import send_file
 from flask import session
-
+from flask import Flask, send_from_directory
 
 app = Flask(__name__)
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
@@ -446,12 +446,16 @@ def login_client():
 #def home():
  #   return send_file('index.html')  # Load main site homepage
 @app.route('/')
-def index():
-    return send_file('index.html')
+def root():
+    return send_from_directory('', 'index.html')
+
+@app.route('/services')
+def services():
+    return send_from_directory('', 'index.html')
 
 @app.route('/<path:path>')
 def catch_all(path):
-    return send_file('index.html')  # Load homepage for any other path)
+    return send_from_directory('', 'index.html')
 
 
 
