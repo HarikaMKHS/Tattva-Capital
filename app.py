@@ -15,8 +15,7 @@ from flask import send_file
 from flask import session
 
 
-app = Flask(__name__, static_url_path='', static_folder='.')
-
+app = Flask(__name__)
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = True
 
@@ -443,26 +442,6 @@ def home():
 @app.route('/login-client')
 def login_client():
     return send_file('login-client.html')  # ✅ loads from root directory
-
-@app.route('/aboutus')
-def aboutus():
-    return send_file('index.html')
-
-@app.route('/services')
-def services():
-    return send_file('index.html')
-
-@app.route('/contact')
-def contact():
-    return send_file('index.html')
-def static_routes():
-    return send_file('index.html')
-@app.errorhandler(404)
-def not_found(e):
-    return send_file('index.html')
-
-
-
 
 
 with app.app_context():

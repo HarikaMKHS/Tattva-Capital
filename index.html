@@ -50,8 +50,8 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="/aboutus">About Us</a></li>
-          <li><a href="/services">Services</a></li>
+          <li><a href="#features">About Us</a></li>
+          <li><a href="#services-2">Services</a></li>
           <!--ul>
               <li><a href="login-employee.html">Investment Advisory</a></li>
               <li><a href="login-client.html">Analytics and reports</a></li>
@@ -80,7 +80,7 @@
               </a></li>
             </ul>
           </li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -130,7 +130,7 @@
 
     
     <!-- Features Section -->
-    <section id="aboutus" class="features section">
+    <section id="features" class="features section">
 
       <div class="container">
 
@@ -276,7 +276,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
 
     </section><!-- /Features Section -->
      <!-- Services 2 Section -->
-    <section id="services" class="services-2 section light-background">
+    <section id="services-2" class="services-2 section light-background">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -956,21 +956,6 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const path = window.location.pathname;
-
-    if (path === "/aboutus") {
-      document.getElementById("aboutus")?.scrollIntoView({ behavior: "smooth" });
-    } else if (path === "/services") {
-      document.getElementById("services")?.scrollIntoView({ behavior: "smooth" });
-    } else if (path === "/contact") {
-      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-    }
-  });
-</script>
-
-
 
 </body>
 
