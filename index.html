@@ -294,7 +294,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-briefcase icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about1" onclick="navigateTo('about1', 'investmentadvisory'); return false;">Investment Advisory</a></h4>
+                <h4 class="title"><a href="#about1" onclick="navigateTo('about1', 'services'); return false;">Investment Advisory</a></h4>
                 <p class="description">Strategic Advice for Long-Term Growth</p>
               </div>
             </div>
@@ -304,7 +304,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-card-checklist icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about2" onclick="navigateTo('about2', 'analytics'); return false;">Analytics & Reports</a></h4>
+                <h4 class="title"><a href="#about2" onclick="navigateTo('about2', 'services'); return false;">Analytics & Reports</a></h4>
                 <p class="description">From Numbers to Knowledge — Your Edge in the Market.</p>
               </div>
             </div>
@@ -314,7 +314,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-bar-chart icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about3" onclick="navigateTo('about3', 'estateplan'); return false;">Estate Plan</a></h4>
+                <h4 class="title"><a href="#about3" onclick="navigateTo('about3', 'services'); return false;">Estate Plan</a></h4>
                 <p class="description">Planning Today for Peace of Mind Tomorrow.</p>
               </div>
             </div>
@@ -324,7 +324,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-binoculars icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about4" onclick="navigateTo('about4', 'philonthropy'); return false;">Philonthropy</a></h4>
+                <h4 class="title"><a href="#about4" onclick="navigateTo('about4', 'services'); return false;">Philonthropy</a></h4>
                 <p class="description">Empowering Communities Starts with You.</p>
               </div>
             </div>
@@ -335,7 +335,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-calendar4-week icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about5" onclick="navigateTo('about5', 'calculator'); return false;">Calculator</a></h4>
+                <h4 class="title"><a href="#about5" onclick="navigateTo('about5', 'services'); return false;">Calculator</a></h4>
                 <p class="description">Know the Risk. Measure the Reward.</p>
               </div>
             </div>
@@ -965,24 +965,18 @@ function navigateTo(sectionId, urlPath) {
     if (section) {
       section.scrollIntoView({ block: "start", behavior: "smooth" });
 
-      // Push or refresh the URL to reflect navigation
-      if (window.location.pathname.endsWith(urlPath)) {
-        history.replaceState(null, '', '/' + urlPath + '#dummy');
-        setTimeout(() => history.replaceState(null, '', '/' + urlPath), 100);
-      } else {
+      // Only update URL if it isn't already /services
+      if (window.location.pathname !== '/' + urlPath) {
         history.pushState(null, '', '/' + urlPath);
       }
     } else {
-      // Retry if section not found yet
       setTimeout(scrollToSection, 200);
     }
   };
 
-  // Ensure AOS or slow DOM doesn't block scroll
   setTimeout(scrollToSection, 100);
 }
 
-// On page load — scroll if a section ID is in the path
 window.addEventListener('DOMContentLoaded', function () {
   const path = window.location.pathname.replace('/', '').toLowerCase();
 
@@ -990,12 +984,7 @@ window.addEventListener('DOMContentLoaded', function () {
     'home': 'hero',
     'aboutus': 'features',
     'services': 'services-2',
-    'contact': 'contact',
-    'investmentadvisory': 'about1',
-    'analytics': 'about2',
-    'estateplan': 'about3',
-    'philonthropy': 'about4',
-    'calculator': 'about5'
+    'contact': 'contact'
   };
 
   const targetId = map[path];
@@ -1012,7 +1001,7 @@ window.addEventListener('DOMContentLoaded', function () {
     }
   };
 
-  setTimeout(scrollToTarget, 200); // slight delay to allow layout
+  setTimeout(scrollToTarget, 200);
 });
 </script>
 
