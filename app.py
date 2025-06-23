@@ -442,9 +442,12 @@ def login_client():
     return send_file('login-client.html')  # ✅ loads from root directory
 
 
+#@app.route('/')
+#def home():
+ #   return send_file('index.html')  # Load main site homepage
 @app.route('/')
-def home():
-    return send_file('index.html')  # Load main site homepage
+def index():
+    return send_file('index.html')
 
 @app.route('/<path:path>')
 def catch_all(path):
