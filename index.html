@@ -49,9 +49,11 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
-          <li><a href="#features">About Us</a></li>
-          <li><a href="#services-2">Services</a></li>
+          <li><a href="#hero" onclick="navigateTo('hero', 'home'); return false;">Home</a></li>
+          <li><a href="#features" onclick="navigateTo('features', 'aboutus'); return false;">About Us</a>
+</li>
+          <li><a href="#services-2" onclick="navigateTo('services-2', 'services'); return false;">Services</a>
+</li>
           <!--ul>
               <li><a href="login-employee.html">Investment Advisory</a></li>
               <li><a href="login-client.html">Analytics and reports</a></li>
@@ -956,6 +958,35 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+  function navigateTo(sectionId, urlPath) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+      history.pushState(null, '', '/' + urlPath);
+    }
+  }
+
+  // Handle refresh or direct URL like /aboutus
+  window.addEventListener('DOMContentLoaded', function () {
+    const path = window.location.pathname.replace('/', '');
+    const map = {
+      'aboutus': 'features',
+      'services': 'services-2',
+      'contact': 'contact',
+      'home': 'hero'
+    };
+    if (map[path]) {
+      const section = document.getElementById(map[path]);
+      if (section) {
+        setTimeout(() => {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }, 300); // delay to ensure DOM is ready
+      }
+    }
+  });
+</script>
+
 
 </body>
 
