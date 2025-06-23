@@ -82,7 +82,7 @@
               </a></li>
             </ul>
           </li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#contact" onclick="navigateTo('contact', 'contact'); return false;">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -294,7 +294,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-briefcase icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about1" class="stretched-link">Investment Advisory</a></h4>
+                <h4 class="title"><a href="#about1" onclick="navigateTo('about1', 'investmentadvisory'); return false;">Investment Advisory</a></h4>
                 <p class="description">Strategic Advice for Long-Term Growth</p>
               </div>
             </div>
@@ -304,7 +304,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-card-checklist icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about2" class="stretched-link">Analytics & Reports</a></h4>
+                <h4 class="title"><a href="#about2" onclick="navigateTo('about2', 'analytics'); return false;">Analytics & Reports</a></h4>
                 <p class="description">From Numbers to Knowledge — Your Edge in the Market.</p>
               </div>
             </div>
@@ -314,7 +314,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-bar-chart icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about3" class="stretched-link">Estate Plan</a></h4>
+                <h4 class="title"><a href="#about3" onclick="navigateTo('about3', 'estateplan'); return false;">Estate Plan</a></h4>
                 <p class="description">Planning Today for Peace of Mind Tomorrow.</p>
               </div>
             </div>
@@ -324,7 +324,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-binoculars icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about4" class="stretched-link">Philonthropy</a></h4>
+                <h4 class="title"><a href="#about4" onclick="navigateTo('about4', 'philonthropy'); return false;">Philonthropy</a></h4>
                 <p class="description">Empowering Communities Starts with You.</p>
               </div>
             </div>
@@ -335,7 +335,7 @@ Helping you grow, protect, and pass on your wealth responsibly.</span></li>
             <div class="service-item d-flex position-relative h-100">
               <i class="bi bi-calendar4-week icon flex-shrink-0"></i>
               <div>
-                <h4 class="title"><a href="#about5" class="stretched-link">Calculator</a></h4>
+                <h4 class="title"><a href="#about5" onclick="navigateTo('about5', 'calculator'); return false;">Calculator</a></h4>
                 <p class="description">Know the Risk. Measure the Reward.</p>
               </div>
             </div>
@@ -967,25 +967,30 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
     }
   }
 
-  // Handle refresh or direct URL like /aboutus
   window.addEventListener('DOMContentLoaded', function () {
     const path = window.location.pathname.replace('/', '');
     const map = {
+      'home': 'hero',
       'aboutus': 'features',
       'services': 'services-2',
       'contact': 'contact',
-      'home': 'hero'
+      'investmentadvisory': 'about1',
+      'analytics': 'about2',
+      'estateplan': 'about3',
+      'philonthropy': 'about4',
+      'calculator': 'about5'
     };
     if (map[path]) {
       const section = document.getElementById(map[path]);
       if (section) {
         setTimeout(() => {
           section.scrollIntoView({ behavior: 'smooth' });
-        }, 300); // delay to ensure DOM is ready
+        }, 300);
       }
     }
   });
 </script>
+
 
 
 </body>
