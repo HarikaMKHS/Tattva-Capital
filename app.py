@@ -415,6 +415,10 @@ def show_tables():
         ]
     })
 
+@app.route("/test-cors")
+def test_cors():
+    return "✅ API is working under your custom domain with CORS and SSL!"
+
 
 
 @app.route('/')
