@@ -436,16 +436,19 @@ def test_cors():
 
 
 
-@app.route('/')
-def home():
-    return redirect(url_for('login_client'))
+
 @app.route('/login-client')
 def login_client():
     return send_file('login-client.html')  # ✅ loads from root directory
 
+
+@app.route('/')
+def home():
+    return send_file('index.html')  # Load main site homepage
+
 @app.route('/<path:path>')
 def catch_all(path):
-    return send_file('index.html')
+    return send_file('index.html')  # Load homepage for any other path)
 
 
 
