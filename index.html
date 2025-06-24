@@ -49,10 +49,10 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" onclick="navigateTo('hero', 'home'); return false;">Home</a></li>
-          <li><a href="#features" onclick="navigateTo('features', 'aboutus'); return false;">About Us</a>
+          <li><a href="#home" onclick="navigateTo('hero', 'home'); return false;">Home</a></li>
+          <li><a href="#aboutus" onclick="navigateTo('features', 'aboutus'); return false;">About Us</a>
 </li>
-          <li><a href="#services-2" onclick="navigateTo('services-2', 'services'); return false;">Services</a>
+          <li><a href="#services" onclick="navigateTo('services-2', 'services'); return false;">Services</a>
 </li>
           <!--ul>
               <li><a href="login-employee.html">Investment Advisory</a></li>
@@ -967,36 +967,37 @@ We craft tailored wealth strategies to help you navigate life’s milestones wit
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-  function navigateTo(sectionId, urlPath) {
-    const section = document.getElementById(sectionId);
+  function navigateTo(sectionId, hash) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+    history.pushState(null, '', `#${hash}`);
+  }
+}
+
+ window.addEventListener('DOMContentLoaded', function () {
+  const hash = window.location.hash.replace('#', '');
+  const map = {
+    'home': 'hero',
+    'aboutus': 'features',
+    'services': 'services-2',
+    'contact': 'contact',
+    'investmentadvisory': 'about1',
+    'analytics': 'about2',
+    'estateplan': 'about3',
+    'philonthropy': 'about4',
+    'calculator': 'about5'
+  };
+
+  if (map[hash]) {
+    const section = document.getElementById(map[hash]);
     if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      history.pushState(null, '', '/' + urlPath);
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
     }
   }
-
-  window.addEventListener('DOMContentLoaded', function () {
-    const path = window.location.pathname.replace('/', '');
-    const map = {
-      'home': 'hero',
-      'aboutus': 'features',
-      'services': 'services-2',
-      'contact': 'contact',
-      'investmentadvisory': 'about1',
-      'analytics': 'about2',
-      'estateplan': 'about3',
-      'philonthropy': 'about4',
-      'calculator': 'about5'
-    };
-    if (map[path]) {
-      const section = document.getElementById(map[path]);
-      if (section) {
-        setTimeout(() => {
-          section.scrollIntoView({ behavior: 'smooth' });
-        }, 300);
-      }
-    }
-  });
+});
 </script>
 
 
