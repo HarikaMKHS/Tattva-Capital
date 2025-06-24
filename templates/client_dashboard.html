@@ -136,28 +136,21 @@
 </head>
 <body>
   <div class="container-scroller">
-    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-  <!-- Tattva logo or text -->
-  <div class="navbar-brand-wrapper d-flex align-items-center justify-content-center">
-    <a class="navbar-brand text-dark fw-bold fs-3 m-0 px-3" href="#" style="text-decoration: none;">
-      Tattva Capital
-    </a>
+
+    <!-- Navbar -->
+    <!-- Updated Navbar Right Section -->
+<nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+  <!-- Left: Brand + Subheading -->
+  <div class="navbar-brand-wrapper d-flex align-items-center justify-content-start px-3 gap-3">
+    <span class="navbar-brand text-dark fw-bold fs-4 m-0">Tattva Capital</span>
+    <span class="text-muted fs-6">| Your Portfolio Performance Report</span>
   </div>
 
-  <!-- Content wrapper (DO NOT give w-100) -->
-  <div class="navbar-brand-wrapper d-flex align-items-center justify-content-start px-3">
-  <a href="index.html" class="btn btn-outline-dark btn-sm">
-    ← Home
-  </a>
+  <!-- Right: Download First, Home Below -->
+  <div class="navbar-menu-wrapper d-flex align-items-center flex-grow-1 px-3">
+    <div class="ms-auto d-flex flex-column align-items-end gap-2">
 
-    <!-- Left side: Welcome text >
-    <div>
-      <h2 class="text-dark mb-0">Welcome, {{ client_data.client_name }}</h2>
-      <p class="text-muted fs-6 mt-0 mb-0">Your portfolio performance report</p>
-    </div>
-
-    <!-- Right side: Download button -->
-    <div class="ms-auto">
+      <!-- Download Dropdown -->
       <div class="dropdown">
         <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="downloadDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           📄 Download PDF
@@ -175,17 +168,24 @@
           </li>
         </ul>
       </div>
+
+      <!-- Home Button BELOW Download -->
+      <a href="index.html" class="btn btn-sm btn-primary">← Home</a>
+
     </div>
   </div>
 </nav>
 
 
+
+    <!-- Page Body -->
     <div class="container-fluid page-body-wrapper">
+
       <!-- Sidebar -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link active" href="#">
+            <a class="nav-link active" href="/my-portfolio">
               <i class="mdi mdi-view-dashboard-outline menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -193,75 +193,63 @@
         </ul>
       </nav>
 
-      <!-- Wrap main-panel in pdf-area -->
-      
-        <div class="main-panel">
-          <div class="content-wrapper">
-            <!-- Header -->
-             <div id="pdf-area">
+      <!-- Main Panel -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div id="pdf-area">
+        <h4 class="fw-bold text-dark mb-2">Your Portfolio Performance Report</h4>
+            <!-- Client Info -->
             <div class="row mb-2">
               <div class="col-12">
-                <!--h3 class="welcome-text">Welcome, <span class="text-black fw-bold">{{ client_data.client_name }}</span></h3-->
-                
                 <p class="text-muted">Your ID: <strong>{{ client_data.client_code }}</strong></p>
                 <p class="text-muted">Date: <strong>{{ client_data.investment_date }}</strong></p>
-                
               </div>
             </div>
 
             <!-- Stat Cards -->
             <div class="row">
-              <!-- Card 1: Light Blue -->
-               <div class="col-md-4 grid-margin stretch-card">
-                <div class="card " style="background:#ffb866">
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card" style="background:#ffb866">
                   <div class="card-body">
                     <p class="mb-4">Total Investment Value</p>
                     <p class="fs-30 mb-2">₹{{ client_data.total_value }}</p>
                   </div>
                 </div>
-                </div>
-
-                <!-- Card 2: Medium Blue -->
-                 <div class="col-md-4 grid-margin stretch-card">
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
                 <div class="card" style="background:#94d5de">
                   <div class="card-body">
                     <p class="mb-4">Portfolio Value</p>
                     <p class="fs-30 mb-2">₹{{ client_data.portfolio_value }}</p>
                   </div>
                 </div>
-                </div>
-
-                <!-- Card 3: Dark Blue -->
-                 <div class="col-md-4 grid-margin stretch-card">
-                <div class="card " style="background:#49efaa">
+              </div>
+              <div class="col-md-4 grid-margin stretch-card">
+                <div class="card" style="background:#49efaa">
                   <div class="card-body">
                     <p class="mb-4">Return %</p>
                     <p class="fs-30 mb-2">{{ client_data.return_pct }}%</p>
                   </div>
                 </div>
-                </div>
-
+              </div>
             </div>
 
-            <!-- Charts Row -->
+            <!-- Charts -->
             <div class="row">
-              <!-- Bar Chart -->
               <div class="col-md-6 grid-margin stretch-card" id="bar-chart-container">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Investment Split </h4>
+                    <h4 class="card-title">Investment Split</h4>
                     <div style="height: 280px;">
                       <canvas id="barChart"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- Pie Chart -->
               <div class="col-md-6 grid-margin stretch-card" id="pie-chart-container">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="card-title">Portfolio Allocation </h4>
+                    <h4 class="card-title">Portfolio Allocation</h4>
                     <div class="d-flex justify-content-center" style="height: 280px;">
                       <canvas id="investmentChart"></canvas>
                     </div>
@@ -269,18 +257,21 @@
                 </div>
               </div>
             </div>
-          </div> <!-- content-wrapper -->
 
-          <!-- Footer -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Tattva Capital © 2025</span>
-            </div>
-          </footer>
-        </div> <!-- main-panel -->
-      </div> <!-- pdf-area -->
-    </div> <!-- page-body-wrapper -->
-  </div> <!-- container-scroller -->
+          </div> <!-- /#pdf-area -->
+        </div> <!-- /content-wrapper -->
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Tattva Capital © 2025</span>
+          </div>
+        </footer>
+      </div> <!-- /main-panel -->
+
+    </div> <!-- /page-body-wrapper -->
+  </div> <!-- /container-scroller -->
+
 
   <!-- JS -->
   <script src="{{ url_for('static', filename='assets/vendors/js/vendor.bundle.base.js') }}"></script>
@@ -313,7 +304,7 @@
             color: '#fff',
             font: { weight: 'bold' },
             formatter: function(value) {
-              return '₹' + value.toLocaleString();
+              return 'â‚¹' + value.toLocaleString();
             }
           }
         }
@@ -327,7 +318,7 @@
       data: {
         labels: ['Equity', 'Mutual Funds', 'Real Estate', 'Others'],
         datasets: [{
-          label: '₹ Investment',
+          label: 'â‚¹ Investment',
           data: [
             {{ client_data.equity | default(0) }},
             {{ client_data.mf | default(0) }},
